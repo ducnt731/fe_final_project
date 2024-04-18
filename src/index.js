@@ -9,6 +9,7 @@ import ForgotPassword from './page/forgotPassword';
 import RegisterForm from './page/register';
 import ManageAccount from './page/admin/manageAccount';
 import "bootstrap/dist/css/bootstrap.min.css";
+import CustomerHome from './page/customer/customerHome';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,6 +23,8 @@ root.render(
           <Route path="/register" element={<RegisterForm/>} />
           <Route path="admin" element={<Admin/>} />
           <Route path="admin/manage_accounts" element={<ManageAccount/>} />
+
+          <Route path="/home" element={<CustomerHome/>} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

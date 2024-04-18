@@ -35,8 +35,8 @@ const LoginForm = () => {
                 if (data.user.role === "admin") {
                     navigate("/admin/home");
                     toast.success("Login successful!!!");
-                } else if (data.user.role === "marketing manager") {
-                    navigate("/marketing/home");
+                } else if (data.user.role === "customer") {
+                    navigate("/home");
                     toast.success("Login successful!!!");
                 } else if (data.user.role === "marketing coordinator") {
                     navigate("/coordinator/home");
@@ -55,7 +55,7 @@ const LoginForm = () => {
         <div className="wrapper">
         <div className="login-form">
             <form onSubmit={handleLogin}>
-            <h1>Login Admin</h1>
+            <h1>Login</h1>
             <div className="input-box">
                 <input
                 type="text"

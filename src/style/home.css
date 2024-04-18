@@ -1,0 +1,62 @@
+body{
+    margin: 0;
+    padding: 0;
+}
+
+.body-container{
+    background: url("https://th.bing.com/th/id/R.924545a2721303f55fa004d579aaf756?rik=JfZPLmfCC2PUvA&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fStars-wallpaper-HD-desktop.jpg&ehk=pH%2bxp14MOATribNawKZJ7V8dG9qPaiJQn1%2bHnDhrrSg%3d&risl=&pid=ImgRaw&r=0");
+    color: #fff;
+    background-size: cover;
+    margin-top: 50px;
+}
+
+.slide-container{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    height: 100vh;
+}
+
+.Slide-img{
+    width: 100%;
+    height: 100vh;
+}
+
+h3{
+    padding: 20px;
+    text-align: center;
+}
+
+.hot-movie{
+    width: 100%;
+    margin-bottom: 60px;
+    margin-top: 30px;
+}
+
+.now-showing{
+    width: 100%;
+    margin-bottom: 60px;
+    padding-top: 20px;
+    border-top: 2px solid #907139;
+}
+
+.incoming{
+    border-top: 2px solid #907139;
+    margin-top: 30px;
+    padding-bottom: 60px;
+}
+
+.menu{
+    background-color: slategrey;
+    color: #fff;
+    font-size: 20px;
+}
+
+.menu-item{
+    padding-left: 20px;
+}
+
+.menu-item:hover{
+    background-color: rgba(0, 0, 0, 0.5);
+}

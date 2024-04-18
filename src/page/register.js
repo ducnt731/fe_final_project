@@ -7,18 +7,18 @@ import Spinner from 'react-bootstrap/Spinner';
 
 const RegisterForm = () => {
 
-    const [data, setData] = useState({ role: 'customer', gender: '' })
+    const [data, setData] = useState({ role: 'customer', gender: 'female' })
     const [isShowPass, setIsShowPass] = useState(false)
     const [loadingAPI, setLoadingAPI] = useState(false)
     const navigate = useNavigate()
-
+console.log(">>>>", data);
     const handleChange = (e) => {
         // Kiểm tra xem giá trị nhập vào có phải là số không
-        if (/^\d*$/.test(e.target.value)) {
-          // Nếu là số, cập nhật state
+        // if (/^\d*$/.test(e.target.value)) {
+        //   // Nếu là số, cập nhật state
+        //     setData({ ...data, [e.target.name]: e.target.value })
+        // }
         setData({ ...data, [e.target.name]: e.target.value })
-        }
-        
     }
     useEffect(() => {
         let token = localStorage.getItem("token")
@@ -27,13 +27,13 @@ const RegisterForm = () => {
         }
     }, [])
 
-    const handleLogin = async (e) => {
+    const handleRegister = async (e) => {
         e.preventDefault()
         // console.log(data)
         let check = false
         Object.keys(data).map((key) => {
-            // console.log(data[key])
-            if (!data[key] || data[key] == '') {
+            console.log(data[key])
+            if (!data[key] || data[key] === '') {
                 check = true
             }
         })
@@ -41,12 +41,12 @@ const RegisterForm = () => {
             try {
                 setLoadingAPI(true)
                 let res = await registerApi(data)
-                console.log(res)
-                if (res.data.status==200) {
+                console.log(">>>ch",res)
+                if ( res.status===400) {
+                    toast.error(res.data.error)
+                }else{
                     toast.success("Register success!")
                     navigate("/")
-                }else{
-                    toast.error(res.data.error)
                 }
             } catch (error) {
                 console.log(">>>check", error);
@@ -60,7 +60,7 @@ const RegisterForm = () => {
     return (
         <div className="wrapper">
             <div className="login-form">
-                <form onSubmit={handleLogin}>
+                <form onSubmit={handleRegister}>
                     <h1>Sign up</h1>
                     <div className="input-box">
                         <input
@@ -114,16 +114,15 @@ const RegisterForm = () => {
                         />
                     </div>
                     <div className="input-box">
-                        <select name="gender" value={data && data.gender} className="form-select" onChange={handleChange} placeholder="Gender">
-                            <option>Choose gender</option>
+                        <select name="gender" value={data && data.gender} className="form-select-gender" onChange={handleChange} placeholder="Gender">
                             <option value={"female"}>Female</option>
                             <option value={"male"}>Male</option>
                             <option value={"other"}>Other</option>
                         </select>
                     </div>
-                    <button
-                        type="submit"
-                    >{loadingAPI && <Spinner animation="border" variant="info" size="sm"/>} Register</button>
+                        <button
+                            type="submit"
+                        >Register {loadingAPI && <Spinner animation="border" variant="info" size="sm"/>}</button>
                 </form>
             </div>
         </div>
