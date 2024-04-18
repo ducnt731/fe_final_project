@@ -9,6 +9,8 @@ import ForgotPassword from './page/forgotPassword';
 import RegisterForm from './page/register';
 import ManageAccount from './page/admin/manageAccount';
 import "bootstrap/dist/css/bootstrap.min.css";
+import AdminMovie from './page/admin/adminMovie';
+import AdminShowTime from './page/admin/adminShowTime';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,11 +19,13 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<LoginForm/>} />
-          <Route path="/forgot-password" element={<ForgotPassword/>} />
-          <Route path="/register" element={<RegisterForm/>} />
-          <Route path="admin" element={<Admin/>} />
-          <Route path="admin/manage_accounts" element={<ManageAccount/>} />
+          <Route path="/" element={<LoginForm />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="admin/manage_accounts" element={<ManageAccount />} />
+          <Route path="admin/manage_movie" element={<AdminMovie />} />
+          <Route path="admin/manage_time_show" element={<AdminShowTime />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
