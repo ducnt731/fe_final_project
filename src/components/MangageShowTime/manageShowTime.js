@@ -140,7 +140,7 @@ const MangageShowTime = () => {
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h3>All Show Time</h3>
+                        <h2>All Show Time</h2>
                         <div className="button-ShowTime">
                             <button
                                 className="btn btn-primary"

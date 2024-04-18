@@ -200,7 +200,7 @@ const ManageMovie = () => {
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h3>All Movie</h3>
+                        <h2>All Movie</h2>
                         <Form className="d-flex">
                             <Form.Control
                                 type="search"

@@ -201,7 +201,7 @@ const Account = () => {
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h3>All Account</h3>
+                        <h2>All Account</h2>
                         <Form className="d-flex">
                             <Form.Control
                                 type="search"

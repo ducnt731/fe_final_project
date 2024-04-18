@@ -29,7 +29,7 @@ root.render(
           <Route path="/admin/manage_movie" element={<AdminMovie/>} />
           <Route path="/admin/manage_time_show" element={<AdminShowTime/>} />
           <Route path="/home" element={<CustomerHome />} />
-          <Route path="/home" element={<ProfileCustomer/>} />
+          <Route path="/profile" element={<ProfileCustomer/>} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
