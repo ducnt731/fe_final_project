@@ -12,7 +12,7 @@ import { formatDate } from '../../service/formatDate';
 
 const Account = () => {
 
-    const [isShowModalAdd, setIsShowModalAdd] = useState(0)
+    const [isShowModalAdd, setIsShowModalAdd] = useState(false)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [dataEdit, setDataEdit] = useState({})

@@ -1,0 +1,109 @@
+.list-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.items {
+  display: flex;
+}
+
+.item {
+  flex: 0 0 auto;
+  width: 250px;
+  /* Đặt chiều rộng của mỗi item tại đây */
+  height: 450px;
+  /* Đặt chiều cao của mỗi item tại đây */
+  border: 1px solid #907163;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-right: 10px;
+  margin-left: 10px;
+  border-radius: 20px;
+
+  .item-content {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .buttonInfor {
+    margin-left: 10px;
+    background-color: rgba(0, 0, 0, 0);
+    border: 2px #917164 solid;
+  }
+
+  .buttonInfor:hover {
+    background-color: #917164;
+  }
+
+  .button {
+    background-color: #917164;
+    padding: 8px;
+    border-radius: 10px;
+    color: #fff;
+  }
+
+  .btn-container {
+    margin-top: 10px;
+  }
+}
+
+.item.active {
+  opacity: 1;
+}
+
+.prev,
+.next {
+  padding: 20px;
+  background-color: rgba(199, 73, 58, 0);
+  /* Đặt màu nền trong suốt */
+  border: none;
+  cursor: pointer;
+  color: #ad8174;
+  /* Đặt màu chữ */
+  font-size: 50px;
+}
+
+.prev:hover,
+.next:hover {
+  background-color: rgba(199, 73, 58, 0.5);
+  box-shadow: #907163;
+}
+
+.movie-img {
+  width: 200px;
+  border-radius: 10px;
+}
+
+.custom-modal {
+  background-color: #111;
+}
+
+.modal-body {
+  display: flex;
+
+  .information {
+    margin-left: 30px;
+
+    .trailer {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 400px;
+      /* Điều chỉnh kích thước của container tùy thuộc vào nhu cầu của bạn */
+      height: 225px;
+      /* Tính toán chiều cao dựa trên tỉ lệ 16:9 */
+      z-index: 1000;
+      /* Đặt z-index âm để đảm bảo nằm dưới modal */
+    }
+
+    .trailer iframe {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

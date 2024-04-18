@@ -10,6 +10,7 @@ import { RiArrowUpDownLine } from "react-icons/ri";
 import Form from 'react-bootstrap/Form';
 import { formatDate } from '../../service/formatDate';
 
+
 const ManageMovie = () => {
 
     const [isShowModalAdd, setIsShowModalAdd] = useState(0)

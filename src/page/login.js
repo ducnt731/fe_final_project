@@ -35,8 +35,8 @@ const LoginForm = () => {
                 if (data.user.role === "admin") {
                     navigate("/admin");
                     toast.success("Login successful!!!");
-                } else if (data.user.role === "marketing manager") {
-                    navigate("/marketing/home");
+                } else if (data.user.role === "customer") {
+                    navigate("/home");
                     toast.success("Login successful!!!");
                 } else if (data.user.role === "marketing coordinator") {
                     navigate("/coordinator/home");
@@ -106,7 +106,6 @@ const LoginForm = () => {
                 </form>
             </div>
         </div>
-    );
-};
-
+    )
+}
 export default LoginForm;
