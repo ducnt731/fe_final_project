@@ -10,8 +10,8 @@ import RegisterForm from './page/register';
 import ManageAccount from './page/admin/manageAccount';
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomerHome from './page/customer/customerHome';
-import MangageShowTime from './components/MangageShowTime/manageShowTime';
-import ManageMovie from './components/ManageMovie/manageMovie';
+import AdminMovie from './page/admin/adminMovie';
+import AdminShowTime from './page/admin/adminShowTime';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -24,8 +24,8 @@ root.render(
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
-          <Route path="/admin/manage_movie" element={<ManageMovie />} />
-          <Route path="/admin/manage_time_show" element={<MangageShowTime />} />
+          <Route path="/admin/manage_movie" element={<AdminMovie />} />
+          <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
           <Route path="/home" element={<CustomerHome />} />
         </Routes>
       </BrowserRouter>
