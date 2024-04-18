@@ -22,7 +22,6 @@ const Home = () => {
                         <img
                             className="Slide-img"
                             src="https://i.ytimg.com/vi/0ydYmbQxfjQ/maxresdefault.jpg"
-
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={3000}>
@@ -64,6 +63,7 @@ const Home = () => {
                 <h3>Incoming movies</h3>
                 <ListIncoming items={items} />
             </div>
+
         </div>
     )
 }

@@ -6,11 +6,11 @@
   margin: 0 auto;
 }
 
-.items {
+.items-box {
   display: flex;
 }
 
-.item {
+.item-box {
   flex: 0 0 auto;
   width: 250px;
   /* Đặt chiều rộng của mỗi item tại đây */

@@ -33,9 +33,9 @@ const ListCurrentMovies = ({ items }) => {
     <>
       <div className="list-box">
         <button onClick={prevItems} className="prev">&#10094;</button>
-        <div className="items">
+        <div className="items-box">
           {items.slice(startIndex, startIndex + 4).map((item, index) => (
-            <div key={index} className="item">
+            <div key={index} className="item-box">
               <div className='item-content'>
                 <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' className='movie-img' />
                 {item}
@@ -51,7 +51,7 @@ const ListCurrentMovies = ({ items }) => {
               </div>
             </div>
           ))}
-          <div className="item">
+          <div className="item-box">
             <div className='item-content'>
               <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' className='movie-img' />
               {items[(startIndex + 4) % items.length]} {/* Box 1 sẽ hiển thị sau phần tử cuối cùng */}

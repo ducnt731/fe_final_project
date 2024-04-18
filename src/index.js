@@ -10,6 +10,7 @@ import RegisterForm from './page/register';
 import ManageAccount from './page/admin/manageAccount';
 import "bootstrap/dist/css/bootstrap.min.css";
 import CustomerHome from './page/customer/customerHome';
+import ProfileCustomer from './page/customer/profileCustomer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -25,6 +26,7 @@ root.render(
           <Route path="admin/manage_accounts" element={<ManageAccount/>} />
 
           <Route path="/home" element={<CustomerHome/>} />
+          <Route path="/profile" element={<ProfileCustomer/>} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

@@ -36,7 +36,7 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="#action1" className="menu-item"><ImProfile/> Profile</Nav.Link>
+                                    <Nav.Link href="/profile" className="menu-item"><ImProfile/> Profile</Nav.Link>
                                     <Nav.Link href="#action2" className="menu-item"><FaLocationDot/> Theater</Nav.Link>
                                     <Nav.Link href="#action2" className="menu-item"><FaHistory/> History purchase</Nav.Link>
                                     <Nav.Link href="#action2" className="menu-item"><FaNewspaper/> Breaking news</Nav.Link>

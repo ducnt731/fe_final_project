@@ -32,9 +32,9 @@ const ListIncoming = ({ items }) => {
         <>
             <div className="list-box">
                 <button onClick={prevItems} className="prev">&#10094;</button>
-                <div className="items">
+                <div className="items-box">
                     {items.slice(startIndex, startIndex + 4).map((item, index) => (
-                        <div key={index} className="item">
+                        <div key={index} className="item-box">
                             <div className='item-content'>
                                 <img src='https://congthanh.vn/uploads/images/in-poster-phim-anh-dep-.jpg' className='movie-img' />
                                 {item}
@@ -50,7 +50,7 @@ const ListIncoming = ({ items }) => {
                             </div>
                         </div>
                     ))}
-                    <div className="item">
+                    <div className="item-box">
                         <div className='item-content'>
                             <img src='https://congthanh.vn/uploads/images/in-poster-phim-anh-dep-.jpg' className='movie-img' />
                             {items[(startIndex + 4) % items.length]} {/* Box 1 sẽ hiển thị sau phần tử cuối cùng */}
