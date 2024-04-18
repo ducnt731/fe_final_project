@@ -3,12 +3,13 @@ import Button from 'react-bootstrap/Button';
 import { addNewAccount, fetchAllFaculty } from '../../service/userService';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import { formatDate } from '../../service/formatDate';
 
 const EditAccount = (props) => {
     const { show, handleClose, handleAccountEdit, dataEditAccount } = props
     const [showImage, setShowImage] = useState()
     const [userData, setUserData] = useState(dataEditAccount)
-    const [listFaculty, setListFaculty] = useState([])
+
 
     useEffect(() => {
         setUserData(dataEditAccount);
@@ -36,13 +37,20 @@ const EditAccount = (props) => {
         setUserData({ ...userData, [name]: value });
     };
     const handleImage = (file) => {
-        const reader = new FileReader()
-        reader.readAsDataURL(file.target.files[0])
+        const reader = new FileReader();
+        reader.readAsDataURL(file.target.files[0]);
         reader.onload = function () {
-            setShowImage(reader.result)
-            setUserData({ ...userData, image: file.target.files[0] })
+            setShowImage(reader.result);
+            // Kiểm tra xem người dùng đã chọn một tệp hình ảnh mới hay không
+            if (file.target.files.length > 0) {
+                // Nếu có, cập nhật ảnh mới
+                setUserData({ ...userData, image: file.target.files[0] });
+            } else {
+                // Nếu không, giữ nguyên ảnh cũ
+                setUserData({ ...userData });
+            }
         };
-        console.log("check image nè", file.target.files[0]);
+        console.log("check image nè", userData.image);
     }
     return (
         <Modal show={show} onHide={handleClose}>
@@ -60,28 +68,36 @@ const EditAccount = (props) => {
                         <input type="email" required className="form-control" name='email' value={userData.email} onChange={handleChange} />
                     </div>
                     <div className="mb-3">
-                        <label className="form-label">Password</label>
-                        <input type="password" required name='password' className="form-control" value={userData.password} onChange={handleChange} />
+                        <label className="form-label">Phone</label>
+                        <input type="text" required className="form-control" name='phone' value={userData.phone} onChange={handleChange} />
                     </div>
-                    <select className="form-select" required value={userData.faculty} name='faculty' onChange={handleChange}>
-                        {listFaculty && listFaculty.map((faculty) => {
-                            return <option key={faculty._id} value={faculty._id}>{faculty.faculty_name}</option>
-                        })}
+                    <div className="mb-3">
+                        <label className="form-label">Password</label>
+                        <input type="password" disabled="true" required name='password' className="form-control" value={userData.password} onChange={handleChange} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Date of birth</label>
+                        <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange} />
+                    </div>
+                    <select className="form-select" required value={userData.gender} name='gender' onChange={handleChange} >
+                        <option >Choose gender</option>
+                        <option value={"female"}>Female</option>
+                        <option value={"male"}>Male</option>
+                        <option value={"other"}>Other</option>
                     </select>
                     <br />
                     <select className="form-select" value={userData.role} name='role' onChange={handleChange}>
-                        <option value={"student"}>Student</option>
+                        <option>Choose Role</option>
+                        <option value={"customer"}>Customer</option>
                         <option value={"admin"}>Admin</option>
-                        <option value={"marketing manager"}>Marketing Manager</option>
-                        <option value={"marketing coordinator"}>Marketing Coordinator</option>
+                        <option value={"staff"}>Staff</option>
                     </select>
-
                     <div className="mb-3">
                         <h1 className="form-label">Image</h1>
                         <label htmlFor="formFile" style={{ width: "100px", height: "100px", borderRadius: "10px", overflow: "hidden", objectFit: 'cover', objectPosition: "center" }} className='d-flex align-items-center justify-content-center border'>
                             {showImage ? <img src={showImage} alt='' /> : "+"}
                         </label>
-                        <input className="form-control d-none" type="file" id="formFile" name="image" onChange={handleImage} />
+                        <input className="form-control d-none" type="file" id="formFile" name='image' onChange={handleImage} />
                     </div>
                 </div>
             </Modal.Body>

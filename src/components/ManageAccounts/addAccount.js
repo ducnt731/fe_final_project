@@ -1,7 +1,7 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useState } from 'react';
-import {formatDate} from "../../service/formatDate"
+import { formatDate } from "../../service/formatDate"
 
 const AddAccount = (props) => {
 
@@ -15,7 +15,7 @@ const AddAccount = (props) => {
         phone: "",
         role: "",
         dateOfBirth: "",
-        gender:"",
+        gender: "",
         image: null
     })
 
@@ -69,7 +69,7 @@ const AddAccount = (props) => {
                         <label className="form-label">Date of birth</label>
                         <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange} />
                     </div>
-                    <select className="form-select" required value={userData.gender}  name='gender' onChange={handleChange} >
+                    <select className="form-select" required value={userData.gender} name='gender' onChange={handleChange} >
                         <option >Choose gender</option>
                         <option value={"female"}>Female</option>
                         <option value={"male"}>Male</option>

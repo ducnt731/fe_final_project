@@ -1,28 +1,29 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
 import "../../style/manageAccounts.css"
-import AddAccount from "./addAccount";
-import EditAccount from "./editAccount";
-import DeleteAccount from "./deleteAccount";
-import { fetchAllUser, addNewAccount, deleteAccount, editAccount, search } from "../../service/userService"
+import AddMovie from "./addMovie";
+import EditMovie from "./editMovie";
+import DeleteMovie from "./deleteMovie";
+import { addMovie, deleteMovie, editMovie, fetchAllMovie, searchMovies } from "../../service/userService"
 import { toast } from 'react-toastify';
 import { RiArrowUpDownLine } from "react-icons/ri";
 import Form from 'react-bootstrap/Form';
 import { formatDate } from '../../service/formatDate';
 
-const Account = () => {
 
-    const [isShowModalAdd, setIsShowModalAdd] = useState(false)
+const ManageMovie = () => {
+
+    const [isShowModalAdd, setIsShowModalAdd] = useState(0)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [dataEdit, setDataEdit] = useState({})
     const [dataDelete, setDataDelete] = useState({})
     const [totalPages, setTotalPage] = useState(0);
-    const [listAccount, setListAccount] = useState([]);
+    const [listMovie, setListMovie] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const accountsPerPage = 10// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
-    const [searchUser, setSearchUser] = useState('');
+    const [searchMovie, setSearchMovie] = useState('');
     const [isSearching, setIsSearching] = useState(false);
 
     const handleClose = () => {
@@ -45,23 +46,24 @@ const Account = () => {
             const formData = new FormData();
             formData.append('id', dataEdit._id);
             formData.append('name', dataEdit.name);
-            formData.append('phone', dataEdit.phone);
-            formData.append('email', dataEdit.email);
-            formData.append('password', dataEdit.password);
-            formData.append('dateOfBirth', dataEdit.dateOfBirth);
-            formData.append('gender', dataEdit.gender);
-            formData.append('role', dataEdit.role);
-
+            formData.append('director', dataEdit.director);
+            formData.append('performer', dataEdit.performer);
+            formData.append('category', dataEdit.category);
+            formData.append('premiere', dataEdit.premiere);
+            formData.append('time', dataEdit.time);
+            formData.append('language', dataEdit.language);
+            formData.append('trailerUrl', dataEdit.trailerUrl);
+            formData.append('status', dataEdit.status);
             // if (dataEdit.image) {
             //     formData.append('image', dataEdit.image);
             // }
-            if (dataEdit.image && dataEdit.image instanceof File) {
-                formData.append('image', dataEdit.image);
+            if (dataEdit.poster && dataEdit.poster instanceof File) {
+                formData.append('poster', dataEdit.poster);
             }
             // Gọi hàm editAccount với FormData đã tạo
-            const response = await editAccount(formData);
+            const response = await editMovie(formData);
             if (response) {
-                await getAllUser();
+                await getAllMovie();
                 setIsShowModalEdit(!isShowModalEdit);
                 toast.success("Edit success!");
             }
@@ -71,9 +73,9 @@ const Account = () => {
     }
     const handleDeleteFromModal = async (dataEdit) => {
         try {
-            const response = await deleteAccount(dataEdit._id);
+            const response = await deleteMovie(dataEdit._id);
             if (response) {
-                await getAllUser()
+                await getAllMovie()
                 setIsShowModalDelete(!isShowModalDelete)
                 toast.success("Delete successful!!!")
             }
@@ -81,13 +83,13 @@ const Account = () => {
             toast.error("Delete error")
         }
     }
-    const getAllUser = async () => {
+    const getAllMovie = async () => {
         try {
-            // const response = await fetchAllUser();
-            const response = await fetchAllUser(currentPage, accountsPerPage);
+            // const response = await fetchAllmovie();
+            const response = await fetchAllMovie(currentPage, accountsPerPage);
             if (response) {
                 setTotalPage(response.totalPages);
-                setListAccount(response.data);
+                setListMovie(response.data);
             }
         } catch (error) {
             console.error('Error fetching accounts:', error);
@@ -96,31 +98,32 @@ const Account = () => {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-    const handleAddAccount = async (userData) => {
+    const handleAddMovie = async (movieData) => {
         try {
             let check = false
             // console.log(userData.image);
-            Object.keys(userData).map(key => {
-                if (userData[key] == '') {
+            Object.keys(movieData).map(key => {
+                if (movieData[key] == '') {
                     check = true
                 }
             })
             if (!check) {
                 const formData = new FormData()
-                Object.keys(userData).map(key => {
-                    formData.append(key, userData[key])
+                Object.keys(movieData).map(key => {
+                    formData.append(key, movieData[key])
                 })
-                const res = await addNewAccount(formData);
+                const res = await addMovie(formData);
                 if (res.status) {
                     console.log(">>>>", res.status);
                     toast.warn(res.data.message)
-                    await getAllUser()
+                    await getAllMovie()
                     setIsShowModalAdd(!isShowModalAdd)
                 } else {
                     toast.success("Add sucessful!!!")
-                    await getAllUser()
+                    await getAllMovie()
                     setIsShowModalAdd(!isShowModalAdd)
                 }
+
             } else {
                 toast.error('Please enter all field!')
             }
@@ -129,11 +132,8 @@ const Account = () => {
         }
     }
 
-    // useEffect(() => {
-    //     getAllUser();
-    // }, []);
     useEffect(() => {
-        getAllUser();
+        getAllMovie();
     }, [currentPage]);
 
     const renderPages = () => {
@@ -155,7 +155,7 @@ const Account = () => {
 
     const handleSort = () => {
         // Sao chép mảng items để không làm thay đổi mảng gốc
-        const sorted = [...listAccount];
+        const sorted = [...listMovie];
         // Sắp xếp mảng sorted dựa trên trạng thái sắp xếp hiện tại
         sorted.sort((a, b) => {
             if (sortOrder === 'asc') {
@@ -165,7 +165,7 @@ const Account = () => {
             }
         });
         // Cập nhật items state với mảng đã sắp xếp
-        setListAccount(sorted);
+        setListMovie(sorted);
         // Đảo ngược trạng thái sắp xếp để sử dụng cho lần nhấp tiếp theo
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
@@ -173,26 +173,25 @@ const Account = () => {
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
-                const searchData = await search(searchUser);
-                setListAccount(searchData);
+                const searchData = await searchMovies(searchMovie);
+                setListMovie(searchData);
             } catch (error) {
                 console.error('Error searching:', error);
             }
         };
 
-        if (searchUser !== '') {
+        if (searchMovie !== '') {
             fetchSearchResults();
         } else {
             setIsSearching(false)
-            getAllUser();
+            getAllMovie();
         }
-    }, [searchUser]);
+    }, [searchMovie]);
 
     const handleSearch = (e) => {
         // e.preventDefault();
         const { value } = e.target;
-        console.log(">>> check", e.target);
-        setSearchUser(value);
+        setSearchMovie(value);
         setIsSearching(true)
     }
 
@@ -201,7 +200,7 @@ const Account = () => {
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h3>All Account</h3>
+                        <h3>All Movie</h3>
                         <Form className="d-flex">
                             <Form.Control
                                 type="search"
@@ -220,34 +219,40 @@ const Account = () => {
                         <Table striped bordered hover>
                             <thead>
                                 <tr>
-                                    <th>Image</th>
                                     <th className="sort-table">Name
                                         <div className="sort">
                                             <RiArrowUpDownLine onClick={handleSort} />
                                         </div>
                                     </th>
-                                    <th>Email</th>
-                                    <th>Phone</th>
-                                    <th>Date of birth</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th>Action</th>
+                                    <th>Poster</th>
+                                    <th>Director</th>
+                                    <th>Performer</th>
+                                    <th>Category</th>
+                                    <th>Premiere</th>
+                                    <th>Time</th>
+                                    <th>Language</th>
+                                    {/* <th>trailerUrl</th> */}
+                                    <th>status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    listAccount && listAccount.length > 0 &&
-                                    listAccount.map((item, index) => {
-                                        console.log(item);
+                                    listMovie && listMovie.length > 0 &&
+                                    listMovie.map((item, index) => {
+                                        console.log("???>>>>>>", item);
                                         return (
-                                            <tr key={`users-${index}`}>
-                                                <td><img src={item.image} style={{ width: "90px", height: "90px", display: "block", margin: "auto" }} /></td>
-                                                <td>{item.name}</td>
-                                                <td>{item.email}</td>
-                                                <td>{item.phone}</td>
-                                                <td>{formatDate(new Date(item.dateOfBirth))}</td>
-                                                <td>{item.gender}</td>
-                                                <td>{item.role}</td>
+                                            <tr key={`movies-${index}`}>
+                                                {item && item.name && <td>{item.name}</td>}
+                                                <td><img src={item.poster} style={{ width: "90px", height: "90px", display: "block", margin: "auto" }} /></td>
+                                                <td>{item.director}</td>
+                                                <td>{item.performer}</td>
+                                                <td>{item.category?.name}</td>
+                                                <td>{formatDate(new Date(item.premiere))}</td>
+                                                <td>{item.time}</td>
+                                                <td>{item.language}</td>
+                                                {/* <td>{item.trailerUrl}</td> */}
+                                                <td>{item.status}</td>
                                                 <td>
                                                     <div className="button-action">
                                                         <button className="btn btn-warning" onClick={() => handleEdit(item)}>Edit</button>
@@ -268,25 +273,25 @@ const Account = () => {
                     </nav>
                 </div>
             </div>
-            <AddAccount
+            <AddMovie
                 show={isShowModalAdd}
                 handleClose={handleClose}
-                handleAddNewAccount={handleAddAccount}
+                handleAddNewMovie={handleAddMovie}
             />
-            <EditAccount
+            <EditMovie
                 show={isShowModalEdit}
-                dataEditAccount={dataEdit}
+                dataEditMovie={dataEdit}
                 handleClose={handleClose}
-                handleAccountEdit={handleEditFromModal}
+                handleMovieEdit={handleEditFromModal}
             />
-            <DeleteAccount
+            <DeleteMovie
                 show={isShowModalDelete}
                 handleClose={handleClose}
-                dataUserDelete={dataDelete}
-                handleAccountDelete={handleDeleteFromModal}
+                dataMovieDelete={dataDelete}
+                handleMovieDelete={handleDeleteFromModal}
             />
         </>
     )
 }
 
-export default Account
+export default ManageMovie

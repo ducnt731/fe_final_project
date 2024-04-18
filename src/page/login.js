@@ -19,11 +19,11 @@ const LoginForm = () => {
         console.log(email, password);
         if (!email || !password) {
             toast.error("You need to enter the email and password");
-        return;
+            return;
         }
-            setLoadingAPI(true);
-            let res = await loginApi(email, password);
-            console.log(res.data);
+        setLoadingAPI(true);
+        let res = await loginApi(email, password);
+        console.log(res.data);
         try {
             const data = res.data;
             if (data) {
@@ -33,7 +33,7 @@ const LoginForm = () => {
                 localStorage.setItem("user_id", data.user._id);
                 localStorage.setItem("accessToken", data.accessToken);
                 if (data.user.role === "admin") {
-                    navigate("/admin/home");
+                    navigate("/admin");
                     toast.success("Login successful!!!");
                 } else if (data.user.role === "customer") {
                     navigate("/home");
@@ -48,65 +48,64 @@ const LoginForm = () => {
         } catch (error) {
             toast.error(res.data.message);
         }
-            setLoadingAPI(false);
+        setLoadingAPI(false);
     };
 
     return (
         <div className="wrapper">
-        <div className="login-form">
-            <form onSubmit={handleLogin}>
-            <h1>Login</h1>
-            <div className="input-box">
-                <input
-                type="text"
-                placeholder="Email"
-                required
-                value={email}
-                onChange={(event) => setEmail(event.target.value)}
-                />
-                <i className="fa-solid fa-user icon"></i>
+            <div className="login-form">
+                <form onSubmit={handleLogin}>
+                    <h1>Login Admin</h1>
+                    <div className="input-box">
+                        <input
+                            type="text"
+                            placeholder="Email"
+                            required
+                            value={email}
+                            onChange={(event) => setEmail(event.target.value)}
+                        />
+                        <i className="fa-solid fa-user icon"></i>
+                    </div>
+                    <div className="input-box">
+                        <input
+                            type={isShowPass === true ? "text" : "password"}
+                            placeholder="Password"
+                            required
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                        />
+                        <i
+                            className={
+                                isShowPass === true
+                                    ? "fa-solid fa-eye icon"
+                                    : "fa-solid fa-eye-slash icon"
+                            }
+                            onClick={() => setIsShowPass(!isShowPass)}
+                        ></i>
+                    </div>
+                    <div className="remember-forgot">
+                        <label>
+                            <input type="checkbox" />
+                            Remember me
+                        </label>
+                        <a href="/forgot-password">Forgot password</a>
+                    </div>
+                    <button type="submit" disabled={email && password ? false : true}>
+                        Login {loadingAPI && <Spinner animation="border" variant="info" size="sm" />}
+                    </button>
+                    <a href="/auth/google" >
+                        <button type="button"
+                            className="btn-google"
+                            style={{ background: "white" }}>
+                            <FcGoogle /> Login with Google
+                        </button>
+                    </a>
+                    <div className="register-link">
+                        <p>Don't have an account? <a href="/register">Register</a></p>
+                    </div>
+                </form>
             </div>
-            <div className="input-box">
-                <input
-                    type={isShowPass === true ? "text" : "password"}
-                    placeholder="Password"
-                    required
-                    value={password}
-                    onChange={(event) => setPassword(event.target.value)}
-                />
-                <i
-                className={
-                    isShowPass === true
-                    ? "fa-solid fa-eye icon"
-                    : "fa-solid fa-eye-slash icon"
-                }
-                onClick={() => setIsShowPass(!isShowPass)}
-                ></i>
-            </div>
-            <div className="remember-forgot">
-                <label>
-                <input type="checkbox" />
-                Remember me
-                </label>
-                <a href="/forgot-password">Forgot password</a>
-            </div>
-            <button type="submit" disabled={email && password ? false : true}>
-                Login {loadingAPI && <Spinner animation="border" variant="info" size="sm"/>}
-            </button>
-            <a href="/auth/google" >
-                <button type="button"
-                    className="btn-google"
-                    style={{background: "white"}}>
-                    <FcGoogle/> Login with Google
-                </button>
-            </a>
-            <div className="register-link">
-                <p>Don't have an account? <a href="/register">Register</a></p>
-            </div>
-            </form>
         </div>
-        </div>
-    );
-};
-
+    )
+}
 export default LoginForm;
