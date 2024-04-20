@@ -7,6 +7,8 @@
     padding-bottom: 50px;
     display: flex;
     justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
 
@@ -45,18 +47,19 @@
             /* Canh giữa nội dung trong các ô */
         }
 
-        p:hover{
+        p:hover {
             cursor: pointer;
         }
     }
 
-    .theater-address{
+    .theater-address {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         /* 3 cột có kích thước bằng nhau */
         gap: 10px;
         /* Khoảng cách giữa các ô */
         padding: 20px;
+
         /* Khoảng cách giữa lề và các ô */
         p {
             /* Màu nền của các ô */
@@ -65,5 +68,35 @@
             text-align: center;
             /* Canh giữa nội dung trong các ô */
         }
+    }
+}
+
+.image-theater {
+    width: 100%;
+}
+
+.header-title {
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 80px;
+}
+
+.theater-name{
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+    margin-bottom: 20px;
+}
+
+.footer-theater {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .address-contact {
+        display: flex;
+        justify-content: start;
+        flex-direction: column;
+
     }
 }

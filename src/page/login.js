@@ -55,7 +55,7 @@ const LoginForm = () => {
         <div className="wrapper">
             <div className="login-form">
                 <form onSubmit={handleLogin}>
-                    <h1>Login Admin</h1>
+                    <h1>Login</h1>
                     <div className="input-box">
                         <input
                             type="text"
