@@ -1,14 +1,30 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/listBox.css'; // Import CSS file
 import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
+import { getMovieNowShowing } from '../../service/userService';
 
 const ListCurrentMovies = ({ items }) => {
 
   const [startIndex, setStartIndex] = useState(0);
   const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  const [listMovie, setListMovie] = useState([]);
 
+  useEffect(() => {
+    getAllMovieNowShowing(); // Gọi hàm này khi component mount
+  }, []);
+
+  const getAllMovieNowShowing = async () => {
+    try {
+      const response = await getMovieNowShowing(); // Sử dụng API để lấy danh sách phim
+      if (response && response.data) {
+        setListMovie(response.data); // Cập nhật state
+      }
+    } catch (error) {
+      console.error('Error fetching movies:', error);
+    }
+  };
   const handleClose = () => {
     setIsShowModalInfo(false)
   }
@@ -29,18 +45,24 @@ const ListCurrentMovies = ({ items }) => {
     }
   };
 
+  // Hàm để chuyển các phần tử từ cuối danh sách sang đầu và ngược lại
+  const rotateItems = (array, steps) => {
+    return [...array.slice(steps), ...array.slice(0, steps)];
+  };
+
   return (
     <>
       <div className="list-box">
         <button onClick={prevItems} className="prev">&#10094;</button>
         <div className="items-box">
-          {items.slice(startIndex, startIndex + 4).map((item, index) => (
+          {rotateItems(listMovie, startIndex).slice(0, 4).map((movie, index) => (
             <div key={index} className="item-box">
               <div className='item-content'>
-                <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' className='movie-img' />
-                {item}
-                <span>ten phim</span>
-                <span>the loai</span>
+                <div >
+                  <img src={movie.poster} className='movie-img' alt={movie.name} />
+                </div>
+                <span>Movie name: {movie.name}</span>
+                <span>Genres: {movie.category?.name}</span>
               </div>
               <div className='btn-container'>
                 <button className='button'>Book now</button>
@@ -51,21 +73,6 @@ const ListCurrentMovies = ({ items }) => {
               </div>
             </div>
           ))}
-          <div className="item-box">
-            <div className='item-content'>
-              <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' className='movie-img' />
-              {items[(startIndex + 4) % items.length]} {/* Box 1 sẽ hiển thị sau phần tử cuối cùng */}
-              <span>ten phim</span>
-              <span>the loai</span>
-            </div>
-            <div className='btn-container'>
-              <button className='button'>Book now</button>
-              <Button
-                className='buttonInfor'
-                onClick={() => setIsShowModalInfo(true)}
-              ><IoIosInformationCircle /></Button>
-            </div>
-          </div>
         </div>
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>

@@ -13,7 +13,10 @@ import CustomerHome from './page/customer/customerHome';
 import ProfileCustomer from './page/customer/profileCustomer';
 import AdminMovie from './page/admin/adminMovie';
 import AdminShowTime from './page/admin/adminShowTime';
+import AdminSchedule from './page/admin/adminSchedule';
+import AdminCinema from './page/admin/adminCinema';
 import TheaterCustomer from './page/customer/theaterCustomer';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -22,16 +25,18 @@ root.render(
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
-        <Route path="/" element={<LoginForm />} />
+          <Route path="/" element={<LoginForm />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
-          <Route path="/admin/manage_movie" element={<AdminMovie/>} />
-          <Route path="/admin/manage_time_show" element={<AdminShowTime/>} />
+          <Route path="/admin/manage_movie" element={<AdminMovie />} />
+          <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
           <Route path="/home" element={<CustomerHome />} />
-          <Route path="/profile" element={<ProfileCustomer/>} />
-          <Route path="/theater" element={<TheaterCustomer/>}/>
+          <Route path="/profile" element={<ProfileCustomer />} />
+          <Route path="/admin/schedule" element={<AdminSchedule />} />
+          <Route path="/admin/cinema" element={<AdminCinema />} />
+          <Route path="/theater" element={<TheaterCustomer />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

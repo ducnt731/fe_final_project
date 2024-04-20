@@ -125,7 +125,7 @@ const Account = () => {
                 toast.error('Please enter all field!')
             }
         } catch (error) {
-
+            toast.error(error.response.data.message)
         }
     }
 
@@ -179,7 +179,6 @@ const Account = () => {
                 console.error('Error searching:', error);
             }
         };
-
         if (searchUser !== '') {
             fetchSearchResults();
         } else {
@@ -191,7 +190,6 @@ const Account = () => {
     const handleSearch = (e) => {
         // e.preventDefault();
         const { value } = e.target;
-        console.log(">>> check", e.target);
         setSearchUser(value);
         setIsSearching(true)
     }
@@ -216,8 +214,8 @@ const Account = () => {
                             onClick={() => setIsShowModalAdd(true)}
                         >Add new</button>
                     </div>
-                    <div className="table-account">
-                        <Table striped bordered hover>
+                    <div className="table-account" style={{ backgroundColor: "white", borderRadius: "10px", marginTop: "10px", boxShadow: "0 0 0px #b8bec4", padding: "5px" }}>
+                        <Table bordered hover>
                             <thead>
                                 <tr>
                                     <th>Image</th>

@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import { addShowTime, deleteShowTime, editShowTime, fetchAllShowTime } from "../../service/userService"
+import { addCinema, deleteCinema, editCinema, fetchAllCinema } from "../../service/userService"
 import { toast } from 'react-toastify';
-import { RiArrowUpDownLine } from "react-icons/ri";
-import AddShowTime from "./addShowTime";
-import EditShowTime from "./editShowTime";
-import DeleteShowTime from "./deleteShowTime";
-import { formatDate } from '../../service/formatDate';
-import ShowTimeSchedule from "../scheduleShowTime/schedule";
 import { useNavigate } from "react-router-dom";
+import AddCinema from "./addCinema";
+import EditCinema from "./editCinema";
+import DeleteCinema from "./deleteCinema";
+import { RiArrowUpDownLine } from "react-icons/ri";
 
-const MangageShowTime = () => {
-
+const MangageCinema = () => {
     const [isShowModalAdd, setIsShowModalAdd] = useState(0)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [dataEdit, setDataEdit] = useState({})
     const [dataDelete, setDataDelete] = useState({})
     const [totalPages, setTotalPage] = useState(0);
-    const [listShowTime, setlistShowTime] = useState([]);
+    const [listCinema, setlistCinema] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const accountsPerPage = 10// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
     const navigate = useNavigate()
-    // const [searchShowTime, setsearchShowTime] = useState('');
+
     // const [isSearching, setIsSearching] = useState(false);
 
     const handleClose = () => {
@@ -32,25 +29,25 @@ const MangageShowTime = () => {
         setIsShowModalDelete(false)
     }
 
-    const handleEdit = (accountEdit) => {
-        setDataEdit(accountEdit)
+    const handleEdit = (cinemaEdit) => {
+        setDataEdit(cinemaEdit)
         setIsShowModalEdit(true)
     }
-    const handleDelete = (accountDelete) => {
+    const handleDelete = (cinemaDelete) => {
         setIsShowModalDelete(true)
-        setDataDelete(accountDelete)
+        setDataDelete(cinemaDelete)
     }
     const handleEditFromModal = async (dataEdit) => {
-        console.log(">>>>>>>>>>Dataa", dataEdit)
-        const id = dataEdit._id
-        let newData = dataEdit
-        delete newData.__v
-        delete newData._id
-        newData = { ...newData, id }
+        const id = dataEdit._id;
+        let newData = dataEdit;
+        delete newData.__v;
+        delete newData._id;
+        newData = { ...newData, id };
         try {
-            const response = await editShowTime(newData);
-            if (response) {
-                await getAllShowTime()
+            const response = await editCinema(newData);
+            console.log("check?>>>>>>", response)
+            if (response.data && response.data.success) {
+                await getAllCinema()
                 setIsShowModalEdit(!isShowModalEdit)
                 toast.success("Edit success!")
             }
@@ -60,9 +57,9 @@ const MangageShowTime = () => {
     }
     const handleDeleteFromModal = async (dataEdit) => {
         try {
-            const response = await deleteShowTime(dataEdit._id);
+            const response = await deleteCinema(dataEdit._id);
             if (response) {
-                await getAllShowTime()
+                await getAllCinema()
                 setIsShowModalDelete(!isShowModalDelete)
                 toast.success("Delete successful!!!")
             }
@@ -70,13 +67,13 @@ const MangageShowTime = () => {
             toast.error("Delete error")
         }
     }
-    const getAllShowTime = async () => {
+    const getAllCinema = async () => {
         try {
             // const response = await fetchAllmovie();
-            const response = await fetchAllShowTime(currentPage, accountsPerPage);
+            const response = await fetchAllCinema(currentPage, accountsPerPage);
             if (response) {
                 setTotalPage(response.totalPages);
-                setlistShowTime(response.data);
+                setlistCinema(response.data);
             }
         } catch (error) {
             console.error('Error fetching accounts:', error);
@@ -85,23 +82,30 @@ const MangageShowTime = () => {
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };
-    const handleAddShowTime = async (showTimeData) => {
+    const handleAddCinema = async (cinemaData) => {
+        if (!cinemaData.name || !cinemaData.province || !cinemaData.district || !cinemaData.commune || !cinemaData.address) {
+            toast.error("All fields must be filled.");
+            return; // Stop the function if any field is missing
+        }
+
         try {
-            const response = await addShowTime(showTimeData);
-            console.log(">>> check", response);
-            if (response.data) {
-                await getAllShowTime()
+            const response = await addCinema(cinemaData);
+            if (response.status) {
+                await getAllCinema();
+                toast.warn(response.data.message)
+                await getAllCinema()
                 setIsShowModalAdd(!isShowModalAdd)
-                toast.success("Create success!")
             } else {
-                toast.warn("You need to enter all field!!!")
+                toast.success("Add sucessful!!!")
+                await getAllCinema()
+                setIsShowModalAdd(!isShowModalAdd)
             }
         } catch (error) {
-            toast.error("Create fail")
+            toast.error(error.response.message);
         }
     }
     useEffect(() => {
-        getAllShowTime();
+        getAllCinema();
     }, [currentPage]);
 
     const renderPages = () => {
@@ -123,7 +127,7 @@ const MangageShowTime = () => {
 
     const handleSort = () => {
         // Sao chép mảng items để không làm thay đổi mảng gốc
-        const sorted = [...listShowTime];
+        const sorted = [...listCinema];
         // Sắp xếp mảng sorted dựa trên trạng thái sắp xếp hiện tại
         sorted.sort((a, b) => {
             if (sortOrder === 'asc') {
@@ -133,7 +137,7 @@ const MangageShowTime = () => {
             }
         });
         // Cập nhật items state với mảng đã sắp xếp
-        setlistShowTime(sorted);
+        setlistCinema(sorted);
         // Đảo ngược trạng thái sắp xếp để sử dụng cho lần nhấp tiếp theo
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
@@ -143,11 +147,9 @@ const MangageShowTime = () => {
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h2>All Show Time</h2>
-                        <div className="button-ShowTime">
-                            <a href="/admin/schedule" className="btn btn-primary">Schedule</a>
+                        <h2>All Cinema</h2>
+                        <div className="button-cinema">
                             <button
-                                style={{ marginLeft: "10px" }}
                                 className="btn btn-primary"
                                 onClick={() => setIsShowModalAdd(true)
                                 }
@@ -159,30 +161,24 @@ const MangageShowTime = () => {
                         <Table bordered hover>
                             <thead>
                                 <tr>
-                                    <th className="sort-table">Movie
+                                    <th className="sort-table">Name
                                         <div className="sort">
                                             <RiArrowUpDownLine onClick={handleSort} />
                                         </div>
                                     </th>
-                                    <th>Cinema</th>
-                                    <th>Room</th>
-                                    <th>Start Date</th>
-                                    <th>End Date</th>
+                                    <th>Location</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    listShowTime && listShowTime.length > 0 &&
-                                    listShowTime.map((item, index) => {
+                                    listCinema && listCinema.length > 0 &&
+                                    listCinema.map((item, index) => {
                                         console.log("???>>>>>>", item);
                                         return (
                                             <tr key={`movies-${index}`}>
-                                                <td>{item.movie?.name}</td>
-                                                <td>{item.cinema?.name}</td>
-                                                <td>{item.room?.name}</td>
-                                                <td>{formatDate(new Date(item.startDate))}</td>
-                                                <td>{formatDate(new Date(item.endDate))}</td>
+                                                <td>{item.name}</td>
+                                                <td>{item.address}, {item.commune}, {item.district}, {item.province} </td>
                                                 <td>
                                                     <div className="button-action">
                                                         <button className="btn btn-warning" onClick={() => handleEdit(item)}>Edit</button>
@@ -203,25 +199,25 @@ const MangageShowTime = () => {
                     </nav>
                 </div>
             </div>
-            <AddShowTime
+            <AddCinema
                 show={isShowModalAdd}
                 handleClose={handleClose}
-                handleAddNewShowTime={handleAddShowTime}
+                handleAddNewCinema={handleAddCinema}
             />
-            <EditShowTime
+            <EditCinema
                 show={isShowModalEdit}
-                dataEditShowTime={dataEdit}
+                dataEditCinema={dataEdit}
                 handleClose={handleClose}
-                handleEditShowTime={handleEditFromModal}
+                handleEditCinema={handleEditFromModal}
             />
-            <DeleteShowTime
+            <DeleteCinema
                 show={isShowModalDelete}
                 handleClose={handleClose}
-                dataShowTimeDelete={dataDelete}
-                handleShowTimeDelete={handleDeleteFromModal}
+                dataCinemaDelete={dataDelete}
+                handleCinemaDelete={handleDeleteFromModal}
             />
         </>
     )
 }
 
-export default MangageShowTime
+export default MangageCinema

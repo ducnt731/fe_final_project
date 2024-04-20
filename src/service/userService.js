@@ -93,12 +93,48 @@ const deleteShowTime = (_id) => {
     return axios.delete(`/delete-show-time/${_id}`, getAuthHeaders())
 }
 
+const fetchAllShowTimeDaily = () => {
+    return axios.get(`/showtime/all-dates`, getAuthHeaders())
+}
+
 const fetchAllCinema = () => {
     return axios.get("/all-cinema", getAuthHeaders())
 }
 
+const addCinema = (data) => {
+    return axios.post("/create-cinema", data, getAuthHeaders())
+}
+
+const editCinema = (data) => {
+    return axios.put("/update-cinema", data, getAuthHeaders())
+}
+
+const deleteCinema = (_id) => {
+    return axios.delete(`/delete-cinema/${_id}`, getAuthHeaders())
+}
+
 const fetchAllRoom = () => {
     return axios.get("/all-room", getAuthHeaders())
+}
+
+const getMovieNowShowing = () => {
+    return axios.get("/movie-now-showing", getAuthHeaders())
+}
+
+const getMovieUpComing = () => {
+    return axios.get("/movie-upcoming", getAuthHeaders())
+}
+
+const getAllProvince = () => {
+    return axios.get("https://province-api-dccinema.onrender.com/provinces", getAuthHeaders())
+}
+
+const getAllDistrict = (province) => {
+    return axios.get(`https://province-api-dccinema.onrender.com/districts/${province}`, getAuthHeaders())
+}
+
+const getAllCommune = (district) => {
+    return axios.get(`https://province-api-dccinema.onrender.com/wards/${district}`, getAuthHeaders())
 }
 
 export {
@@ -121,5 +157,14 @@ export {
     editShowTime,
     deleteShowTime,
     fetchAllCinema,
-    fetchAllRoom
+    fetchAllRoom,
+    fetchAllShowTimeDaily,
+    addCinema,
+    editCinema,
+    deleteCinema,
+    getAllProvince,
+    getAllDistrict,
+    getAllCommune,
+    getMovieNowShowing,
+    getMovieUpComing
 }

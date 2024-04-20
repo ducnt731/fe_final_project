@@ -33,7 +33,7 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="">
+                    <a className="item" href="/admin/cinema">
                         <i className="fa-solid fa-location-dot icon"></i> Theaters
                     </a>
                 </li>

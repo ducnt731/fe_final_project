@@ -1,36 +1,44 @@
-.account-container{
+.account-container {
     grid-area: main;
     overflow-y: auto;
     background-color: #f1f5f9;
+    padding: 20px;
 }
 
-.button-account{
+.button-account {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 20px;
-    h3{
-        padding-left: 20px;
-    }
 }
 
-.button-action{
+.button-account h3 {
+    margin-left: 20px;
+}
+
+.button-action {
     display: flex;
     justify-content: space-evenly;
 }
 
-.form-control{
+.form-control {
     border-radius: 40px;
+    border: 1px solid #ccc;
+    padding: 10px;
 }
 
-.table-account{
-    background-color: #f4f4f4;
+.table-account {
+    background-color: #ffffff;
     border: 1px solid #ccc;
     padding: 10px;
     margin: 20px;
-    box-shadow: 0 6px 7px -3px rgba(0, 0, 0, 0.35);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.sort-table{
+.sort-table {
     display: flex;
     justify-content: space-between;
+    padding: 10px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
 }
