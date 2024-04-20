@@ -248,7 +248,7 @@ const ManageMovie = () => {
                                                 <td>{item.performer}</td>
                                                 <td>{item.category?.name}</td>
                                                 <td>{formatDate(new Date(item.premiere))}</td>
-                                                <td>{item.time}</td>
+                                                <td>{item.time} Minutes</td>
                                                 <td>{item.language}</td>
                                                 {/* <td>{item.trailerUrl}</td> */}
                                                 <td>{item.status}</td>

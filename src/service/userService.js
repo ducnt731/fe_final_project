@@ -117,8 +117,12 @@ const fetchAllRoom = () => {
     return axios.get("/all-room", getAuthHeaders())
 }
 
-const getCinemaActive = () => {
+const getMovieNowShowing = () => {
     return axios.get("/movie-now-showing", getAuthHeaders())
+}
+
+const getMovieUpComing = () => {
+    return axios.get("/movie-upcoming", getAuthHeaders())
 }
 
 const getAllProvince = () => {
@@ -154,12 +158,13 @@ export {
     deleteShowTime,
     fetchAllCinema,
     fetchAllRoom,
-    getCinemaActive,
     fetchAllShowTimeDaily,
     addCinema,
     editCinema,
     deleteCinema,
     getAllProvince,
     getAllDistrict,
-    getAllCommune
+    getAllCommune,
+    getMovieNowShowing,
+    getMovieUpComing
 }

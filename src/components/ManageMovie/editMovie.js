@@ -104,10 +104,10 @@ const EditMovie = (props) => {
                         <label className="form-label">trailerUrl</label>
                         <input type="text" required name='trailerUrl' className="form-control" value={movieData.trailerUrl} onChange={handleChange} />
                     </div>
-                    <div className="mb-3">
-                        <label className="form-label">Status</label>
-                        <input type="text" required name='status' className="form-control" value={movieData.status} onChange={handleChange} />
-                    </div>
+                    <select className="form-select" value={movieData.status} name='status' onChange={handleChange}>
+                        <option value={"Now Showing"}>Now Showing</option>
+                        <option value={"Upcoming"}>Upcoming</option>
+                    </select>
                     <br />
                     <div className="mb-3">
                         <h1 className="form-label">Poster</h1>
