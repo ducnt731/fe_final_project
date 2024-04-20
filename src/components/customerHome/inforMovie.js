@@ -11,7 +11,7 @@ const InforMovie = (props) => {
                 <Modal.Header closeButton>
                 <Modal.Title>Movie's information</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body style={{ height: '500px', overflowY: 'auto' }}>
                 <div className='modal-info'>
                     <div className='image'>
                         <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' style={{width: "200px"}}/>
