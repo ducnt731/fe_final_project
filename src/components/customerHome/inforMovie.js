@@ -1,53 +1,40 @@
 import Modal from 'react-bootstrap/Modal';
-import { useEffect } from 'react';
+import '../../style/listBox.css'
 
-const InforMovie = ({ show, handleClose, movie }) => {
-    useEffect(() => {
-        // Cập nhật lại dữ liệu phim khi prop movie thay đổi
-    }, [movie]);
+const InforMovie = (props) => {
 
-    if (!movie) {
-        // Nếu movie không tồn tại, trả về null
-        return null;
-    }
+    const { show, handleClose } = props
 
     return (
         <Modal show={show} onHide={handleClose} size='xl'>
             <div style={{ backgroundColor: "slategrey" }}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Movie's Information</Modal.Title>
+                    <Modal.Title>Movie's information</Modal.Title>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{ height: '500px', overflowY: 'auto' }}>
                     <div className='modal-info'>
                         <div className='image'>
-                            <img src={movie.poster} style={{ width: "200px" }} alt={movie.name} />
+                            <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' style={{ width: "200px" }} />
                         </div>
                         <div className='information'>
                             <div className='movie-information'>
-                                <h4>{movie.name}</h4>
-                                <h5>Category: {movie.category?.name}</h5>
-                                <h5>Director: {movie.director}</h5>
-                                <h5>Cast: {movie.performer}</h5>
-                                <h5>Premiere Date: {new Date(movie.premiere).toLocaleDateString()}</h5>
-                                <h5>Duration: {movie.time} minutes</h5>
-                                <h5>Language: {movie.language}</h5>
+                                <h4>Movie name</h4>
+                                <h5>the loai</h5>
+                                <h5>dao dien</h5>
+                                <h5>dien vien</h5>
+                                <h5>ngay khoi chieu</h5>
+                                <h5>thoi luong phim</h5>
+                                <h5>phu de</h5>
                             </div>
                             <div className='trailer'>
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${new URLSearchParams(new URL(movie.trailerUrl).search).get('v')}`}
-                                    allowFullScreen
-                                    title="Movie Trailer"
-                                    frameBorder="0"
-                                    width="100%"
-                                    height="315"
-                                />
+                                <iframe src='https://www.youtube.com/embed/WXLunaC5nWk?si=xRi25nfjapYD66_y' allowFullScreen />
                             </div>
                         </div>
                     </div>
                 </Modal.Body>
             </div>
         </Modal>
-    );
-};
+    )
+}
 
-export default InforMovie;
+export default InforMovie

@@ -15,7 +15,6 @@ const Home = () => {
                         <img
                             className="Slide-img"
                             src="https://i.ytimg.com/vi/mH47bKOJECk/maxresdefault.jpg"
-
                         />
                     </Carousel.Item>
                     <Carousel.Item interval={3000}>

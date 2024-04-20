@@ -28,7 +28,14 @@
   .item-content {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+
+    span {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: inline-block;
+      max-width: 200px;
+    }
   }
 
   .buttonInfor {
@@ -96,8 +103,8 @@
 
     .trailer {
       position: absolute;
-      bottom: 0;
-      right: 0;
+      bottom: 15px;
+      right: 15px;
       width: 400px;
       /* Điều chỉnh kích thước của container tùy thuộc vào nhu cầu của bạn */
       height: 225px;

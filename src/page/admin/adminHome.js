@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import {useNavigate} from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import AdminHome from "../../components/adminHome/adminHome";
 import LayoutAdmin from "../../layout/admin/layoutAdmin";
@@ -12,9 +12,9 @@ const Admin = () => {
             navigate('/')
         }
     }, [])
-    return(
+    return (
         <LayoutAdmin>
-            <AdminHome/>
+            <AdminHome />
         </LayoutAdmin>
     )
 }
