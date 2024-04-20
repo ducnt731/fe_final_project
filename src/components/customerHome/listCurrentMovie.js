@@ -9,6 +9,8 @@ const ListCurrentMovies = ({ items }) => {
 
   const [startIndex, setStartIndex] = useState(0);
   const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [listMovie, setListMovie] = useState([]);
 
   useEffect(() => {
@@ -28,6 +30,11 @@ const ListCurrentMovies = ({ items }) => {
   const handleClose = () => {
     setIsShowModalInfo(false)
   }
+
+  const handleShowInfo = (movie) => {
+    setSelectedMovie(movie); // Cập nhật phim được chọn
+    setShowModal(true); // Mở modal thông tin
+  };
 
   const nextItems = () => {
     if (startIndex < items.length - 4) {
@@ -61,15 +68,19 @@ const ListCurrentMovies = ({ items }) => {
                 <div >
                   <img src={movie.poster} className='movie-img' alt={movie.name} />
                 </div>
-                <span>Movie name: {movie.name}</span>
-                <span>Genres: {movie.category?.name}</span>
+                <div style={{ marginTop: "5px", display: "flex", flexDirection: "column", wordBreak: "break" }}>
+                  <span>Movie name: {movie.name}</span>
+                  <span>Genres: {movie.category?.name}</span>
+                </div>
               </div>
               <div className='btn-container'>
                 <button className='button'>Book now</button>
                 <Button
                   className='buttonInfor'
-                  onClick={() => setIsShowModalInfo(true)}
-                ><IoIosInformationCircle /></Button>
+                  onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
+                >
+                  <IoIosInformationCircle />
+                </Button>
               </div>
             </div>
           ))}
@@ -77,8 +88,9 @@ const ListCurrentMovies = ({ items }) => {
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>
       <InforMovie
-        show={isShowModalInfo}
-        handleClose={handleClose}
+        movie={selectedMovie}
+        show={showModal}
+        handleClose={() => setShowModal(false)}
       />
     </>
   );

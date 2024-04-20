@@ -1,17 +1,38 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../../style/listBox.css'; // Import CSS file
 import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
+import { getMovieNowShowing, getMovieUpComing } from '../../service/userService';
 
 const ListIncoming = ({ items }) => {
     const [startIndex, setStartIndex] = useState(0);
     const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+    const [listMovie, setListMovie] = useState([]);
+    const [selectedMovie, setSelectedMovie] = useState(null);
+    const [showModal, setShowModal] = useState(false);
 
+    useEffect(() => {
+        getAllMovieUpComing(); // Gọi hàm này khi component mount
+    }, []);
+
+    const getAllMovieUpComing = async () => {
+        try {
+            const response = await getMovieUpComing(); // Sử dụng API để lấy danh sách phim
+            if (response && response.data) {
+                setListMovie(response.data); // Cập nhật state
+            }
+        } catch (error) {
+            console.error('Error fetching movies:', error);
+        }
+    };
     const handleClose = () => {
         setIsShowModalInfo(false)
     }
-
+    const handleShowInfo = (movie) => {
+        setSelectedMovie(movie);
+        setShowModal(true);
+    };
     const nextItems = () => {
         if (startIndex < items.length - 4) {
             setStartIndex(startIndex + 1);
@@ -28,49 +49,43 @@ const ListIncoming = ({ items }) => {
         }
     };
 
+    // Hàm để chuyển các phần tử từ cuối danh sách sang đầu và ngược lại
+    const rotateItems = (array, steps) => {
+        return [...array.slice(steps), ...array.slice(0, steps)];
+    };
+
     return (
         <>
             <div className="list-box">
                 <button onClick={prevItems} className="prev">&#10094;</button>
                 <div className="items-box">
-                    {items.slice(startIndex, startIndex + 4).map((item, index) => (
+                    {rotateItems(listMovie, startIndex).slice(0, 4).map((movie, index) => (
                         <div key={index} className="item-box">
                             <div className='item-content'>
-                                <img src='https://congthanh.vn/uploads/images/in-poster-phim-anh-dep-.jpg' className='movie-img' />
-                                {item}
-                                <span>ten phim</span>
-                                <span>the loai</span>
+                                <div >
+                                    <img src={movie.poster} className='movie-img' alt={movie.name} />
+                                </div>
+                                <span>Movie name: {movie.name}</span>
+                                <span>Genres: {movie.category?.name}</span>
                             </div>
                             <div className='btn-container'>
                                 <button className='button'>Book now</button>
                                 <Button
                                     className='buttonInfor'
-                                    onClick={() => setIsShowModalInfo(true)}
-                                ><IoIosInformationCircle /></Button>
+                                    onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
+                                >
+                                    <IoIosInformationCircle />
+                                </Button>
                             </div>
                         </div>
                     ))}
-                    <div className="item-box">
-                        <div className='item-content'>
-                            <img src='https://congthanh.vn/uploads/images/in-poster-phim-anh-dep-.jpg' className='movie-img' />
-                            {items[(startIndex + 4) % items.length]} {/* Box 1 sẽ hiển thị sau phần tử cuối cùng */}
-                            <span>ten phim</span>
-                            <span>the loai</span>
-                        </div>
-                        <div className='btn-container'>
-                            <button className='button'>Book now</button>
-                            <Button
-                                className='buttonInfor'
-                                onClick={() => setIsShowModalInfo(true)}
-                            ><IoIosInformationCircle /></Button>
-                        </div>
-                    </div>
                 </div>
                 <button onClick={nextItems} className="next">&#10095;</button>
             </div>
             <InforMovie
-                show={isShowModalInfo}
-                handleClose={handleClose}
+                movie={selectedMovie}
+                show={showModal}
+                handleClose={() => setShowModal(false)}
             />
         </>
     );
