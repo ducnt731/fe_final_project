@@ -83,7 +83,7 @@
   background-color: #111;
 }
 
-.modal-body {
+.modal-info {
   display: flex;
 
   .information {

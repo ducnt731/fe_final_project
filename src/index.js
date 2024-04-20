@@ -13,6 +13,7 @@ import CustomerHome from './page/customer/customerHome';
 import ProfileCustomer from './page/customer/profileCustomer';
 import AdminMovie from './page/admin/adminMovie';
 import AdminShowTime from './page/admin/adminShowTime';
+import TheaterCustomer from './page/customer/theaterCustomer';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -30,6 +31,7 @@ root.render(
           <Route path="/admin/manage_time_show" element={<AdminShowTime/>} />
           <Route path="/home" element={<CustomerHome />} />
           <Route path="/profile" element={<ProfileCustomer/>} />
+          <Route path="/theater" element={<TheaterCustomer/>}/>
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

@@ -12,7 +12,7 @@ const InforMovie = (props) => {
                 <Modal.Title>Movie's information</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <div className='modal-body'>
+                <div className='modal-info'>
                     <div className='image'>
                         <img src='https://d1j8r0kxyu9tj8.cloudfront.net/images/1566809340Y397jnilYDd15KN.jpg' style={{width: "200px"}}/>
                     </div>

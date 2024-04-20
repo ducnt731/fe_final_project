@@ -1,0 +1,69 @@
+.theater-container {
+    background: url("https://th.bing.com/th/id/R.924545a2721303f55fa004d579aaf756?rik=JfZPLmfCC2PUvA&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fStars-wallpaper-HD-desktop.jpg&ehk=pH%2bxp14MOATribNawKZJ7V8dG9qPaiJQn1%2bHnDhrrSg%3d&risl=&pid=ImgRaw&r=0");
+    color: #fff;
+    background-size: cover;
+    margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+
+.theater-list {
+    border: 1px white solid;
+    width: 1000px;
+    height: auto;
+
+    .theater-header {
+        width: 100%;
+        height: 80px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 1px white solid;
+        font-family: 'Oswald', sans-serif;
+        font-size: 40px;
+    }
+
+    .theater-location {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 cột có kích thước bằng nhau */
+        gap: 10px;
+        /* Khoảng cách giữa các ô */
+        padding: 20px;
+        /* Khoảng cách giữa lề và các ô */
+        border-bottom: 1px white solid;
+        border-bottom-width: 1px;
+
+        p {
+            /* Màu nền của các ô */
+            padding: 10px;
+            /* Khoảng cách giữa nội dung và viền của các ô */
+            text-align: center;
+            /* Canh giữa nội dung trong các ô */
+        }
+
+        p:hover{
+            cursor: pointer;
+        }
+    }
+
+    .theater-address{
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        /* 3 cột có kích thước bằng nhau */
+        gap: 10px;
+        /* Khoảng cách giữa các ô */
+        padding: 20px;
+        /* Khoảng cách giữa lề và các ô */
+        p {
+            /* Màu nền của các ô */
+            padding: 10px;
+            /* Khoảng cách giữa nội dung và viền của các ô */
+            text-align: center;
+            /* Canh giữa nội dung trong các ô */
+        }
+    }
+}
