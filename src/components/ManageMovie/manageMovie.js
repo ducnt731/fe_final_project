@@ -26,6 +26,7 @@ const ManageMovie = () => {
     const [searchMovie, setSearchMovie] = useState('');
     const [isSearching, setIsSearching] = useState(false);
 
+
     const handleClose = () => {
         setIsShowModalAdd(false)
         setIsShowModalEdit(false)
@@ -170,6 +171,12 @@ const ManageMovie = () => {
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
 
+    const handleSearch = (e) => {
+        const { value } = e.target;
+        setSearchMovie(value);
+        setIsSearching(true);
+    }
+
     useEffect(() => {
         const fetchSearchResults = async () => {
             try {
@@ -183,18 +190,10 @@ const ManageMovie = () => {
         if (searchMovie !== '') {
             fetchSearchResults();
         } else {
-            setIsSearching(false)
+            setIsSearching(false);
             getAllMovie();
         }
     }, [searchMovie]);
-
-    const handleSearch = (e) => {
-        // e.preventDefault();
-        const { value } = e.target;
-        setSearchMovie(value);
-        setIsSearching(true)
-    }
-
     return (
         <>
             <div className="account-container">
@@ -215,8 +214,8 @@ const ManageMovie = () => {
                             onClick={() => setIsShowModalAdd(true)}
                         >Add new</button>
                     </div>
-                    <div className="table-account">
-                        <Table striped bordered hover>
+                    <div className="table-account" style={{ backgroundColor: "white", borderRadius: "10px", marginTop: "10px", boxShadow: "0 0 0px #b8bec4", padding: "5px" }}>
+                        <Table bordered hover>
                             <thead>
                                 <tr>
                                     <th className="sort-table">Name

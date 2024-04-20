@@ -18,6 +18,7 @@ const AddMovie = (props) => {
         category: "",
         premiere: "",
         time: "",
+        language: "",
         trailerUrl: "",
         status: "",
         poster: null
@@ -84,6 +85,11 @@ const AddMovie = (props) => {
                         <label className="form-label">Time</label>
                         <input type="text" required name='time' className="form-control" value={movieData.time} onChange={handleChange} />
                     </div>
+                    <div className="mb-3">
+                        <label className="form-label">Language</label>
+                        <input type="text" required name='language' className="form-control" value={movieData.language} onChange={handleChange} />
+                    </div>
+
                     <div className="mb-3">
                         <label className="form-label">trailerUrl</label>
                         <input type="text" required name='trailerUrl' className="form-control" value={movieData.trailerUrl} onChange={handleChange} />

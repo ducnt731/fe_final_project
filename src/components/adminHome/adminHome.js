@@ -1,7 +1,7 @@
 import React from "react"
 
 const AdminHome = () => {
-    return(
+    return (
         <h1>this is dashborad</h1>
     )
 }
