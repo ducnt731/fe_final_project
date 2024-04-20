@@ -9,6 +9,7 @@ import { ImProfile } from "react-icons/im";
 import { FaLocationDot, FaNewspaper } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
+import { BiHomeAlt } from "react-icons/bi";
 
 const Header = () => {
 
@@ -36,16 +37,17 @@ const Header = () => {
                             </Offcanvas.Header>
                             <Offcanvas.Body>
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
-                                    <Nav.Link href="/profile" className="menu-item"><ImProfile/> Profile</Nav.Link>
-                                    <Nav.Link href="#action2" className="menu-item"><FaLocationDot/> Theater</Nav.Link>
-                                    <Nav.Link href="#action2" className="menu-item"><FaHistory/> History purchase</Nav.Link>
-                                    <Nav.Link href="#action2" className="menu-item"><FaNewspaper/> Breaking news</Nav.Link>
+                                    <Nav.Link href="/home" className="menu-item"><BiHomeAlt /> Home</Nav.Link>
+                                    <Nav.Link href="/profile" className="menu-item"><ImProfile /> Profile</Nav.Link>
+                                    <Nav.Link href="/theater" className="menu-item"><FaLocationDot /> Theater</Nav.Link>
+                                    <Nav.Link href="#action2" className="menu-item"><FaHistory /> History purchase</Nav.Link>
+                                    <Nav.Link href="#action2" className="menu-item"><FaNewspaper /> Breaking news</Nav.Link>
                                     <Nav.Link
                                         className="menu-item"
                                         onClick={() => {
                                             localStorage.clear()
                                             navigate('/')
-                                        }}><LuLogOut/> Logout
+                                        }}><LuLogOut /> Logout
                                     </Nav.Link>
                                 </Nav>
                             </Offcanvas.Body>

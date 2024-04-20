@@ -15,6 +15,8 @@ import AdminMovie from './page/admin/adminMovie';
 import AdminShowTime from './page/admin/adminShowTime';
 import AdminSchedule from './page/admin/adminSchedule';
 import AdminCinema from './page/admin/adminCinema';
+import TheaterCustomer from './page/customer/theaterCustomer';
+
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -34,6 +36,7 @@ root.render(
           <Route path="/profile" element={<ProfileCustomer />} />
           <Route path="/admin/schedule" element={<AdminSchedule />} />
           <Route path="/admin/cinema" element={<AdminCinema />} />
+          <Route path="/theater" element={<TheaterCustomer />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

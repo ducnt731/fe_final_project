@@ -11,7 +11,6 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                 </div>
                 <span className='icon close_icon' onClick={OpenSidebar}>X</span>
             </div>
-
             <ul className='sidebar-list'>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin">
@@ -30,7 +29,7 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/manage_time_show">
-                        <i className="fa-solid fa-location-dot icon"></i> Manage Time Show
+                        <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
                     </a>
                 </li>
                 <li className='sidebar-list-item'>

@@ -1,552 +1,70 @@
-import React from "react";
-import Table from 'react-bootstrap/Table';
+import React, { useState } from "react";
+import '../../style/profile.css';
+import { FiEdit3 } from "react-icons/fi";
+import EditProfile from "./editProfile";
+import ChangePassword from "./changePassword";
+import { FaCamera } from "react-icons/fa";
 
 const Profile = () => {
+
+    const [isShowModalEditProfile, setIsShowModalEditProfile] = useState(false)
+    const [isShowModalChangePass, setIsShowModalChangePass] = useState(false)
+
+    const handleClose = () => {
+        setIsShowModalEditProfile(false)
+        setIsShowModalChangePass(false)
+    }
+
     return (
-        <Table striped bordered hover style={{ marginTop: "60px" }}>
-            <thead>
-                <tr>
-                    <th style={{ width: "150px"}}>ca Chieu</th>
-                    <th style={{ width: "150px"}}>Monday</th>
-                    <th style={{ width: "150px"}}>Tuesday</th>
-                    <th style={{ width: "150px"}}>Wednesday</th>
-                    <th style={{ width: "150px"}}>Thursday</th>
-                    <th style={{ width: "150px"}}>Friday</th>
-                    <th style={{ width: "150px"}}>Saturday</th>
-                    <th style={{ width: "150px"}}>Sunday</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>Morning</td>
-                    <td style={{
-                        display: "flex",
-                        flexDirection: "column"
-                    }}>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center",
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
+        <>
+            <div className="profile-container">
+                <div className="profile">
+                    <div className="profile-top">
+                        <div style={{ position: "absolute", top: "70px", left: "36%" }}>
+                            <img src="https://th.bing.com/th/id/R.db79993ebe75e9cb5486f43172ba0961?rik=F%2fxs2MZLmRt9YQ&riu=http%3a%2f%2fwww.cineavatar.it%2fwp-content%2fuploads%2f2015%2f06%2fcinema-ted-2-02.jpg&ehk=l%2blDUXtPJS4HgGezb8NSk1A8279uTJzS7yTvRjXrxOg%3d&risl=&pid=ImgRaw&r=0" />
+                            <button className="buttonImage"><FaCamera /></button>
                         </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
+                    </div>
+                    <div className="profile-bot">
+                        <div className="Info">Customer's information</div>
+                        <div className="inforCus">
+                            <div className="info-left">
+                                <div>Full name</div>
+                                <div style={{ marginBottom: "15px", color: "#9cdb95" }}>Nguyen Tien Duc</div>
+                                <div>Date of birth</div>
+                                <div style={{ marginBottom: "15px", color: "#9cdb95" }}>07/03/2001</div>
+                                <div >Phone number</div>
+                                <div style={{ marginBottom: "15px", color: "#9cdb95" }}>1234567890</div>
+                            </div>
+                            <div className="info-right">
+                                <div>Email</div>
+                                <div style={{ marginBottom: "15px", color: "#9cdb95" }}>ducnt0703@gmail.com</div>
+                                <div>Gender</div>
+                                <div style={{ marginBottom: "15px", color: "#9cdb95" }}>Male</div>
+                            </div>
+                            <div style={{ marginLeft: "50px", marginTop: "150px" }}>
+                                <button
+                                    className="buttonEdit"
+                                    onClick={() => setIsShowModalEditProfile(true)}
+                                >Edit profile <FiEdit3 /></button>
+                                <button
+                                    className="buttonChange"
+                                    onClick={() => setIsShowModalChangePass(true)}
+                                >Change password <FiEdit3 /></button>
+                            </div>
                         </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Afternoon</td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Night</td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                    <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            borderRadius: "10px",
-                            textAlign: "center"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                        <div style={{
-                            display: "flex",
-                            flexDirection: "column",
-                            border: "2px black solid",
-                            backgroundColor: "#9cdb95",
-                            textAlign: "center",
-                            borderRadius: "10px",
-                            marginTop: "10px"
-                        }}>
-                            <span>phim: doremon</span>
-                            <span>thoi gian: 9h-11h</span>
-                            <span>phong chieu: A3</span>
-                        </div>
-                    </td>
-                    <td>
-                        
-                    </td>
-                </tr>
-            </tbody>
-        </Table>
+                    </div>
+                </div>
+            </div>
+            <EditProfile
+                show={isShowModalEditProfile}
+                handleClose={handleClose}
+            />
+            <ChangePassword
+                show={isShowModalChangePass}
+                handleClose={handleClose}
+            />
+        </>
     )
 }
 

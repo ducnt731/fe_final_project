@@ -1,0 +1,89 @@
+.profile-container {
+    background: url("https://th.bing.com/th/id/R.924545a2721303f55fa004d579aaf756?rik=JfZPLmfCC2PUvA&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fStars-wallpaper-HD-desktop.jpg&ehk=pH%2bxp14MOATribNawKZJ7V8dG9qPaiJQn1%2bHnDhrrSg%3d&risl=&pid=ImgRaw&r=0");
+    color: #fff;
+    background-size: cover;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+}
+
+.profile {
+    width: 100vh;
+    border: 1px white solid;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    box-shadow: 0 0 10px white;
+    border-radius: 10px;
+    font-size: 20px;
+
+    .profile-top {
+        background: url("https://th.bing.com/th/id/OIP.T047RCxsRWjcT11wYpPQzwHaEo?rs=1&pid=ImgDetMain") no-repeat;
+        background-size: cover;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        position: relative;
+        height: 220px;
+
+        .buttonImage {
+            position: absolute;
+            left: 70%;
+            top: 160px;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.614);
+            outline: none;
+        }
+
+        img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+        }
+    }
+
+    .profile-bot {
+        width: 100%;
+        background-color: #ad8174;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+
+        .Info {
+            margin-left: 30px;
+            padding-top: 70px;
+        }
+
+        .buttonEdit {
+            background-color: #a33327;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 12px;
+            /* margin-right: 70px; */
+        }
+
+        .buttonChange {
+            background-color: #a33327;
+            padding: 10px;
+            border-radius: 10px;
+            color: #fff;
+            font-size: 12px;
+            margin-left: 15px;
+        }
+
+        .inforCus {
+            display: flex;
+            margin-top: 20px;
+            justify-content: space-evenly;
+            margin-left: 30px;
+
+            .info-left {
+                margin-bottom: 15px;
+            }
+
+            .info-right {
+                margin-left: 30px;
+            }
+        }
+    }
+}
