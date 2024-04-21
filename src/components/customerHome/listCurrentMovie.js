@@ -68,18 +68,23 @@ const ListCurrentMovies = ({ items }) => {
                   <div>
                     <img src={movie.poster} className='movie-img' alt={movie.name} />
                   </div>
+                  
+                <div style={{ marginTop: "5px", display: "flex", flexDirection: "column", wordBreak: "break" }}>
                   <span>Movie name: {movie.name}</span>
                   <span>Genres: {movie.category?.name}</span>
                 </div>
-                <div className='btn-container'>
-                  <button className='button'>Book now</button>
-                  <Button
-                    className='buttonInfor'
-                    onClick={() => setIsShowModalInfo(true)}
-                  ><IoIosInformationCircle /></Button>
-                </div>
               </div>
-            ))}
+              <div className='btn-container'>
+                <button className='button'>Book now</button>
+                <Button
+                  className='buttonInfor'
+                  onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
+                >
+                  <IoIosInformationCircle />
+                </Button>
+              </div>
+            </div>
+          ))}
         </div>
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>

@@ -13,6 +13,7 @@ const Theater = () => {
         const fetchDataProvince = async () => {
             try {
                 const response = await getProvinceCinema();
+                console.log(">>>", response);
                 if (response && response.data) {
                     setProvinces(response.data);
                 }
