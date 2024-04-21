@@ -113,7 +113,7 @@ const fetchAllShowTimeDaily = () => {
     return axios.get(`/showtime/all-dates`, getAuthHeaders())
 }
 
-const fetchAllCinema = () => {
+const fetchAllCinema = (currentPage, accountsPerPage) => {
     return axios.get("/all-cinema", getAuthHeaders())
 }
 

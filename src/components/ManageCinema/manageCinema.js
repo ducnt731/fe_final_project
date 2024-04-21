@@ -17,12 +17,13 @@ const MangageCinema = () => {
     const [totalPages, setTotalPage] = useState(0);
     const [listCinema, setlistCinema] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
-    const accountsPerPage = 10// Số tài khoản trên mỗi trang
+    const accountsPerPage = 5// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
-    const navigate = useNavigate()
 
     // const [isSearching, setIsSearching] = useState(false);
-
+    useEffect(() => {
+        getAllCinema()
+    }, [currentPage])
     const handleClose = () => {
         setIsShowModalAdd(false)
         setIsShowModalEdit(false)
@@ -69,14 +70,15 @@ const MangageCinema = () => {
     }
     const getAllCinema = async () => {
         try {
-            // const response = await fetchAllmovie();
             const response = await fetchAllCinema(currentPage, accountsPerPage);
-            if (response) {
+            if (response && response.data) {
+
                 setTotalPage(response.totalPages);
                 setlistCinema(response.data);
             }
         } catch (error) {
-            console.error('Error fetching accounts:', error);
+            console.error('Error fetching cinemas:', error);
+            toast.error("Failed to fetch data.");
         }
     }
     const handlePageChange = (pageNumber) => {
@@ -110,6 +112,7 @@ const MangageCinema = () => {
 
     const renderPages = () => {
         let pages = [];
+
         for (let i = 1; i <= totalPages; i++) {
             pages.push(
                 <li className="page-item" key={i}>
@@ -117,14 +120,9 @@ const MangageCinema = () => {
                 </li>
             );
         }
-        // if (isSearching) {
-        //     return null
-        // } else {
         return pages;
-        // }
 
     }
-
     const handleSort = () => {
         // Sao chép mảng items để không làm thay đổi mảng gốc
         const sorted = [...listCinema];
@@ -141,7 +139,6 @@ const MangageCinema = () => {
         // Đảo ngược trạng thái sắp xếp để sử dụng cho lần nhấp tiếp theo
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
-
     return (
         <>
             <div className="account-container">
