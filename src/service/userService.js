@@ -49,6 +49,22 @@ const deleteAccount = (_id) => {
     return axios.delete(`/delete-users/${_id}`, getAuthHeaders());
 };
 
+const fetchDetailUser = () => {
+    return axios.get(`/profile`, getAuthHeaders());
+}
+
+const editProfile = (userData) => {
+    return axios.put("/update-profile", userData, getAuthHeaders());
+}
+
+const changePassword = (currentPassword, newPassword) => {
+    const data = {
+        currentPassword: currentPassword,
+        newPassword: newPassword
+    };
+    return axios.post("/change-password", data, getAuthHeaders());
+}
+
 const search = (name) => {
     return axios.get(`/users/search?name=${name}`, getAuthHeaders())
 }
@@ -113,6 +129,14 @@ const deleteCinema = (_id) => {
     return axios.delete(`/delete-cinema/${_id}`, getAuthHeaders())
 }
 
+const getProvinceCinema = () => {
+    return axios.get("/province-cinema", getAuthHeaders())
+}
+
+const fetchDataCinemaByProvince = (province) => {
+    return axios.get(`/cinema-by-province?province=${province}`, getAuthHeaders())
+}
+
 const fetchAllRoom = () => {
     return axios.get("/all-room", getAuthHeaders())
 }
@@ -166,5 +190,10 @@ export {
     getAllDistrict,
     getAllCommune,
     getMovieNowShowing,
-    getMovieUpComing
+    getMovieUpComing,
+    fetchDetailUser,
+    editProfile,
+    changePassword,
+    getProvinceCinema,
+    fetchDataCinemaByProvince
 }

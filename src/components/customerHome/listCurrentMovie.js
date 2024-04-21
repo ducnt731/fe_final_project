@@ -7,7 +7,9 @@ import { getMovieNowShowing } from '../../service/userService';
 
 const ListCurrentMovies = ({ items }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const [isShowModalInfo, setIsShowModalInfo] = useState(false);
+  const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  const [selectedMovie, setSelectedMovie] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   const [listMovie, setListMovie] = useState([]);
 
   useEffect(() => {
@@ -27,6 +29,11 @@ const ListCurrentMovies = ({ items }) => {
 
   const handleClose = () => {
     setIsShowModalInfo(false);
+  };
+
+  const handleShowInfo = (movie) => {
+    setSelectedMovie(movie); // Cập nhật phim được chọn
+    setShowModal(true); // Mở modal thông tin
   };
 
   const nextItems = () => {
@@ -77,8 +84,9 @@ const ListCurrentMovies = ({ items }) => {
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>
       <InforMovie
-        show={isShowModalInfo}
-        handleClose={handleClose}
+        movie={selectedMovie}
+        show={showModal}
+        handleClose={() => setShowModal(false)}
       />
     </>
   );

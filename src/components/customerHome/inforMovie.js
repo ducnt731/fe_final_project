@@ -1,9 +1,13 @@
 import Modal from 'react-bootstrap/Modal';
-import '../../style/listBox.css'
+import { useEffect } from 'react';
 
-const InforMovie = (props) => {
+const InforMovie = ({ show, handleClose, movie }) => {
+    useEffect(() => {
+    }, [movie]);
 
-    const { show, handleClose } = props
+    if (!movie) {
+        return null;
+    }
 
     return (
         <Modal show={show} onHide={handleClose} size='xl'>
@@ -34,7 +38,7 @@ const InforMovie = (props) => {
                 </Modal.Body>
             </div>
         </Modal>
-    )
-}
+    );
+};
 
-export default InforMovie
+export default InforMovie;
