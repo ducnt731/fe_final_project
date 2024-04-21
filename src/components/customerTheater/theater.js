@@ -1,66 +1,74 @@
-import React, { useState } from "react";
-import '../../style/theater.css'
-import ListMovie from "./listMovie";
+import React, { useEffect, useState } from "react";
+import '../../style/theater.css';
+import { fetchDataCinemaByProvince, getProvinceCinema } from "../../service/userService";
 
 const Theater = () => {
-
-    const [isShowTheater, setIsShowTheater] = useState(false)
+    const [isShowTheater, setIsShowTheater] = useState(false);
     const [color, setColor] = useState('');
-    const [isShowMovie, setIsshowMovie] = useState(false)
-    const [colorTheater, setColorTheater] = useState('')
+    const [cinemas, setCinemas] = useState([]);
+    const [provinces, setProvinces] = useState([]);
+    const [selectedProvince, setSelectedProvince] = useState('');
 
+    useEffect(() => {
+        const fetchDataProvince = async () => {
+            try {
+                const response = await getProvinceCinema();
+                if (response && response.data) {
+                    setProvinces(response.data);
+                }
+            } catch (error) {
+                console.error('Failed to fetch provinces:', error);
+            }
+        };
+        fetchDataProvince();
+    }, []);
 
-    const handleClick = () => {
-        setIsShowTheater(!isShowTheater)
-        setColor(color === '' ? '#a33327' : '');
-    }
+    useEffect(() => {
+        if (selectedProvince) {
+            const fetchCinemas = async () => {
+                try {
+                    const response = await fetchDataCinemaByProvince(selectedProvince);
+                    console.log(response)
+                    if (response && response.data) {
+                        setCinemas(response.data);
+                        setIsShowTheater(true);
+                    }
+                } catch (error) {
+                    console.error('Failed to fetch cinemas for the selected province:', error);
+                }
+            };
+            fetchCinemas();
+        }
+    }, [selectedProvince]);
 
-    const handleChoose = () => {
-        setIsshowMovie(!isShowMovie)
-        setColorTheater(colorTheater === '' ? '#a33327' : '')
-    }
+    const handleProvinceClick = (province) => {
+        setSelectedProvince(province);
+        setIsShowTheater(false); // Optionally hide the cinema list until new data is fetched
+    };
 
     return (
         <div className="theater-container">
-            <div style={{
-                width: "auto",
-                height: "auto",
-                padding: "40px",
-                border: "1px white solid",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                backgroundColor: "#333333"
-            }}>
-                <div className="theater-list">
-                    <div className="theater-header">DC Cinema</div>
-                    <div className="theater-location">
-                        <p onClick={handleClick} style={{ backgroundColor: color }}>ha noi</p>
-                        <p>ho chi minh</p>
-                        <p>da nang</p>
-                        <p>can tho</p>
-                        <p>phu tho</p>
-                        <p>thai nguyen</p>
-                        <p>lang son</p>
-                        <p>tra vinh</p>
-                        <p>ba ria - vung tau</p>
-                    </div>
-                    {isShowTheater && <div className="theater-address">
-                        <p onClick={handleChoose} style={{backgroundColor: colorTheater}}>CGV long bien</p>
-                        <p>CGV tran duy hung</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                        <p>CGV cau giay</p>
-                    </div>}
+            <div className="theater-list">
+                <div className="theater-header">DC Cinema</div>
+                <div className="theater-location">
+                    {provinces.map((province, index) => (
+                        <p key={index} onClick={() => handleProvinceClick(province)} style={{ backgroundColor: color }}>
+                            {province}
+                        </p>
+                    ))}
                 </div>
+                {isShowTheater && (
+                    <div className="theater-address">
+                        {cinemas.map((cinema, index) => (
+                            <p key={index}>
+                                {cinema.name}
+                            </p>
+                        ))}
+                    </div>
+                )}
             </div>
-            {isShowMovie && <ListMovie/>}
         </div>
-    )
-}
+    );
+};
 
-export default Theater
+export default Theater;
