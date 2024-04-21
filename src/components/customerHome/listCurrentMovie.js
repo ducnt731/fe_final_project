@@ -4,13 +4,15 @@ import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
 import { getMovieNowShowing } from '../../service/userService';
+import { useNavigate } from 'react-router-dom';
 
 const ListCurrentMovies = ({ items }) => {
   const [startIndex, setStartIndex] = useState(0);
-  const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  // const [isShowModalInfo, setIsShowModalInfo] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [listMovie, setListMovie] = useState([]);
+  const navigate = useNavigate()
 
   useEffect(() => {
     getAllMovieNowShowing();
@@ -27,9 +29,9 @@ const ListCurrentMovies = ({ items }) => {
     }
   };
 
-  const handleClose = () => {
-    setIsShowModalInfo(false);
-  };
+  // const handleClose = () => {
+  //   setIsShowModalInfo(false);
+  // };
 
   const handleShowInfo = (movie) => {
     setSelectedMovie(movie); // Cập nhật phim được chọn
@@ -68,23 +70,25 @@ const ListCurrentMovies = ({ items }) => {
                   <div>
                     <img src={movie.poster} className='movie-img' alt={movie.name} />
                   </div>
-                  
-                <div style={{ marginTop: "5px", display: "flex", flexDirection: "column", wordBreak: "break" }}>
-                  <span>Movie name: {movie.name}</span>
-                  <span>Genres: {movie.category?.name}</span>
+
+                  <div style={{ marginTop: "5px", display: "flex", flexDirection: "column", wordBreak: "break" }}>
+                    <span>Movie name: {movie.name}</span>
+                    <span>Genres: {movie.category?.name}</span>
+                  </div>
+                </div>
+                <div className='btn-container'>
+                  <button className='buttonBooking'
+                    onClick={() => navigate("/booking")}
+                  >Book now</button>
+                  <Button
+                    className='buttonInfor'
+                    onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
+                  >
+                    <IoIosInformationCircle />
+                  </Button>
                 </div>
               </div>
-              <div className='btn-container'>
-                <button className='button'>Book now</button>
-                <Button
-                  className='buttonInfor'
-                  onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
-                >
-                  <IoIosInformationCircle />
-                </Button>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>
