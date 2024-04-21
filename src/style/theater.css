@@ -68,6 +68,10 @@
             text-align: center;
             /* Canh giữa nội dung trong các ô */
         }
+        
+        p:hover {
+            cursor: pointer;
+        }
     }
 }
 

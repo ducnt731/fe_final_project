@@ -6,34 +6,34 @@ import InforMovie from './inforMovie';
 import { getMovieNowShowing } from '../../service/userService';
 
 const ListCurrentMovies = ({ items }) => {
-
   const [startIndex, setStartIndex] = useState(0);
-  const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  const [isShowModalInfo, setIsShowModalInfo] = useState(false);
   const [listMovie, setListMovie] = useState([]);
 
   useEffect(() => {
-    getAllMovieNowShowing(); // Gọi hàm này khi component mount
+    getAllMovieNowShowing();
   }, []);
 
   const getAllMovieNowShowing = async () => {
     try {
-      const response = await getMovieNowShowing(); // Sử dụng API để lấy danh sách phim
+      const response = await getMovieNowShowing();
       if (response && response.data) {
-        setListMovie(response.data); // Cập nhật state
+        setListMovie(response.data);
       }
     } catch (error) {
       console.error('Error fetching movies:', error);
     }
   };
+
   const handleClose = () => {
-    setIsShowModalInfo(false)
-  }
+    setIsShowModalInfo(false);
+  };
 
   const nextItems = () => {
-    if (startIndex < items.length - 4) {
+    if (startIndex < items.length - 5) {
       setStartIndex(startIndex + 1);
     } else {
-      setStartIndex(0); // Quay lại box đầu tiên nếu đã đến cuối
+      setStartIndex(0);
     }
   };
 
@@ -41,11 +41,10 @@ const ListCurrentMovies = ({ items }) => {
     if (startIndex > 0) {
       setStartIndex(startIndex - 1);
     } else {
-      setStartIndex(items.length - 4); // Quay lại box cuối cùng nếu đã ở box đầu tiên
+      setStartIndex(items.length - 5);
     }
   };
 
-  // Hàm để chuyển các phần tử từ cuối danh sách sang đầu và ngược lại
   const rotateItems = (array, steps) => {
     return [...array.slice(steps), ...array.slice(0, steps)];
   };
@@ -55,24 +54,25 @@ const ListCurrentMovies = ({ items }) => {
       <div className="list-box">
         <button onClick={prevItems} className="prev">&#10094;</button>
         <div className="items-box">
-          {rotateItems(listMovie, startIndex).slice(0, 4).map((movie, index) => (
-            <div key={index} className="item-box">
-              <div className='item-content'>
-                <div >
-                  <img src={movie.poster} className='movie-img' alt={movie.name} />
+          {listMovie.length >= 5 &&
+            rotateItems(listMovie, startIndex).slice(0, 5).map((movie, index) => (
+              <div key={index} className="item-box">
+                <div className='item-content'>
+                  <div>
+                    <img src={movie.poster} className='movie-img' alt={movie.name} />
+                  </div>
+                  <span>Movie name: {movie.name}</span>
+                  <span>Genres: {movie.category?.name}</span>
                 </div>
-                <span>Movie name: {movie.name}</span>
-                <span>Genres: {movie.category?.name}</span>
+                <div className='btn-container'>
+                  <button className='button'>Book now</button>
+                  <Button
+                    className='buttonInfor'
+                    onClick={() => setIsShowModalInfo(true)}
+                  ><IoIosInformationCircle /></Button>
+                </div>
               </div>
-              <div className='btn-container'>
-                <button className='button'>Book now</button>
-                <Button
-                  className='buttonInfor'
-                  onClick={() => setIsShowModalInfo(true)}
-                ><IoIosInformationCircle /></Button>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
         <button onClick={nextItems} className="next">&#10095;</button>
       </div>
@@ -85,3 +85,4 @@ const ListCurrentMovies = ({ items }) => {
 };
 
 export default ListCurrentMovies;
+

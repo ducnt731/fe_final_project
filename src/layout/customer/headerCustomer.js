@@ -21,7 +21,7 @@ const Header = () => {
                 <Navbar key={expand} expand={expand} className="bg-secondary">
                     <Container fluid>
                         <Navbar.Brand href="/home">
-                            <img src='../../assets/logo1.png' /> DC Cinema
+                            <img style={{ width: "30px", height: "30px" }} src={require('../../assets/logo1.png')} /> DC Cinema
                         </Navbar.Brand>
                         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
                         <Navbar.Offcanvas
