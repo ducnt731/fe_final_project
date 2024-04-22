@@ -16,7 +16,10 @@ import AdminShowTime from './page/admin/adminShowTime';
 import AdminSchedule from './page/admin/adminSchedule';
 import AdminCinema from './page/admin/adminCinema';
 import TheaterCustomer from './page/customer/theaterCustomer';
-// import PaymentCustomer from './page/customer/paymentCustomer';
+import BookingCustomer from './page/customer/bookingCustomer';
+import BookingSitCustomer from './page/customer/bookingSitCustomer';
+import BookingFoodCustomer from './page/customer/bookingFoodCustomer';
+import PaymentCustomer from './page/customer/paymentCustomer';
 import GoogleAuthCallback from './page/googleAuthCallBack';
 import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
@@ -43,10 +46,12 @@ root.render(
           <Route path="/admin/schedule" element={<AdminSchedule />} />
           <Route path="/admin/cinema" element={<AdminCinema />} />
           <Route path="/theater" element={<TheaterCustomer />} />
-          {/* <Route path="/booking" element={<BookingCustomer />} />
-          <Route path="/booking/bookingsit" element={<BookingSitCustomer />} />
-          <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
-          <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} /> */}
+
+          <Route path="/booking" element={<BookingCustomer/>}/>
+          <Route path="/booking/bookingsit" element={<BookingSitCustomer/>}/>
+          <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer/>}/>
+          <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer/>}/>
+
           <Route path="/admin-cinema" element={<AdminCinemaHome />} />
         </Routes>
       </BrowserRouter>
