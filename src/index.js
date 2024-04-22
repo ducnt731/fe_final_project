@@ -24,7 +24,6 @@ import GoogleAuthCallback from './page/googleAuthCallBack';
 import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
 
-
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <>

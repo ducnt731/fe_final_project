@@ -5,7 +5,7 @@ const HeaderAdminCinema = ({OpenSidebar}) => {
         <header className='header'>
             <div className='menu-icon'>
                 <i className="fa-solid fa-align-justify icon" onClick={OpenSidebar}></i>
-            </div>
+            </div>Ư
             <div className='header-left'>
                 
             </div>

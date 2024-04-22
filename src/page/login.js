@@ -5,6 +5,8 @@ import { loginApi } from "../service/userService";
 import { Link, useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import { FcGoogle } from "react-icons/fc";
+import { jwtDecode } from 'jwt-decode'
+
 
 const LoginForm = () => {
 
@@ -52,7 +54,55 @@ const LoginForm = () => {
     };
     const loginWithGoogle = (e) => {
         e.preventDefault(); // Prevent the form submission
-        window.location.href = 'https://dc-cinema.onrender.com/auth/google'; // Redirect to initiate Google auth
+
+        // Listen for the Google login response in the window
+        const googleLoginWindow = window.open(
+            'https://dc-cinema.onrender.com/auth/google',
+            '_blank'
+        );
+
+        // Poll the popup window to check for successful login
+        const pollTimer = window.setInterval(function () {
+            try {
+                if (googleLoginWindow.closed) {
+                    toast.error("Google login was closed!");
+                    window.clearInterval(pollTimer);
+                    return;
+                }
+
+                if (googleLoginWindow.location.host === window.location.host) {
+                    // We are back on our site, so the login process is complete.
+                    const url = new URL(googleLoginWindow.location);
+                    const token = url.searchParams.get('token');
+
+                    console.log("object", token)
+                    if (token) {
+                        // Here you would verify the token and get the user's data
+                        const payload = jwtDecode(token); // Assuming jwt-decode library is used
+                        console.log("payload", payload)
+                        // Store user info and token in localStorage
+                        localStorage.setItem("email", payload.email);
+                        localStorage.setItem("name", payload.name);
+                        localStorage.setItem("role", payload.role);
+                        localStorage.setItem("user_id", payload.userId);
+                        localStorage.setItem("accessToken", token);
+                        if (payload.role === "customer") {
+                            navigate("/home");
+                        } else if (payload.role === "admin") {
+                            navigate("/admin");
+                        }
+                        toast.success("Login successful!!!");
+                    } else {
+                        toast.error("Failed to get authentication token!");
+                    }
+
+                    window.clearInterval(pollTimer);
+                    googleLoginWindow.close();
+                }
+            } catch (error) {
+                // Errors are ignored since the error means the login window has not redirected back yet.
+            }
+        }, 100);
     };
     return (
         <div className="wrapper">
