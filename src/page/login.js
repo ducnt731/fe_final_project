@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { toast } from "react-toastify";
 import "../style/loginForm.css";
 import { loginApi } from "../service/userService";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Spinner from 'react-bootstrap/Spinner';
 import { FcGoogle } from "react-icons/fc";
 
@@ -50,7 +50,10 @@ const LoginForm = () => {
         }
         setLoadingAPI(false);
     };
-
+    const loginWithGoogle = (e) => {
+        e.preventDefault(); // Prevent the form submission
+        window.location.href = 'https://dc-cinema.onrender.com/auth/google'; // Redirect to initiate Google auth
+    };
     return (
         <div className="wrapper">
             <div className="login-form">
@@ -93,13 +96,11 @@ const LoginForm = () => {
                     <button type="submit" disabled={email && password ? false : true}>
                         Login {loadingAPI && <Spinner animation="border" variant="info" size="sm" />}
                     </button>
-                    <a href="/auth/google" >
-                        <button type="button"
-                            className="btn-google"
-                            style={{ background: "white" }}>
-                            <FcGoogle /> Login with Google
-                        </button>
-                    </a>
+                    <button className="btn-google" type="submit" onClick={loginWithGoogle}>
+                        Login with Google <FcGoogle />
+                    </button>
+
+
                     <div className="register-link">
                         <p>Don't have an account? <a href="/register">Register</a></p>
                     </div>
@@ -108,4 +109,5 @@ const LoginForm = () => {
         </div>
     )
 }
+
 export default LoginForm;
