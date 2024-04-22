@@ -1,19 +1,22 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { formatDate } from "../../service/formatDate"
+import { fetchAllCinema } from '../../service/userService';
 
 const AddAccount = (props) => {
 
     const { show, handleClose, handleAddNewAccount } = props
     const [showImage, setShowImage] = useState()
     const [selectedFile, setSelectedFile] = useState(null);
+    const [listCinema, setListCinema] = useState([])
     const [userData, setUserData] = useState({
         name: "",
         password: "",
         email: "",
         phone: "",
         role: "",
+        cinema: "",
         dateOfBirth: "",
         gender: "",
         image: null
@@ -29,6 +32,15 @@ const AddAccount = (props) => {
     // useEffect(() => {
     //     getAllFaculty()
     // }, [])
+    const getAllCinemas = async () => {
+        let res = await fetchAllCinema()
+        if (res) {
+            setListCinema(res.data)
+        }
+    }
+    useEffect(() => {
+        getAllCinemas()
+    }, [])
     const handleChange = (e) => {
         const { name, value } = e.target;
         setUserData({ ...userData, [name]: value })
@@ -80,8 +92,19 @@ const AddAccount = (props) => {
                         <option>Choose Role</option>
                         <option value={"customer"}>Customer</option>
                         <option value={"admin"}>Admin</option>
+                        <option value={"admin cinema"}>Admin Cinema</option>
                         <option value={"staff"}>Staff</option>
                     </select>
+                    {userData.role === "admin cinema" && (
+                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} >
+                            <option >Choose Cinema</option>
+                            {listCinema && listCinema.map((cinmea) => {
+                                return (
+                                    <option key={cinmea._id} value={cinmea._id}>{cinmea.name}</option>
+                                )
+                            })}
+                        </select>
+                    )}
                     <div className="mb-3">
                         <h1 className="form-label">Image</h1>
                         <label htmlFor="formFile" style={{ width: "100px", height: "100px", borderRadius: "10px", overflow: "hidden", objectFit: 'cover', objectPosition: "center" }} className='d-flex align-items-center justify-content-center border'>

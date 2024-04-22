@@ -11,6 +11,7 @@ const Theater = () => {
     const [isShowMovie, setIsShowMovie] = useState(false);
     const [checkColor, setCheckColor] = useState()
     const [checkColorCinema, setCheckColorCinema] = useState()
+    const [selectedCinema, setSelectedCinema] = useState(null);
 
     useEffect(() => {
         const fetchDataProvince = async () => {
@@ -52,9 +53,11 @@ const Theater = () => {
     };
 
     const hanldeChoose = (cinema) => {
+        setSelectedCinema(cinema);
         setIsShowMovie(!isShowMovie)
         setCheckColorCinema(cinema.name)
     }
+
 
     return (
         <div className="theater-container">
@@ -88,7 +91,7 @@ const Theater = () => {
                     )}
                 </div>
             </div>
-            {isShowMovie && <ListMovie />}
+            {isShowMovie && <ListMovie cinema={selectedCinema} />}
         </div>
     );
 };
