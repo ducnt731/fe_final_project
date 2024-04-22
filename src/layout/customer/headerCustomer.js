@@ -20,15 +20,16 @@ const Header = () => {
             {[false].map((expand) => (
                 <Navbar key={expand} expand={expand} className="bg-secondary">
                     <Container fluid>
-                        <Navbar.Brand href="/home">
+                        <Navbar.Brand href="/home" style={{color: "white"}}>
                             <img style={{ width: "30px", height: "30px" }} src={require('../../assets/logo1.png')} /> DC Cinema
                         </Navbar.Brand>
-                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
+                        <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={{color: "white"}}/>
                         <Navbar.Offcanvas
                             id={`offcanvasNavbar-expand-${expand}`}
                             aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`}
                             placement="end"
                             className='menu'
+                            
                         >
                             <Offcanvas.Header closeButton>
                                 <Offcanvas.Title id={`offcanvasNavbarLabel-expand-${expand}`}>

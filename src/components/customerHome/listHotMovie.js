@@ -43,7 +43,7 @@ const ListHotMovie = ({ items }) => {
                                 <span>the loai</span>
                             </div>
                             <div className='btn-container'>
-                                <button className='button'>Book now</button>
+                                <button className='buttonBooking'>Book now</button>
                                 <Button
                                     className='buttonInfor'
                                     onClick={() => setIsShowModalInfo(true)}
@@ -59,7 +59,7 @@ const ListHotMovie = ({ items }) => {
                             <span>the loai</span>
                         </div>
                         <div className='btn-container'>
-                            <button className='button'>Book now</button>
+                            <button className='buttonBooking'>Book now</button>
                             <Button
                                 className='buttonInfor'
                                 onClick={() => setIsShowModalInfo(true)}
