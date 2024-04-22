@@ -71,7 +71,7 @@ const ListCurrentMovies = ({ items }) => {
                     <img src={movie.poster} className='movie-img' alt={movie.name} />
                   </div>
 
-                  <div style={{ marginTop: "5px", display: "flex", flexDirection: "column", wordBreak: "break" }}>
+                  <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
                     <span>Movie name: {movie.name}</span>
                     <span>Genres: {movie.category?.name}</span>
                   </div>

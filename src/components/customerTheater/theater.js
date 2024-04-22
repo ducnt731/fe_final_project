@@ -58,24 +58,35 @@ const Theater = () => {
 
     return (
         <div className="theater-container">
-            <div className="theater-list">
-                <div className="theater-header">DC Cinema</div>
-                <div className="theater-location">
-                    {provinces.map((province, index) => (
-                        <p key={index} style={{ backgroundColor: province == checkColor ? 'red' : '' }} onClick={() => handleProvinceClick(province)} >
-                            {province}
-                        </p>
-                    ))}
-                </div>
-                {isShowTheater && (
-                    <div className="theater-address">
-                        {cinemas.map((cinema, index) => (
-                            <p key={index} onClick={() => hanldeChoose(cinema)} style={{ backgroundColor: cinema.name == checkColorCinema ? 'red' : '' }}>
-                                {cinema.name}
+            <div style={{
+                width: "500px",
+                height: "auto",
+                padding: "40px",
+                border: "1px white solid",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                backgroundColor: "#333333"
+            }}>
+                <div className="theater-list">
+                    <div className="theater-header">DC Cinema</div>
+                    <div className="theater-location">
+                        {provinces.map((province, index) => (
+                            <p key={index} style={{ backgroundColor: province === checkColor ? 'red' : '' }} onClick={() => handleProvinceClick(province)} >
+                                {province}
                             </p>
                         ))}
                     </div>
-                )}
+                    {isShowTheater && (
+                        <div className="theater-address">
+                            {cinemas.map((cinema, index) => (
+                                <p key={index} onClick={() => hanldeChoose(cinema)} style={{ backgroundColor: cinema.name === checkColorCinema ? 'red' : '' }}>
+                                    {cinema.name}
+                                </p>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </div>
             {isShowMovie && <ListMovie />}
         </div>

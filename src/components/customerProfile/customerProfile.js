@@ -76,7 +76,6 @@ const Profile = () => {
                             <img src={userDetails?.image || 'default-avatar.png'} alt="Profile" />
                         </div>
                     </div>
-                    "kdjhákd"
                     <div className="profile-bot">
                         <div className="Info">Customer's information</div>
                         <div className="inforCus">

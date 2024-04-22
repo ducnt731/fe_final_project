@@ -69,7 +69,7 @@ const ListIncoming = ({ items }) => {
                                 <span>Genres: {movie.category?.name}</span>
                             </div>
                             <div className='btn-container'>
-                                <button className='button'>Book now</button>
+                                <button className='buttonBooking'>Book now</button>
                                 <Button
                                     className='buttonInfor'
                                     onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
