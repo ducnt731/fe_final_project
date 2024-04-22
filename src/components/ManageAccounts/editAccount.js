@@ -1,6 +1,6 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import { addNewAccount, fetchAllFaculty } from '../../service/userService';
+import { addNewAccount, fetchAllCinema, fetchAllFaculty } from '../../service/userService';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 import { formatDate } from '../../service/formatDate';
@@ -9,22 +9,26 @@ const EditAccount = (props) => {
     const { show, handleClose, handleAccountEdit, dataEditAccount } = props
     const [showImage, setShowImage] = useState()
     const [userData, setUserData] = useState(dataEditAccount)
+    const [listCinema, setListCinema] = useState([])
 
-
+    // console.log(dataEditAccount)
     useEffect(() => {
-        setUserData(dataEditAccount);
+        setUserData({
+            ...dataEditAccount,
+            cinema: dataEditAccount.cinema ? dataEditAccount.cinema._id : ''
+        });
         setShowImage(dataEditAccount.image || '');
     }, [dataEditAccount]);
 
-    // const getAllFaculty = async () => {
-    //     let res = await fetchAllFaculty()
-    //     if (res) {
-    //         setListFaculty(res.data)
-    //     }
-    // }
-    // useEffect(() => {
-    //     getAllFaculty()
-    // }, [])
+    const getAllCinemas = async () => {
+        let res = await fetchAllCinema()
+        if (res) {
+            setListCinema(res.data)
+        }
+    }
+    useEffect(() => {
+        getAllCinemas()
+    }, [])
 
     useEffect(() => {
         if (dataEditAccount) {
@@ -90,8 +94,19 @@ const EditAccount = (props) => {
                         <option>Choose Role</option>
                         <option value={"customer"}>Customer</option>
                         <option value={"admin"}>Admin</option>
+                        <option value={"admin cinema"}>Admin Cinema</option>
                         <option value={"staff"}>Staff</option>
                     </select>
+                    {userData.role === "admin cinema" && (
+                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} >
+                            <option >Choose Cinema</option>
+                            {listCinema && listCinema.map((cinmea) => {
+                                return (
+                                    <option key={cinmea._id} value={cinmea._id}>{cinmea.name}</option>
+                                )
+                            })}
+                        </select>
+                    )}
                     <div className="mb-3">
                         <h1 className="form-label">Image</h1>
                         <label htmlFor="formFile" style={{ width: "100px", height: "100px", borderRadius: "10px", overflow: "hidden", objectFit: 'cover', objectPosition: "center" }} className='d-flex align-items-center justify-content-center border'>

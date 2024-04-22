@@ -16,6 +16,12 @@ import AdminShowTime from './page/admin/adminShowTime';
 import AdminSchedule from './page/admin/adminSchedule';
 import AdminCinema from './page/admin/adminCinema';
 import TheaterCustomer from './page/customer/theaterCustomer';
+import GoogleAuthCallback from './page/googleAuthCallBack';
+import ResetPassWord from './components/resetPassWord/resetPass';
+import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
+
+
+
 
 
 
@@ -26,7 +32,9 @@ root.render(
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginForm />} />
+          <Route path="/google/redirect" element={<GoogleAuthCallback />} />
           <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassWord />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
@@ -37,6 +45,7 @@ root.render(
           <Route path="/admin/schedule" element={<AdminSchedule />} />
           <Route path="/admin/cinema" element={<AdminCinema />} />
           <Route path="/theater" element={<TheaterCustomer />} />
+          <Route path="/admin-cinema" element={<AdminCinemaHome />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

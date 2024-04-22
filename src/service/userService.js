@@ -14,6 +14,10 @@ const loginApi = (email, password) => {
     return axios.post("/login", { email, password });
 };
 
+const loginWithGoogle = () => {
+    return axios.get("/auth/google");
+}
+
 const registerApi = (data) => {
     return axios.post("/register", data);
 };
@@ -22,8 +26,8 @@ const forgotPasswordApi = (data) => {
     return axios.post("/forgot-password", data)
 }
 
-const resetPassword = () => {
-
+const resetPassword = (token, newPassword) => {
+    return axios.post("/reset-password", { token, newPassword })
 }
 
 // const fetchAllUser = () => {
@@ -35,6 +39,9 @@ const fetchAllUser = (currentPage, accountsPerPage) => {
         params: { page: currentPage, limit: accountsPerPage },
         ...getAuthHeaders()
     });
+};
+const fetchAllAdminCinema = () => {
+    return axios.get("/all-admin-cinema", getAuthHeaders());
 };
 
 const addNewAccount = (userData) => {
@@ -114,7 +121,10 @@ const fetchAllShowTimeDaily = () => {
 }
 
 const fetchAllCinema = (currentPage, accountsPerPage) => {
-    return axios.get("/all-cinema", getAuthHeaders())
+    return axios.get("/all-cinema", {
+        params: { page: currentPage, limit: accountsPerPage },
+        ...getAuthHeaders()
+    });
 }
 
 const addCinema = (data) => {
@@ -195,5 +205,8 @@ export {
     editProfile,
     changePassword,
     getProvinceCinema,
-    fetchDataCinemaByProvince
+    fetchDataCinemaByProvince,
+    loginWithGoogle,
+    resetPassword,
+    fetchAllAdminCinema
 }

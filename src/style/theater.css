@@ -68,7 +68,7 @@
             text-align: center;
             /* Canh giữa nội dung trong các ô */
         }
-        
+
         p:hover {
             cursor: pointer;
         }
@@ -85,7 +85,7 @@
     font-size: 80px;
 }
 
-.theater-name{
+.theater-name {
     text-align: center;
     font-family: 'Oswald', sans-serif;
     font-size: 30px;
@@ -103,4 +103,26 @@
         flex-direction: column;
 
     }
+}
+
+.carousel-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Semi-transparent background */
+    color: white;
+}
+
+.carousel-info .address-contact {
+    flex-grow: 1;
+}
+
+.carousel-info .directions-button {
+    flex-shrink: 0;
 }
