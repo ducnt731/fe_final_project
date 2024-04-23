@@ -5,7 +5,7 @@ import { Button, Modal } from "react-bootstrap";
 
 const ListMovie = ({ cinema }) => {
     const handleDirectionsClick = () => {
-        window.open(`/mapbox.html`, '_blank');
+        window.location.href = '/mapbox.html';
     };
 
     const images = [
@@ -36,27 +36,28 @@ const ListMovie = ({ cinema }) => {
                                             <div>Hotline: +84 4 6 275 5240</div>
                                             <div>Phone Number: 1900 6017</div>
                                         </div>
-                                        <button
-                                            className="directions-button"
-                                            style={{
-                                                backgroundColor: '#007bff',
-                                                color: '#fff',
-                                                fontSize: '16px',
-                                                padding: '10px 20px',
-                                                border: 'none',
-                                                borderRadius: '5px',
-                                                cursor: 'pointer',
-                                                marginTop: '10px'
-                                            }}
-                                            onClick={handleDirectionsClick}
-                                        >
-                                            Get Directions
-                                        </button>
+
                                     </div>
                                 </Carousel.Item>
                             ))}
                         </Carousel>
                     </div>
+                    <button
+                        className="directions-button"
+                        style={{
+                            backgroundColor: '#007bff',
+                            color: '#fff',
+                            fontSize: '16px',
+                            padding: '10px 20px',
+                            border: 'none',
+                            borderRadius: '5px',
+                            cursor: 'pointer',
+                            marginTop: '10px'
+                        }}
+                        onClick={handleDirectionsClick}
+                    >
+                        Get Directions
+                    </button>
                 </>
             )}
         </div>
