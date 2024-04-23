@@ -3,9 +3,9 @@ import LayoutCustomer from "../../layout/customer/layoutCustomer";
 import Home from "../../components/customerHome/home";
 
 const CustomerHome = () => {
-    return(
+    return (
         <LayoutCustomer>
-            <Home/>
+            <Home />
         </LayoutCustomer>
     )
 }

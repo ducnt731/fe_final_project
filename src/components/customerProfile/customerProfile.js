@@ -14,7 +14,6 @@ const Profile = () => {
     const [dataEdit, setDataEdit] = useState({})
     const [userDetails, setUserDetails] = useState(null);
 
-
     useEffect(() => {
         const loadUserDetails = async () => {
             try {
@@ -31,6 +30,7 @@ const Profile = () => {
         loadUserDetails(); // Gọi hàm để load thông tin người dùng
     }, [isProfileUpdated]);
 
+    const isGoogleAccount = !!userDetails?.googleId;
     const handleClose = () => {
         setIsShowModalEditProfile(false)
         setIsShowModalChangePass(false)
@@ -98,10 +98,12 @@ const Profile = () => {
                                     className="buttonEdit"
                                     onClick={() => handleEdit(userDetails)}
                                 >Edit profile <FiEdit3 /></button>
-                                <button
-                                    className="buttonChange"
-                                    onClick={() => setIsShowModalChangePass(true)}
-                                >Change password <FiEdit3 /></button>
+                                {!isGoogleAccount && (
+                                    <button
+                                        className="buttonChange"
+                                        onClick={() => setIsShowModalChangePass(true)}
+                                    >Change password <FiEdit3 /></button>
+                                )}
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,13 @@
 import React from "react";
 
-const HeaderAdminCinema = ({OpenSidebar}) => {
-    return(
+const HeaderAdminCinema = ({ OpenSidebar }) => {
+    return (
         <header className='header'>
             <div className='menu-icon'>
                 <i className="fa-solid fa-align-justify icon" onClick={OpenSidebar}></i>
-            </div>Ư
+            </div>
             <div className='header-left'>
-                
+
             </div>
             <div className='header-right'>
                 <i className="fa-solid fa-bell icon"></i>

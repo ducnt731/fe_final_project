@@ -40,8 +40,8 @@ const LoginForm = () => {
                 } else if (data.user.role === "customer") {
                     navigate("/home");
                     toast.success("Login successful!!!");
-                } else if (data.user.role === "marketing coordinator") {
-                    navigate("/coordinator/home");
+                } else if (data.user.role === "admin cinema") {
+                    navigate("/admin-cinema");
                     toast.success("Login successful!!!");
                 } else {
                     toast.error("You must be a role admin/marketing to render this site");
@@ -79,8 +79,9 @@ const LoginForm = () => {
                     if (token) {
                         // Here you would verify the token and get the user's data
                         const payload = jwtDecode(token); // Assuming jwt-decode library is used
-                        console.log("payload", payload)
+                        // console.log("payload", payload)
                         // Store user info and token in localStorage
+                        localStorage.setItem("googleId", payload.googleId);
                         localStorage.setItem("email", payload.email);
                         localStorage.setItem("name", payload.name);
                         localStorage.setItem("role", payload.role);
