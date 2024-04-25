@@ -193,6 +193,10 @@ const fetchAllSeatPrice = () => {
 const fetchAllFood = () => {
     return axios.get("/all-food", getAuthHeaders())
 }
+
+const paymentPaypal = (data) => {
+    return axios.post("/create-payment", data, getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -235,5 +239,6 @@ export {
     addMovieAdminCinema,
     fetchShowTimeByMovie,
     fetchAllSeatPrice,
-    fetchAllFood
+    fetchAllFood,
+    paymentPaypal
 }

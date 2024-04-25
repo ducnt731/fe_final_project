@@ -26,6 +26,8 @@ import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
 import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCinemaManageMovie';
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
+import SucessPage from './page/customer/sucessPage';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -54,6 +56,7 @@ root.render(
           <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
           <Route path="/admin-cinema" element={<AdminCinemaHome />} />
           <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
+          <Route path="/success" element={<SucessPage />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>
