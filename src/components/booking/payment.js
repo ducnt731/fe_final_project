@@ -29,7 +29,7 @@ const Payment = () => {
                         </div>
                         <div className="price2">
                             <div>Combo name</div>
-                            <div>90 000</div>
+                            <div>90 000 VND</div>
                         </div>
                     </div>
                     <div className="buttonStep-container">
@@ -37,7 +37,7 @@ const Payment = () => {
                             <div>Total</div>
                             <div>145.000 VND</div>
                         </div>
-                        <button className="buttonNext" onClick={() => navigate("/booking/bookingsit/bookingfood/payment")}>Next step</button>
+                        <button className="buttonNext" onClick={() => navigate("/booking/bookingsit/bookingfood/payment")}>Confirm</button>
                         <button
                             className="buttonBack"
                             onClick={() => navigate("/booking/bookingsit/bookingfood")}

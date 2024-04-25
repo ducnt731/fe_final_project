@@ -65,8 +65,8 @@ const ListIncoming = ({ items }) => {
                                 <div >
                                     <img src={movie.poster} className='movie-img' alt={movie.name} />
                                 </div>
-                                <span>Movie name: {movie.name}</span>
-                                <span>Genres: {movie.category?.name}</span>
+                                <div className='movieName'>Movie name: {movie.name}</div>
+                                <div>Genres: {movie.category?.name}</div>
                             </div>
                             <div className='btn-container'>
                                 <button className='buttonBooking'>Book now</button>

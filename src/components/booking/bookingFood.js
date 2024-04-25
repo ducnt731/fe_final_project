@@ -203,7 +203,7 @@ const BookingFood = () => {
                         </div>
                         {isShowPrice && <div className="price2">
                             <div>Combo name</div>
-                            <div>90 000</div>
+                            <div>90 000 VND</div>
                         </div>}
                     </div>
                     <div className="buttonStep-container">

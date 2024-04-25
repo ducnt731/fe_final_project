@@ -13,7 +13,7 @@ const GoogleAuthCallback = () => {
             localStorage.setItem('accessToken', accessToken);
             navigate('/home'); // Or wherever you want to redirect after login
         } else {
-            navigate('/login'); // Redirect to login on failure or absence of token
+            navigate('/'); // Redirect to login on failure or absence of token
         }
     }, [navigate]);
 
