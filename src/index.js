@@ -25,6 +25,8 @@ import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
 import HistoryPurchaseCustomer from './page/customer/historyPurchaseCustomer';
 import SuccessPayment from './page/customer/successPayment';
+import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCinemaManageMovie';
+import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -41,18 +43,25 @@ root.render(
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
           <Route path="/admin/manage_movie" element={<AdminMovie />} />
           <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
+
           <Route path="/home" element={<CustomerHome />} />
           <Route path="/profile" element={<ProfileCustomer />} />
           <Route path="/admin/schedule" element={<AdminSchedule />} />
           <Route path="/admin/cinema" element={<AdminCinema />} />
           <Route path="/theater" element={<TheaterCustomer />} />
           <Route path="/booking" element={<BookingCustomer />} />
-          <Route path="/booking/bookingsit" element={<BookingSitCustomer />} />
+          {/* <Route path="/booking/bookingsit" element={<BookingSitCustomer />} /> */}
+          {/* <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} /> */}
+          {/* <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} /> */}
+          {/* <Route path="/admin-cinema" element={<AdminCinemaHome />} /> */}
+          <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
+          <Route path="/successpayment" element={<SuccessPayment/>} />
+          <Route path="/booking/:movieId" element={<BookingCustomer />} />
+          <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
           <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
           <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
           <Route path="/admin-cinema" element={<AdminCinemaHome />} />
-          <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
-          <Route path="/successpayment" element={<SuccessPayment/>} />
+          <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
         </Routes>
       </BrowserRouter>
     </React.StrictMode>

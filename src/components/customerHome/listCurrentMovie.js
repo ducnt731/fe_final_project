@@ -4,7 +4,7 @@ import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
 import { getMovieNowShowing } from '../../service/userService';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const ListCurrentMovies = ({ items }) => {
   const [startIndex, setStartIndex] = useState(0);
@@ -58,6 +58,9 @@ const ListCurrentMovies = ({ items }) => {
     return [...array.slice(steps), ...array.slice(0, steps)];
   };
 
+  const handleBookNow = (movie) => {
+    navigate(`/booking/${movie._id}`);
+  };
   return (
     <>
       <div className="list-box">
@@ -78,7 +81,7 @@ const ListCurrentMovies = ({ items }) => {
                 </div>
                 <div className='btn-container'>
                   <button className='buttonBooking'
-                    onClick={() => navigate("/booking")}
+                    onClick={() => handleBookNow(movie)}
                   >Book now</button>
                   <Button
                     className='buttonInfor'

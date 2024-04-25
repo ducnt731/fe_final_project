@@ -13,28 +13,18 @@ const SideBarAdminCinema = ({ openSidebarToggle, OpenSidebar }) => {
             </div>
             <ul className='sidebar-list'>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="/admin">
+                    <a className="item" href="/admin-cinema">
                         <i className="fa-solid fa-chart-simple icon"></i> Dashboard
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="/admin/manage_movie">
+                    <a className="item" href="/admin-cinema/manage-movie">
                         <i className="fa-solid fa-table-cells-large icon"></i> Manage Movie
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="/admin/manage_accounts">
-                        <i className="fa-solid fa-users icon"></i> Manage Accounts
-                    </a>
-                </li>
-                <li className='sidebar-list-item'>
-                    <a className="item" href="/admin/manage_time_show">
+                    <a className="item" href="/admin-cinema/manage_time_show">
                         <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
-                    </a>
-                </li>
-                <li className='sidebar-list-item'>
-                    <a className="item" href="/admin/cinema">
-                        <i className="fa-solid fa-location-dot icon"></i> Theaters
                     </a>
                 </li>
                 <li className='sidebar-list-item'>

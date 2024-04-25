@@ -120,6 +120,10 @@ const fetchAllShowTimeDaily = () => {
     return axios.get(`/showtime/all-dates`, getAuthHeaders())
 }
 
+const fetchShowTimeByMovie = (movieId) => {
+    return axios.get(`/showtime-by-movie/${movieId}`, getAuthHeaders())
+}
+
 const fetchAllCinema = (currentPage, accountsPerPage) => {
     return axios.get("/all-cinema", {
         params: { page: currentPage, limit: accountsPerPage },
@@ -171,6 +175,24 @@ const getAllCommune = (district) => {
     return axios.get(`https://province-api-dccinema.onrender.com/wards/${district}`, getAuthHeaders())
 }
 
+const fetchAllMovieAdminCinema = (currentPage, accountsPerPage) => {
+    return axios.get("/all-movie-admin-cinema", {
+        params: { page: currentPage, limit: accountsPerPage },
+        ...getAuthHeaders()
+    });
+}
+const addMovieAdminCinema = (adminId, movieId) => {
+    const data = { adminId, movieId };
+    return axios.post("/add-movie-to-cinema", data, getAuthHeaders());
+};
+
+const fetchAllSeatPrice = () => {
+    return axios.get("/all-seat-price", getAuthHeaders())
+}
+
+const fetchAllFood = () => {
+    return axios.get("/all-food", getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -208,5 +230,10 @@ export {
     fetchDataCinemaByProvince,
     loginWithGoogle,
     resetPassword,
-    fetchAllAdminCinema
+    fetchAllAdminCinema,
+    fetchAllMovieAdminCinema,
+    addMovieAdminCinema,
+    fetchShowTimeByMovie,
+    fetchAllSeatPrice,
+    fetchAllFood
 }

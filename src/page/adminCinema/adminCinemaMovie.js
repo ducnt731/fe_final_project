@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom"
 import { toast } from "react-toastify";
 import LayoutAdminCinema from "../../layout/adminCinema/layoutAdminCinema";
-import AdminCinema from "../../components/adminCinemaHome/adminCinemaHome";
+import AdminCinemaManageMovie from "../../components/adminCinemaManageMovie/adminCinemaManageMovie";
 
 const AdminCinemaHome = () => {
     const navigate = useNavigate()
@@ -14,7 +14,7 @@ const AdminCinemaHome = () => {
     }, [])
     return (
         <LayoutAdminCinema>
-            <AdminCinema />
+            <AdminCinemaManageMovie />
         </LayoutAdminCinema>
     )
 }
