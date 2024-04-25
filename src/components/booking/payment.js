@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import '../../style/booking.css'
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
+import { paymentPaypal } from "../../service/userService";
+import axios from 'axios';
 
 const Payment = () => {
     const [isShowPayment, setIsShowPayment] = useState(false)
@@ -20,11 +22,36 @@ const Payment = () => {
     const food = locationState ? locationState.food : [];
     const foodValues = locationState ? locationState.foodValues : [];
 
+
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
     const totalFoodPrice = food.reduce((total, item, index) => {
         return total + item.price * foodValues[index];
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
+
+    const handlePayment = async () => {
+        const paymentData = {
+            name: name,
+            cinema: cinema,
+            room: room,
+            selectedDate: selectedDate,
+            selectedTime: selectedTime,
+            selectedMovie: selectedMovie,
+            selectedSeats: selectedSeats,
+            total: total
+        };
+        console.log(paymentData)
+        // Store in localStorage
+        localStorage.setItem('paymentData', JSON.stringify(paymentData));
+
+        try {
+            const response = await axios.post('http://localhost:3000/create-payment', paymentData);
+            const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
+            window.location.href = approvalUrl; // Redirect to PayPal approval URL
+        } catch (error) {
+            console.error('Error creating payment:', error);
+        }
+    };
 
     return (
         <div className="booking-container">
@@ -58,7 +85,8 @@ const Payment = () => {
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{total} VND</div>
                         </div>
-                        <button className="buttonNext" onClick={() => navigate("/booking/bookingsit/bookingfood/payment")}>Confirm</button>
+                        <button className="buttonNext" onClick={handlePayment}>Pay</button>
+
                         <button
                             className="buttonBack"
                             onClick={() => navigate("/booking/bookingsit/bookingfood")}
