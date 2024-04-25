@@ -24,7 +24,6 @@ import GoogleAuthCallback from './page/googleAuthCallBack';
 import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
 import HistoryPurchaseCustomer from './page/customer/historyPurchaseCustomer';
-import SuccessPayment from './page/customer/successPayment';
 import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCinemaManageMovie';
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 
@@ -43,7 +42,6 @@ root.render(
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
           <Route path="/admin/manage_movie" element={<AdminMovie />} />
           <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
-
           <Route path="/home" element={<CustomerHome />} />
           <Route path="/profile" element={<ProfileCustomer />} />
           <Route path="/admin/schedule" element={<AdminSchedule />} />
@@ -55,7 +53,6 @@ root.render(
           {/* <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} /> */}
           {/* <Route path="/admin-cinema" element={<AdminCinemaHome />} /> */}
           <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
-          <Route path="/successpayment" element={<SuccessPayment/>} />
           <Route path="/booking/:movieId" element={<BookingCustomer />} />
           <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
           <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
