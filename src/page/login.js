@@ -144,14 +144,12 @@ const LoginForm = () => {
                         </label>
                         <a href="/forgot-password">Forgot password</a>
                     </div>
-                    <button type="submit" disabled={email && password ? false : true}>
+                    <button className="buttonLogin" type="submit" disabled={email && password ? false : true}>
                         Login {loadingAPI && <Spinner animation="border" variant="info" size="sm" />}
                     </button>
                     <button className="btn-google" type="submit" onClick={loginWithGoogle}>
                         Login with Google <FcGoogle />
                     </button>
-
-
                     <div className="register-link">
                         <p>Don't have an account? <a href="/register">Register</a></p>
                     </div>

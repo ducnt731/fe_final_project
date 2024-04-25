@@ -1,0 +1,97 @@
+.history-container {
+    background: url("https://th.bing.com/th/id/R.924545a2721303f55fa004d579aaf756?rik=JfZPLmfCC2PUvA&riu=http%3a%2f%2fwww.pixelstalk.net%2fwp-content%2fuploads%2f2016%2f04%2fStars-wallpaper-HD-desktop.jpg&ehk=pH%2bxp14MOATribNawKZJ7V8dG9qPaiJQn1%2bHnDhrrSg%3d&risl=&pid=ImgRaw&r=0");
+    color: #fff;
+    background-size: cover;
+    margin-top: 55px;
+    display: flex;
+    justify-content: center;
+}
+
+.history-tabs {
+    border: 1px white solid;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    width: 100%;
+    background-color: #333333;
+    border-radius: 8px;
+}
+
+.history-title{
+    border: 1px white solid;
+    border-radius: 8px;
+    padding: 10px;
+    width: 20%;
+    text-align: center;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    font-family: 'Oswald', sans-serif;
+    font-size: 30px;
+}
+
+.ticket-wrap{
+    width: 40%;
+    border: 1px white solid;
+    border-radius: 20px;
+    display: flex;
+    background-color: #fff;
+    color: black;
+    margin: 20px 0 30px 30px;
+}
+
+.ticketLeft{
+    width: 60%;
+}
+
+.cinemaName{
+    height: 50px;
+    background-color: red;
+    border-top-left-radius: 20px;
+    padding-left: 40px;
+    font-size: 20px;
+    font-family: 'Oswald', sans-serif;
+    display: flex;
+    align-items: center;
+    
+}
+
+.titleMovie{
+    margin: 10px 0 5px 10px;
+    text-transform: uppercase;
+}
+
+.directorName{
+    margin: 10px 0 5px 10px;
+    text-transform: uppercase;
+}
+
+.bottomTicket{
+    display: flex;
+    /* justify-content: space-evenly; */
+    text-transform: uppercase;
+    margin: 10px 0 5px 0;
+    border-top: 1px black solid;
+}
+
+.seat{
+    width: 50%;
+    border-right: 1px black solid;
+    text-align: center;
+}
+
+.time{
+    width: 50%;
+    text-align: center;
+}
+
+.ticketRight{
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+}
+
+.price{
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 10px 0 10px;
+    border-bottom: 1px black solid;
+}

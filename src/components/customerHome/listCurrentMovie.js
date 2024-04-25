@@ -75,8 +75,8 @@ const ListCurrentMovies = ({ items }) => {
                   </div>
 
                   <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
-                    <span>Movie name: {movie.name}</span>
-                    <span>Genres: {movie.category?.name}</span>
+                    <div className='movieName'>Movie name: {movie.name}</div>
+                    <div>Genres: {movie.category?.name}</div>
                   </div>
                 </div>
                 <div className='btn-container'>

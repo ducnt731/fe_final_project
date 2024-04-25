@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { RecoilRoot } from 'recoil';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,6 +23,7 @@ import PaymentCustomer from './page/customer/paymentCustomer';
 import GoogleAuthCallback from './page/googleAuthCallBack';
 import ResetPassWord from './components/resetPassWord/resetPass';
 import AdminCinemaHome from './page/adminCinema/adminCinemaHome';
+import HistoryPurchaseCustomer from './page/customer/historyPurchaseCustomer';
 import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCinemaManageMovie';
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 import SucessPage from './page/customer/sucessPage';
@@ -31,7 +31,7 @@ import SucessPage from './page/customer/sucessPage';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <RecoilRoot>
+  <>
     <React.StrictMode>
       <BrowserRouter>
         <Routes>
@@ -44,12 +44,17 @@ root.render(
           <Route path="admin/manage_accounts" element={<ManageAccount />} />
           <Route path="/admin/manage_movie" element={<AdminMovie />} />
           <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
-
           <Route path="/home" element={<CustomerHome />} />
           <Route path="/profile" element={<ProfileCustomer />} />
           <Route path="/admin/schedule" element={<AdminSchedule />} />
           <Route path="/admin/cinema" element={<AdminCinema />} />
           <Route path="/theater" element={<TheaterCustomer />} />
+          <Route path="/booking" element={<BookingCustomer />} />
+          {/* <Route path="/booking/bookingsit" element={<BookingSitCustomer />} /> */}
+          {/* <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} /> */}
+          {/* <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} /> */}
+          {/* <Route path="/admin-cinema" element={<AdminCinemaHome />} /> */}
+          <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
           <Route path="/booking/:movieId" element={<BookingCustomer />} />
           <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
           <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
@@ -72,5 +77,5 @@ root.render(
       pauseOnHover
       theme="light"
     />
-  </RecoilRoot>
+  </>
 );

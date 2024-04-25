@@ -41,7 +41,7 @@ const Header = () => {
                                     <Nav.Link href="/home" className="menu-item"><BiHomeAlt /> Home</Nav.Link>
                                     <Nav.Link href="/profile" className="menu-item"><ImProfile /> Profile</Nav.Link>
                                     <Nav.Link href="/theater" className="menu-item"><FaLocationDot /> Theater</Nav.Link>
-                                    <Nav.Link href="#action2" className="menu-item"><FaHistory /> History purchase</Nav.Link>
+                                    <Nav.Link href="/historypurchase" className="menu-item"><FaHistory /> History purchase</Nav.Link>
                                     <Nav.Link href="#action2" className="menu-item"><FaNewspaper /> Breaking news</Nav.Link>
                                     <Nav.Link
                                         className="menu-item"

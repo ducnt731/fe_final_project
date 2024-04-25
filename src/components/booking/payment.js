@@ -86,6 +86,7 @@ const Payment = () => {
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{total} VND</div>
                         </div>
                         <button className="buttonNext" onClick={handlePayment}>Pay</button>
+
                         <button
                             className="buttonBack"
                             onClick={() => navigate("/booking/bookingsit/bookingfood")}
