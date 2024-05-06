@@ -1,46 +1,65 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { saveBooking } from "../../service/userService";
 
 const TicketPayment = () => {
     const location = useLocation();
+    console.log("Location:", location);
     const queryParams = new URLSearchParams(location.search);
     const paymentId = queryParams.get('paymentId');
     const token = queryParams.get('token');
     const PayerID = queryParams.get('PayerID');
-    // Retrieve from localStorage
-    const paymentData = JSON.parse(localStorage.getItem('paymentData'));
+    // // Retrieve from localStorage
     const navigate = useNavigate();
-    console.log(paymentData)
+    const paymentData = JSON.parse(localStorage.getItem('paymentData'));
+    console.log("Payment data on ticket page:", paymentData);
 
-    // // Retrieve payment data from localStorage
-    // useEffect(() => {
-    //     const storedData = localStorage.getItem('paymentData');
-    //     if (storedData) {
-    //         setPaymentData(JSON.parse(storedData));
-    //     } else {
-    //         // Handle the case where no payment data is found
-    //         console.error('No payment data available');
-    //     }
-    // }, []);
+    console.log("Payment data on ticket page:", paymentData.selectedTime);
 
-    // Optionally save payment info to your backend
-    useEffect(() => {
-        if (paymentId && PayerID) {
-            // Uncomment and modify this to match your actual endpoint and required body data
-            // savePaymentInfo(paymentId, PayerID);
+    const saveBookingInfo = async () => {
+        const userId = localStorage.getItem('user_id');
+        console.log('userId:', userId); // Check if userId is retrieved correctly
+        if (!paymentData) {
+            console.error('No payment data available');
+            return;
         }
-    }, [paymentId, PayerID]);
+        try {
+            const data = {
+                user: userId,
+                showtime: paymentData.showtimeId,
+                date: paymentData.selectedDate,
+                totalPrice: paymentData.total,
+                seats: paymentData.selectedSeats.join(','),
+                time: paymentData.selectedTime,
+                status: 'Paid',
+            };
+            console.log('Data being sent to saveBooking:', data); // Verify the data is correct
+            await saveBooking(data);
+            localStorage.setItem('bookingSaved', 'true');  // Mark as saved
+            console.log('Booking information saved successfully');
+        } catch (error) {
+            console.error("Error saving booking info:", error);
+        }
+    };
 
-    // const savePaymentInfo = async (paymentId, PayerID) => {
-    //     try {
-    //         const response = await axios.post('YOUR_BACKEND_ENDPOINT', { paymentId, PayerID });
-    //         console.log('Payment information saved:', response.data);
-    //     } catch (error) {
-    //         console.error('Error saving payment information:', error);
-    //     }
-    // };
+    useEffect(() => {
+        if (!paymentData) {
+            console.error('No payment data available');
+            return;
+        }
+        console.log('Payment data:', paymentData);
+        const alreadySaved = localStorage.getItem('bookingSaved') === 'true';
+        console.log('Booking already saved:', alreadySaved);
+        if (!alreadySaved) {
+            saveBookingInfo();
+        }
+
+    }, [paymentData]);
+
+
     const handleGoHome = () => {
+        localStorage.removeItem('bookingSaved');
         navigate("/home");
     };
     return (

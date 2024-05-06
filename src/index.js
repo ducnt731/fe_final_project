@@ -30,41 +30,36 @@ import SucessPage from './page/customer/sucessPage';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <>
-    <React.StrictMode>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<LoginForm />} />
-          <Route path="/google/redirect" element={<GoogleAuthCallback />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
-          <Route path="/reset-password" element={<ResetPassWord />} />
-          <Route path="/register" element={<RegisterForm />} />
-          <Route path="/admin" element={<Admin />} />
-          <Route path="admin/manage_accounts" element={<ManageAccount />} />
-          <Route path="/admin/manage_movie" element={<AdminMovie />} />
-          <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
-          <Route path="/home" element={<CustomerHome />} />
-          <Route path="/profile" element={<ProfileCustomer />} />
-          <Route path="/admin/schedule" element={<AdminSchedule />} />
-          <Route path="/admin/cinema" element={<AdminCinema />} />
-          <Route path="/theater" element={<TheaterCustomer />} />
-          <Route path="/booking" element={<BookingCustomer />} />
-          {/* <Route path="/booking/bookingsit" element={<BookingSitCustomer />} /> */}
-          {/* <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} /> */}
-          {/* <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} /> */}
-          {/* <Route path="/admin-cinema" element={<AdminCinemaHome />} /> */}
-          <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
-          <Route path="/booking/:movieId" element={<BookingCustomer />} />
-          <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
-          <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
-          <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
-          <Route path="/admin-cinema" element={<AdminCinemaHome />} />
-          <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
-          <Route path="/success" element={<SucessPage />} />
-        </Routes>
-      </BrowserRouter>
-    </React.StrictMode>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginForm />} />
+        <Route path="/google/redirect" element={<GoogleAuthCallback />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/reset-password" element={<ResetPassWord />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/admin" element={<Admin />} />
+        <Route path="admin/manage_accounts" element={<ManageAccount />} />
+        <Route path="/admin/manage_movie" element={<AdminMovie />} />
+        <Route path="/admin/manage_time_show" element={<AdminShowTime />} />
+        <Route path="/home" element={<CustomerHome />} />
+        <Route path="/profile" element={<ProfileCustomer />} />
+        <Route path="/admin/schedule" element={<AdminSchedule />} />
+        <Route path="/admin/cinema" element={<AdminCinema />} />
+        <Route path="/theater" element={<TheaterCustomer />} />
+        <Route path="/booking" element={<BookingCustomer />} />
+        <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
+        <Route path="/booking/:movieId" element={<BookingCustomer />} />
+        <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
+        <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
+        <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
+        <Route path="/admin-cinema" element={<AdminCinemaHome />} />
+        <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
+        <Route path="/success" element={<SucessPage />} />
+      </Routes>
+    </BrowserRouter>
     <ToastContainer
       position="top-left"
       autoClose={5000}
