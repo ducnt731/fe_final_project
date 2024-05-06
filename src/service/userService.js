@@ -181,10 +181,16 @@ const fetchAllMovieAdminCinema = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
-const addMovieAdminCinema = (adminId, movieId) => {
-    const data = { adminId, movieId };
-    return axios.post("/add-movie-to-cinema", data, getAuthHeaders());
+const addMovieAdminCinema = (movieId) => {
+    return axios.post("/add-movie-to-cinema", { movieId: movieId }, getAuthHeaders());
 };
+
+const updateMovieAdminCinema = (movieId) => {
+    return axios.put("/update-movie-from-cinema", movieId, getAuthHeaders());
+}
+const deleteMovieAdminCinema = (_id) => {
+    return axios.delete(`/delete-movie-from-cinema/${_id}`, getAuthHeaders());
+}
 
 const fetchAllSeatPrice = () => {
     return axios.get("/all-seat-price", getAuthHeaders())
@@ -196,6 +202,19 @@ const fetchAllFood = () => {
 
 const paymentPaypal = (data) => {
     return axios.post("/create-payment", data, getAuthHeaders())
+}
+
+const saveBooking = (data) => {
+    return axios.post("/save-booking", data, getAuthHeaders())
+}
+
+const historyPurchase = (userId) => {
+    return axios.get(`/history-purchase/${userId}`, getAuthHeaders())
+}
+
+const fetchAllSeatStatus = (showtimeId, selectedTime, selectedDate) => {
+    return axios.get(`/seats/status?showtimeId=${showtimeId}&selectedTime=${encodeURIComponent(selectedTime)}&selectedDate=${encodeURIComponent(selectedDate)}`, getAuthHeaders())
+
 }
 export {
     fetchAllUser,
@@ -240,5 +259,10 @@ export {
     fetchShowTimeByMovie,
     fetchAllSeatPrice,
     fetchAllFood,
-    paymentPaypal
+    paymentPaypal,
+    saveBooking,
+    historyPurchase,
+    fetchAllSeatStatus,
+    updateMovieAdminCinema,
+    deleteMovieAdminCinema
 }

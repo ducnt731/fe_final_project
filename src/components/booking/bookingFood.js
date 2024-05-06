@@ -13,15 +13,9 @@ const BookingFood = () => {
     const [comboValues, setComboValues] = useState([]);
     const navigate = useNavigate()
     const location = useLocation();
-    // const { selectedSeats } = location.state || {}; // Lấy dữ liệu ghế đã chọn từ state
 
-    // useEffect(() => {
-    //     if (selectedSeats) {
-    //         console.log('Seat:', selectedSeats);
-    //         // Xử lý dữ liệu ghế đã chọn
-    //     }
-    // }, [selectedSeats]);
     const locationState = useLocation().state;
+    console.log("object", locationState)
     const name = locationState ? locationState.name : '';
     const cinema = locationState ? locationState.cinema : '';
     const room = locationState ? locationState.room : '';
@@ -32,10 +26,12 @@ const BookingFood = () => {
     const totalNormalPrice = locationState ? locationState.totalNormalPrice : 0;
     const totalVipPrice = locationState ? locationState.totalVipPrice : 0;
     const movieId = locationState ? locationState.movieId : '';
+    const showtimeId = locationState ? locationState.showtimeId : '';
+    const seats = locationState ? locationState.selectedSeats : [];
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
 
-    console.log("mvvvvID", movieId)
+    console.log("Seats", seats)
     // Khởi tạo state để lưu trữ giá trị trong box
     const [value, setValue] = useState(0);
 
@@ -103,6 +99,7 @@ const BookingFood = () => {
                 totalVipPrice,
                 food: food.filter((combo, index) => comboValues[index] > 0),
                 foodValues: comboValues,
+                showtimeId,
             },
 
         });

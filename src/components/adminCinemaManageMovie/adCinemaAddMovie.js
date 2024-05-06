@@ -5,7 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { fetchAllMovie } from '../../service/userService';
 
 const AddMovieToCinema = (props) => {
-    const { show, handleClose, handleAddMovie } = props;
+    const { show, handleClose, handleAddNewMovie } = props;
     const [selectedMovie, setSelectedMovie] = useState("");
     const [movieList, setMovieList] = useState([]);
 
@@ -46,7 +46,7 @@ const AddMovieToCinema = (props) => {
                 <Button variant="secondary" onClick={handleClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={handleAddMovie}>
+                <Button variant="primary" onClick={() => handleAddNewMovie(selectedMovie)}>
                     Add
                 </Button>
             </Modal.Footer>

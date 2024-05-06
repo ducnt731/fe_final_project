@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 import { RiArrowUpDownLine } from "react-icons/ri";
 import Form from 'react-bootstrap/Form';
 import { formatDate } from '../../service/formatDate';
-import { addMovie, addMovieAdminCinema, deleteMovie, editMovie, fetchAllAdminCinema, fetchAllMovie, fetchAllMovieAdminCinema } from "../../service/userService";
+import { addMovie, addMovieAdminCinema, deleteMovie, deleteMovieAdminCinema, editMovie, fetchAllAdminCinema, fetchAllMovie, fetchAllMovieAdminCinema, updateMovieAdminCinema } from "../../service/userService";
 
 
 
@@ -42,41 +42,31 @@ const AdminCinemaManageMovie = () => {
         setDataDelete(accountDelete)
     }
     const handleEditFromModal = async (dataEdit) => {
+        console.log(">>>>>>>>>>Dataa", dataEdit)
+        const id = dataEdit._id
+        let newData = dataEdit
+        delete newData.__v
+        delete newData._id
+        newData = { ...newData, id }
         try {
-            // Tạo một FormData từ dữ liệu chỉnh sửa
-            const formData = new FormData();
-            formData.append('id', dataEdit._id);
-            formData.append('name', dataEdit.name);
-            formData.append('director', dataEdit.director);
-            formData.append('performer', dataEdit.performer);
-            formData.append('category', dataEdit.category);
-            formData.append('premiere', dataEdit.premiere);
-            formData.append('time', dataEdit.time);
-            formData.append('language', dataEdit.language);
-            formData.append('trailerUrl', dataEdit.trailerUrl);
-            formData.append('status', dataEdit.status);
-            // if (dataEdit.image) {
-            //     formData.append('image', dataEdit.image);
-            // }
-            if (dataEdit.poster && dataEdit.poster instanceof File) {
-                formData.append('poster', dataEdit.poster);
-            }
-            // Gọi hàm editAccount với FormData đã tạo
-            const response = await editMovie(formData);
-            if (response) {
-                await getAllMovie();
-                setIsShowModalEdit(!isShowModalEdit);
-                toast.success("Edit success!");
+            console.log(",>>>>>>>>>>>>", response)
+            const response = await updateMovieAdminCinema(newData);
+            if (response.data) {
+                await getAllMovieCinema()
+                setIsShowModalEdit(!isShowModalEdit)
+                toast.success("Edit success!")
             }
         } catch (error) {
-            toast.error("Edit error");
+            toast.error("Edit error")
         }
+
     }
-    const handleDeleteFromModal = async (dataEdit) => {
+    const handleDeleteFromModal = async (data) => {
         try {
-            const response = await deleteMovie(dataEdit._id);
+            const response = await deleteMovieAdminCinema(data._id);
+            console.log("111111", response)
             if (response) {
-                await getAllMovie()
+                await getAllMovieCinema()
                 setIsShowModalDelete(!isShowModalDelete)
                 toast.success("Delete successful!!!")
             }
@@ -84,7 +74,7 @@ const AdminCinemaManageMovie = () => {
             toast.error("Delete error")
         }
     }
-    const getAllMovie = async () => {
+    const getAllMovieCinema = async () => {
         try {
             // const response = await fetchAllmovie();
             const response = await fetchAllMovieAdminCinema(currentPage, accountsPerPage);
@@ -100,19 +90,24 @@ const AdminCinemaManageMovie = () => {
         setCurrentPage(pageNumber);
     };
 
-    const handleAddMovie = async () => {
+    const handleAddMovie = async (movieId) => {
         try {
-            // Call addMovieAdminCinema API with adminId and selectedMovie
-            const response = await addMovieAdminCinema(adminId, selectedMovie);
-            console.log(response.data); // Log response data
-            // Handle success or error here
+            const response = await addMovieAdminCinema(movieId);
+            console.log(">>> check", response);
+            if (response.data) {
+                await getAllMovieCinema()
+                setIsShowModalAdd(!isShowModalAdd)
+                toast.success("Create success!")
+            } else {
+                toast.warn("You need to enter all field!!!")
+            }
         } catch (error) {
             console.error("Error adding movie to cinema:", error);
         }
     };
 
     useEffect(() => {
-        getAllMovie();
+        getAllMovieCinema();
     }, [currentPage]);
 
     const renderPages = () => {

@@ -21,33 +21,50 @@ const Payment = () => {
     const totalVipPrice = locationState ? locationState.totalVipPrice : 0;
     const food = locationState ? locationState.food : [];
     const foodValues = locationState ? locationState.foodValues : [];
-
+    const showtimeId = locationState ? locationState.showtimeId : '';
+    const seats = locationState ? locationState.selectedSeats : [];
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
     const totalFoodPrice = food.reduce((total, item, index) => {
         return total + item.price * foodValues[index];
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
+    console.log("object", seats)
 
     const handlePayment = async () => {
         const paymentData = {
             name: name,
             cinema: cinema,
             room: room,
+            showtimeId: showtimeId,
             selectedDate: selectedDate,
             selectedTime: selectedTime,
             selectedMovie: selectedMovie,
             selectedSeats: selectedSeats,
-            total: total
+            total: total,
+            currency: 'VND'
         };
-        console.log(paymentData)
-        // Store in localStorage
+        console.log("Initial payment data:", paymentData);
         localStorage.setItem('paymentData', JSON.stringify(paymentData));
-
+        console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
         try {
+            const rateResponse = await axios.get('https://api.exchangerate-api.com/v4/latest/VND');
+            const rate = rateResponse.data.rates.USD;
+            console.log("rate", rate)
+
+            // Convert VND to USD
+            const totalUSD = (total * rate).toFixed(2); // Ensure conversion is accurate
+            console.log("USD", totalUSD)
+
+            // Update payment data with converted USD total
+            paymentData.total = totalUSD;
+            paymentData.currency = 'USD';
+
             const response = await axios.post('http://localhost:3000/create-payment', paymentData);
             const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
+            console.log("Approval URL:", approvalUrl);
             window.location.href = approvalUrl; // Redirect to PayPal approval URL
+
         } catch (error) {
             console.error('Error creating payment:', error);
         }
@@ -94,7 +111,6 @@ const Payment = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     )
 }

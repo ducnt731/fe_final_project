@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../style/booking.css'
 import { MdChair, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAllSeatPrice } from "../../service/userService";
+import { fetchAllSeatPrice, fetchAllSeatStatus } from "../../service/userService";
 
 
 
@@ -16,6 +16,7 @@ const BookingSit = () => {
     const iconsVip = Array.from({ length: 24 }, (_, index) => index + 1)
     const [selectedSeatNor, setSelectedSeatNor] = useState(Array(icons.length).fill(false));
     const [selectedSeatVip, setSelectedSeatVip] = useState(Array(iconsVip.length).fill(false));
+    const [countdown, setCountdown] = useState();
     const [isShowButton, setIsShowButton] = useState(false)
     const [isShowPrice, setIsShowPrice] = useState(false)
     const [normalSeatPrice, setNormalSeatPrice] = useState(0);
@@ -26,29 +27,39 @@ const BookingSit = () => {
     const navigate = useNavigate();
     const [selectedSeats, setSelectedSeats] = useState([]); // Thêm trạng thái này để lưu trữ các ghế đã chọn
 
-    // const [seatsState, setSeatsState] = useState(() => {
-    //     const rows = 6;
-    //     const seatsPerRow = 12;
-    //     let seats = [];
-    //     let seatStatus = [];
+    const [bookedSeats, setBookedSeats] = useState([]);
+    const locationState = useLocation().state;
+    const name = locationState ? locationState.name : '';
+    const cinema = locationState ? locationState.cinema : '';
+    const room = locationState ? locationState.room : '';
+    const selectedDate = locationState ? locationState.selectedDate : '';
+    const selectedTime = locationState ? locationState.selectedTime : '';
+    const movieId = locationState ? locationState.movieId : '';
+    const showtimeId = locationState ? locationState.showtimeId : '';
 
-    //     // Khởi tạo mảng ghế
-    //     for (let i = 0; i < rows; i++) {
-    //         seats[i] = [];
-    //         seatStatus[i] = [];
-    //         for (let j = 0; j < seatsPerRow; j++) {
-    //             seats[i][j] = `Row ${i + 1}, Seat ${j + 1}`;
-    //             seatStatus[i][j] = false; // false: chưa chọn, true: đã chọn
-    //         }
-    //     }
-    //     return seatStatus;
-    // });
-    // console.log("seat", seatsState)
-    // // Function để đánh dấu ghế đã chọn
-    // function markSeat(row, seat) {
-    //     console.log("row", row, seat)
-    //     seatsState[row][seat] = !seatsState[row][seat]; // Đảo trạng thái của ghế
-    // }
+
+
+    useEffect(() => {
+        const fetchSeatsStatus = async () => {
+            try {
+                const response = await fetchAllSeatStatus(showtimeId, selectedTime, selectedDate);
+                console.log("API Response:", response); // Đảm bảo xem phản hồi từ API
+
+                if (response) {
+                    const seatsArray = response.data.flatMap(seatList => seatList.split(','));
+                    console.log("Processed Seats Array:", seatsArray);
+                    setBookedSeats(seatsArray);
+                } else {
+                    console.log("No seats data available or error in response");
+                    setBookedSeats([]); // Xử lý trường hợp không có dữ liệu ghế hoặc lỗi
+                }
+            } catch (error) {
+                console.error('Error fetching seats status:', error);
+            }
+        };
+
+        fetchSeatsStatus();
+    }, []);
     const updateSelectedSeats = (row, seatNum, isVip) => {
         const seatString = `${row}${seatNum}${isVip ? ' (VIP)' : ''}`;
         setSelectedSeats(prevSelectedSeats => {
@@ -101,57 +112,91 @@ const BookingSit = () => {
         }
     };
 
-
     const changeColorseat_nor = (index) => {
-        setIsShowButton(true)
-        setIsShowPrice(true)
-        const newSelectedSeat = [...selectedSeatNor];
-        console.log(newSelectedSeat, index)
-        newSelectedSeat[index] = !newSelectedSeat[index];
-        setSelectedSeatNor(newSelectedSeat);
+        // setIsShowButton(true)
+        // setIsShowPrice(true)
+        // const newSelectedSeat = [...selectedSeatNor];
+        // console.log(newSelectedSeat, index)
+        // newSelectedSeat[index] = !newSelectedSeat[index];
+        // setSelectedSeatNor(newSelectedSeat);
 
-        // const n = (index) / 12;
-        // const d = (index) % 12;
-        // // console.log(rows[Math.floor(n)], d + 1)
-        // markSeat(Math.floor(n), d);
+        // const row = rows[Math.floor(index / 12)];
+        // const seatNum = index % 12 + 1;
+        // updateSelectedSeats(row, seatNum, false);
         const row = rows[Math.floor(index / 12)];
         const seatNum = index % 12 + 1;
+        // const seatNum = (index + 1) % seatsPerRow;
+        const seatString = `${row}${seatNum}`;
+        if (bookedSeats.includes(seatString)) {
+            return; // Không cho chọn nếu ghế đã được đặt
+        }
+        console.log(seatString)
+        setIsShowButton(true);
+        setIsShowPrice(true);
+        const newSelectedSeat = [...selectedSeatNor];
+        newSelectedSeat[index] = !newSelectedSeat[index];
+        setSelectedSeatNor(newSelectedSeat);
+        // updateSelectedSeats(row, seatNum, false);
+        // Gọi hàm kiểm tra sau khi cập nhật trạng thái
         updateSelectedSeats(row, seatNum, false);
+        checkAndStartCountdown();
 
     }
 
     const changeColorseat_vip = (index) => {
-        setIsShowButton(true)
-        setIsShowPrice(true)
+        // setIsShowButton(true)
+        // setIsShowPrice(true)
+        // const newSelectedSeatVip = [...selectedSeatVip];
+        // console.log(newSelectedSeatVip)
+        // newSelectedSeatVip[index] = !newSelectedSeatVip[index];
+        // setSelectedSeatVip(newSelectedSeatVip);
+
+        // const row = rows[Math.floor((index + 48) / 12)];
+        // const seatNum = index % 12 + 1;
+        // updateSelectedSeats(row, seatNum, true);
+        const row = rows[Math.floor((index + 48) / 12)];
+        const seatNum = index % 12 + 1;
+        const seatString = `${row}${seatNum} (VIP)`;
+        if (bookedSeats.includes(seatString)) {
+            console.log("Seat is booked.");
+            return; // Không cho chọn nếu ghế đã được đặt
+        }
+        setIsShowButton(true);
+        setIsShowPrice(true);
         const newSelectedSeatVip = [...selectedSeatVip];
-        console.log(newSelectedSeatVip)
         newSelectedSeatVip[index] = !newSelectedSeatVip[index];
         setSelectedSeatVip(newSelectedSeatVip);
 
-        const n = (index + 48) / 12;
-        const d = (index) % 12;
-        // // console.log(rows[Math.floor(n)], d + 1)
-        // markSeat(Math.floor(n), d);
-        const row = rows[Math.floor((index + 48) / 12)];
-        const seatNum = index % 12 + 1;
+        // Cập nhật trạng thái ghế đã chọn
         updateSelectedSeats(row, seatNum, true);
+        checkAndStartCountdown();
+
     }
 
+    const checkAndStartCountdown = () => {
+        const selectedNormalSeats = selectedSeatNor.includes(true);
+        const selectedVipSeats = selectedSeatVip.includes(true);
 
-    const locationState = useLocation().state;
-    const name = locationState ? locationState.name : '';
-    const cinema = locationState ? locationState.cinema : '';
-    const room = locationState ? locationState.room : '';
-    const selectedDate = locationState ? locationState.selectedDate : '';
-    const selectedTime = locationState ? locationState.selectedTime : '';
-    const movieId = locationState ? locationState.movieId : '';
+        if (selectedNormalSeats || selectedVipSeats) {
+            setCountdown(300); // Khởi động lại bộ đếm ngược nếu đã chọn ít nhất một ghế loại thường hoặc một ghế VIP
+        } else {
+            setCountdown(0); // Dừng bộ đếm ngược nếu không đủ số lượng ghế đã chọn
+        }
+    };
 
-    console.log(locationState)
+    useEffect(() => {
+        if (countdown > 0) {
+            const interval = setInterval(() => {
+                setCountdown(current => current - 1);
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [countdown]);;
 
     const handleSelectNext = () => {
         // Kiểm tra xem người dùng có ghế nào được chọn hay không
         if (selectedSeats.length === 0) {
-            alert("Vui lòng chọn ít nhất một ghế trước khi tiếp tục!");
+            alert("Please select at least one seat before continuing!");
             return; // Ngăn không cho chuyển hướng nếu không có ghế nào được chọn
         }
 
@@ -168,7 +213,8 @@ const BookingSit = () => {
                 selectedSeats, // Ghế đã chọn
                 totalNormalPrice,
                 totalVipPrice,
-                movieId
+                movieId,
+                showtimeId,
             }
         });
     }
@@ -209,13 +255,18 @@ const BookingSit = () => {
                                         <div id={`normal-seat-${index}`} key={index} className="icon-chair" >
 
                                             {/* Đây là nơi để chèn icon */}
-                                            <MdChair onClick={() => changeColorseat_nor(index)} style={selectedSeatNor[index] ? { color: "green" } : {}} />
+                                            {/* <MdChair onClick={() => changeColorseat_nor(index)} style={selectedSeatNor[index] ? { color: "green" } : {}} /> */}
+                                            <MdChair onClick={() => changeColorseat_nor(index)} style={bookedSeats.includes(`${rows[Math.floor(index / 12)]}${(index % 12) + 1}`) ? { color: "red" } : (selectedSeatNor[index] ? { color: "green" } : {})} />
                                         </div>
                                     ))}
                                     {iconsVip.map((icon, index) => (
                                         <div id={`vip-seat-${index}`} key={index} className="icon-chair">
                                             {/* Đây là nơi để chèn icon */}
-                                            <MdChair onClick={() => changeColorseat_vip(index)} style={selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} />
+                                            {/* <MdChair onClick={() => changeColorseat_vip(index)} style={selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} /> */}
+                                            <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`)
+                                                ? { color: "red" } : (selectedSeatVip[index]
+                                                    ? { color: "green" }
+                                                    : { color: "yellow" })} />
                                         </div>
                                     ))}
                                 </div>
@@ -291,6 +342,13 @@ const BookingSit = () => {
                             className="buttonBack"
                             onClick={() => navigate("/booking")}
                         ><MdOutlineKeyboardBackspace /> Back</button>
+                        {countdown > 0 && (selectedSeatNor.includes(true) || selectedSeatVip.includes(true)) && (
+                            <div className="countdown">
+                                <div style={{ fontWeight: "bold", fontSize: "1.4em", color: "#007bff" }}>
+                                    Time left: {Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')}
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </div>
