@@ -48,6 +48,7 @@ const Payment = () => {
         localStorage.setItem('paymentData', JSON.stringify(paymentData));
         console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
         try {
+
             const rateResponse = await axios.get('https://api.exchangerate-api.com/v4/latest/VND');
             const rate = rateResponse.data.rates.USD;
             console.log("rate", rate)
@@ -61,6 +62,8 @@ const Payment = () => {
             paymentData.currency = 'USD';
 
             const response = await axios.post('http://localhost:3000/create-payment', paymentData);
+
+
             const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
             console.log("Approval URL:", approvalUrl);
             window.location.href = approvalUrl; // Redirect to PayPal approval URL
