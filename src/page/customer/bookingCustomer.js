@@ -8,11 +8,12 @@ const BookingCustomer = () => {
 
     const navigate = useNavigate()
     useEffect(() => {
-        if (localStorage.getItem('accessToken') !== true) {
-            toast.error("You must to login to booking ticket!!!")
-            navigate('/login')
+        const accessToken = localStorage.getItem('accessToken');
+        if (!accessToken) {
+            toast.error("You must log in to book tickets!!!")
+            navigate('/login');
         }
-    }, [])
+    }, []);
 
     return (
         <LayoutCustomer>

@@ -52,7 +52,7 @@ const Header = () => {
                                         className="menu-item"
                                         onClick={() => {
                                             localStorage.clear()
-                                            navigate('/')
+                                            navigate('/login')
                                         }}><LuLogOut /> Logout
                                     </Nav.Link>
                                 </Nav>
