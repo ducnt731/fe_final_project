@@ -23,7 +23,7 @@ const SideBarAdminCinema = ({ openSidebarToggle, OpenSidebar }) => {
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="/admin-cinema/manage_time_show">
+                    <a className="item" href="/admin-cinema/show-time">
                         <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
                     </a>
                 </li>
