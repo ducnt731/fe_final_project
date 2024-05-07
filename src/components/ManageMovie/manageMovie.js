@@ -120,7 +120,7 @@ const ManageMovie = () => {
                     await getAllMovie()
                     setIsShowModalAdd(!isShowModalAdd)
                 } else {
-                    toast.success("Add sucessful!!!")
+                    toast.success("Add new movie sucessful!!!")
                     await getAllMovie()
                     setIsShowModalAdd(!isShowModalAdd)
                 }

@@ -29,17 +29,17 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/manage_time_show">
-                        <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
+                        <i className="fa-solid fa-location-dot icon"></i> Manage Schedule
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/cinema">
-                        <i className="fa-solid fa-location-dot icon"></i> Theaters
+                        <i className="fa-solid fa-location-dot icon"></i>Manage Theaters
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="">
-                        <i className="fa-solid fa-ticket icon"></i> Coupon
+                    <a className="item" href="/admin/food">
+                        <i className="fa-solid fa-ticket icon"></i>Manage Food
                     </a>
                 </li>
                 <li className="sidebar-list-item">

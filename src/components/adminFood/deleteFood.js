@@ -1,10 +1,9 @@
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
+const DeleteFood = (props) => {
 
-const DeleteAccount = (props) => {
-
-    const {show, handleClose, dataUserDelete, handleAccountDelete} = props
+    const {show, handleClose, dataDeleteFood, handleDeleteFood} = props
 
     return(
         <Modal show={show} onHide={handleClose}>
@@ -14,7 +13,7 @@ const DeleteAccount = (props) => {
             <Modal.Body>
                 <div className="body-delete">
                     This action can't be undo!
-                    Do you want to delete <b>{dataUserDelete.name}</b>
+                    Do you want to delete <b>{dataDeleteFood.name}</b>
                 </div>
                 
             </Modal.Body>
@@ -22,7 +21,7 @@ const DeleteAccount = (props) => {
             <Button variant="secondary" onClick={handleClose}>
                 Close
             </Button>
-            <Button variant="primary" onClick={() => handleAccountDelete(dataUserDelete)}>
+            <Button variant="primary" onClick={() => handleDeleteFood(dataDeleteFood)}>
                 Delete
             </Button>
             </Modal.Footer>
@@ -30,4 +29,4 @@ const DeleteAccount = (props) => {
     )
 }
 
-export default DeleteAccount
+export default DeleteFood

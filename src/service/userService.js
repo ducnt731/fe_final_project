@@ -210,6 +210,18 @@ const fetchAllFood = () => {
     return axios.get("/all-food", getAuthHeaders())
 }
 
+const addFood = (foodData) => {
+    return axios.post("/add-food", foodData, getAuthHeaders())
+}
+
+const editFood = (foodData) => {
+    return axios.put("/update-food", foodData, getAuthHeaders())
+}
+
+const deleteFood = (_id) => {
+    return axios.delete(`/delete-food/${_id}`, getAuthHeaders())
+}
+
 const paymentPaypal = (data) => {
     return axios.post("/create-payment", data, getAuthHeaders())
 }
@@ -242,6 +254,7 @@ const addShowTimeAdminCinema = (data) => {
 const editShowTimeAdminCinema = (data) => {
     return axios.put("/admin-cinema/update-showtime", data, getAuthHeaders())
 }
+
 export {
     fetchAllUser,
     addNewAccount,
@@ -297,5 +310,8 @@ export {
     duplicateShowtime,
     fetchAllShowTimeAdminCinema,
     addShowTimeAdminCinema,
-    editShowTimeAdminCinema
+    editShowTimeAdminCinema,
+    addFood,
+    editFood,
+    deleteFood
 }

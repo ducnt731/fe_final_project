@@ -96,8 +96,8 @@ const AddAccount = (props) => {
                         <option value={"staff"}>Staff</option>
                     </select>
                     {userData.role === "admin cinema" && (
-                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} >
-                            <option >Choose Cinema</option>
+                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} style={{marginTop: "20px"}}>
+                            <option>Choose Cinema</option>
                             {listCinema && listCinema.map((cinmea) => {
                                 return (
                                     <option key={cinmea._id} value={cinmea._id}>{cinmea.name}</option>

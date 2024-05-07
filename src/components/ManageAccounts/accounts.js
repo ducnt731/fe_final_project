@@ -66,10 +66,10 @@ const Account = () => {
             if (response) {
                 await getAllUser();
                 setIsShowModalEdit(!isShowModalEdit);
-                toast.success("Edit success!");
+                toast.success("Edit account success!!!");
             }
         } catch (error) {
-            toast.error("Edit error");
+            toast.error("Edit account error!!!");
         }
     }
     const handleDeleteFromModal = async (dataEdit) => {
@@ -78,10 +78,10 @@ const Account = () => {
             if (response) {
                 await getAllUser()
                 setIsShowModalDelete(!isShowModalDelete)
-                toast.success("Delete successful!!!")
+                toast.success("Delete account successful!!!")
             }
         } catch (error) {
-            toast.error("Delete error")
+            toast.error("Delete account error")
         }
     }
     const getAllUser = async () => {
@@ -120,7 +120,7 @@ const Account = () => {
                     await getAllUser()
                     setIsShowModalAdd(!isShowModalAdd)
                 } else {
-                    toast.success("Add sucessful!!!")
+                    toast.success("Add account sucessful!!!")
                     await getAllUser()
                     setIsShowModalAdd(!isShowModalAdd)
                 }

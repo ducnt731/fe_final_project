@@ -64,7 +64,7 @@ const EditMovie = (props) => {
     return (
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
-                <Modal.Title>Edit Account</Modal.Title>
+                <Modal.Title>Edit Movie</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="body-add">
