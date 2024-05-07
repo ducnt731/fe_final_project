@@ -177,6 +177,9 @@ const ShowTimeSchedule = () => {
                                                         <span><strong>Movie:</strong> {show.movie}</span><br />
                                                         <span><strong>Room:</strong> {show.room}</span><br />
                                                         <span><strong>Showtime:</strong> {formatTime(show.time)} h</span>
+                                                        {/* {show.times.map((time, timeIndex) => (
+                                                            <div key={timeIndex}><strong>Time:</strong> {time}</div>
+                                                        ))} */}
                                                     </div>
                                                 ))
                                             }

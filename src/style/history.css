@@ -16,7 +16,7 @@
     border-radius: 8px;
 }
 
-.history-title{
+.history-title {
     border: 1px white solid;
     border-radius: 8px;
     padding: 10px;
@@ -28,7 +28,7 @@
     font-size: 30px;
 }
 
-.ticket-wrap{
+.ticket-wrap {
     width: 40%;
     border: 1px white solid;
     border-radius: 20px;
@@ -38,11 +38,11 @@
     margin: 20px 0 30px 30px;
 }
 
-.ticketLeft{
+.ticketLeft {
     width: 60%;
 }
 
-.cinemaName{
+.cinemaName {
     height: 50px;
     background-color: red;
     border-top-left-radius: 20px;
@@ -51,20 +51,20 @@
     font-family: 'Oswald', sans-serif;
     display: flex;
     align-items: center;
-    
+
 }
 
-.titleMovie{
+.titleMovie {
     margin: 10px 0 5px 10px;
     text-transform: uppercase;
 }
 
-.directorName{
+.directorName {
     margin: 10px 0 5px 10px;
     text-transform: uppercase;
 }
 
-.bottomTicket{
+.bottomTicket {
     display: flex;
     /* justify-content: space-evenly; */
     text-transform: uppercase;
@@ -72,24 +72,24 @@
     border-top: 1px black solid;
 }
 
-.seat{
+.seat {
     width: 50%;
     border-right: 1px black solid;
     text-align: center;
 }
 
-.time{
+.time {
     width: 50%;
     text-align: center;
 }
 
-.ticketRight{
+.ticketRight {
     width: 40%;
     display: flex;
     flex-direction: column;
 }
 
-.price{
+.price {
     display: flex;
     justify-content: space-between;
     margin: 20px 10px 0 10px;

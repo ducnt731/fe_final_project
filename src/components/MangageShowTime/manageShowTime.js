@@ -138,6 +138,7 @@ const MangageShowTime = () => {
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
 
+
     return (
         <>
             <div className="account-container">
@@ -175,7 +176,6 @@ const MangageShowTime = () => {
                                 {
                                     listShowTime && listShowTime.length > 0 &&
                                     listShowTime.map((item, index) => {
-                                        console.log("???>>>>>>", item);
                                         return (
                                             <tr key={`movies-${index}`}>
                                                 <td>{item.movie?.name}</td>

@@ -82,6 +82,10 @@ const fetchAllMovie = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
+
+const fetchAllMovieNotPagination = () => {
+    return axios.get("/movies", getAuthHeaders());
+}
 const editMovie = (userData) => {
     return axios.put("/update-movie", userData, getAuthHeaders());
 }
@@ -130,7 +134,9 @@ const fetchAllCinema = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
-
+const fetchAllCinemaNotPagination = () => {
+    return axios.get("/cinemas", getAuthHeaders());
+}
 const addCinema = (data) => {
     return axios.post("/create-cinema", data, getAuthHeaders())
 }
@@ -141,6 +147,10 @@ const editCinema = (data) => {
 
 const deleteCinema = (_id) => {
     return axios.delete(`/delete-cinema/${_id}`, getAuthHeaders())
+}
+
+const fetchAllRoomInCinema = (cinemaId) => {
+    return axios.get(`/all-room-cinema/${cinemaId}`, getAuthHeaders())
 }
 
 const getProvinceCinema = () => {
@@ -181,10 +191,16 @@ const fetchAllMovieAdminCinema = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
-const addMovieAdminCinema = (adminId, movieId) => {
-    const data = { adminId, movieId };
-    return axios.post("/add-movie-to-cinema", data, getAuthHeaders());
+const addMovieAdminCinema = (movieId) => {
+    return axios.post("/add-movie-to-cinema", { movieId: movieId }, getAuthHeaders());
 };
+
+const updateMovieAdminCinema = (movieId) => {
+    return axios.put("/update-movie-from-cinema", movieId, getAuthHeaders());
+}
+const deleteMovieAdminCinema = (_id) => {
+    return axios.delete(`/delete-movie-from-cinema/${_id}`, getAuthHeaders());
+}
 
 const fetchAllSeatPrice = () => {
     return axios.get("/all-seat-price", getAuthHeaders())
@@ -196,6 +212,35 @@ const fetchAllFood = () => {
 
 const paymentPaypal = (data) => {
     return axios.post("/create-payment", data, getAuthHeaders())
+}
+
+const saveBooking = (data) => {
+    return axios.post("/save-booking", data, getAuthHeaders())
+}
+
+const historyPurchase = (userId) => {
+    return axios.get(`/history-purchase/${userId}`, getAuthHeaders())
+}
+
+const fetchAllSeatStatus = (showtimeId, selectedTime, selectedDate) => {
+    return axios.get(`/seats/status?showtimeId=${showtimeId}&selectedTime=${encodeURIComponent(selectedTime)}&selectedDate=${encodeURIComponent(selectedDate)}`, getAuthHeaders())
+
+}
+
+const duplicateShowtime = (cinema, room, startDate, endDate) => {
+    return axios.get(`/duplicates?cinema=${cinema}&room=${room}&startDate=${startDate}&endDate=${endDate}`, getAuthHeaders())
+}
+
+const fetchAllShowTimeAdminCinema = () => {
+    return axios.get(`/admin-cinema/showtimes`, getAuthHeaders())
+}
+
+const addShowTimeAdminCinema = (data) => {
+    return axios.post("/admin-cinema/create-showtime", data, getAuthHeaders())
+}
+
+const editShowTimeAdminCinema = (data) => {
+    return axios.put("/admin-cinema/update-showtime", data, getAuthHeaders())
 }
 export {
     fetchAllUser,
@@ -240,5 +285,17 @@ export {
     fetchShowTimeByMovie,
     fetchAllSeatPrice,
     fetchAllFood,
-    paymentPaypal
+    paymentPaypal,
+    saveBooking,
+    historyPurchase,
+    fetchAllSeatStatus,
+    updateMovieAdminCinema,
+    deleteMovieAdminCinema,
+    fetchAllRoomInCinema,
+    fetchAllMovieNotPagination,
+    fetchAllCinemaNotPagination,
+    duplicateShowtime,
+    fetchAllShowTimeAdminCinema,
+    addShowTimeAdminCinema,
+    editShowTimeAdminCinema
 }

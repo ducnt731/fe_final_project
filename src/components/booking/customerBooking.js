@@ -45,6 +45,7 @@ const Booking = () => {
         console.log("room:", session.room);
         console.log("selectedDate:", formattedDate);
         console.log("selectedTime:", time);
+        console.log("movieId:", session.id);
         navigate(`/booking/bookingsit/${movieId}`, {
             state: {
                 name: session.movie,
@@ -52,7 +53,8 @@ const Booking = () => {
                 room: session.room,
                 selectedDate: formattedDate,
                 selectedTime: time,
-                movieId: movieId
+                movieId: movieId,
+                showtimeId: session.id
             }
         });
     };

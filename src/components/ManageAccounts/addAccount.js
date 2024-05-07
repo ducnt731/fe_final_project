@@ -79,7 +79,7 @@ const AddAccount = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Date of birth</label>
-                        <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange} />
+                        <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange}  />
                     </div>
                     <select className="form-select" required value={userData.gender} name='gender' onChange={handleChange} >
                         <option >Choose gender</option>

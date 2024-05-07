@@ -1,31 +1,31 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import "../../style/manageAccounts.css"
-import AdminCinemaEditMovie from "./adCinemaEditMovie";
-import AdminCinemaAddMovie from "./adCinemaAddMovie";
-import AdminCinemaDeleteMovie from "./adCinemaDeleteMovie";
+import { addShowTimeAdminCinema, deleteShowTime, editShowTime, editShowTimeAdminCinema, fetchAllShowTimeAdminCinema } from "../../service/userService"
 import { toast } from 'react-toastify';
 import { RiArrowUpDownLine } from "react-icons/ri";
-import Form from 'react-bootstrap/Form';
+import AdminCinemaAddShowTime from "./adAddShowTime";
+import AdminCinemaEditShowTime from "./adEditShowTime";
+import AdminCinemaDeleteShowTime from "./adDeleteShowTime";
 import { formatDate } from '../../service/formatDate';
-import { addMovie, addMovieAdminCinema, deleteMovie, deleteMovieAdminCinema, editMovie, fetchAllAdminCinema, fetchAllMovie, fetchAllMovieAdminCinema, updateMovieAdminCinema } from "../../service/userService";
+import { useNavigate } from "react-router-dom";
 
+const AdminCinemaManageShowTime = () => {
 
-
-const AdminCinemaManageMovie = () => {
-    const [isShowModalAdd, setIsShowModalAdd] = useState(0)
+    const [isShowModalAdd, setIsShowModalAdd] = useState(false)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
+    const [cinemaId, setCinemaId] = useState(null);
     const [dataEdit, setDataEdit] = useState({})
     const [dataDelete, setDataDelete] = useState({})
     const [totalPages, setTotalPage] = useState(0);
-    const [listMovie, setListMovie] = useState([]);
-    const [currentPage, setCurrentPage] = useState(1);
-    const accountsPerPage = 10// Số tài khoản trên mỗi trang
+    const [listCinema, setListCinema] = useState([]);
+    const [listShowTime, setlistShowTime] = useState([]);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const accountsPerPage = 10// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
-    const [selectedMovie, setSelectedMovie] = useState("");
-    const [adminId, setAdminId] = useState("");
-
+    const navigate = useNavigate()
+    // const [searchShowTime, setsearchShowTime] = useState('');
+    // const [isSearching, setIsSearching] = useState(false);
 
     const handleClose = () => {
         setIsShowModalAdd(false)
@@ -49,24 +49,21 @@ const AdminCinemaManageMovie = () => {
         delete newData._id
         newData = { ...newData, id }
         try {
-            console.log(",>>>>>>>>>>>>", response)
-            const response = await updateMovieAdminCinema(newData);
-            if (response.data) {
-                await getAllMovieCinema()
+            const response = await editShowTimeAdminCinema(newData);
+            if (response) {
+                await getAllShowTime()
                 setIsShowModalEdit(!isShowModalEdit)
                 toast.success("Edit success!")
             }
         } catch (error) {
             toast.error("Edit error")
         }
-
     }
-    const handleDeleteFromModal = async (data) => {
+    const handleDeleteFromModal = async (dataEdit) => {
         try {
-            const response = await deleteMovieAdminCinema(data._id);
-            console.log("111111", response)
+            const response = await deleteShowTime(dataEdit._id);
             if (response) {
-                await getAllMovieCinema()
+                await getAllShowTime()
                 setIsShowModalDelete(!isShowModalDelete)
                 toast.success("Delete successful!!!")
             }
@@ -74,61 +71,67 @@ const AdminCinemaManageMovie = () => {
             toast.error("Delete error")
         }
     }
-    const getAllMovieCinema = async () => {
+    const getAllShowTime = async () => {
         try {
             // const response = await fetchAllmovie();
-            const response = await fetchAllMovieAdminCinema(currentPage, accountsPerPage);
+            // const response = await fetchAllShowTime(currentPage, accountsPerPage);
+            const response = await fetchAllShowTimeAdminCinema();
+            console.log(response)
             if (response) {
-                setTotalPage(response.totalPages);
-                setListMovie(response.data);
+                // setTotalPage(response.totalPages);
+                setlistShowTime(response.data);
+                setListCinema(response.data[0].cinema?.name); // Lưu danh sách rạp chiếu phim vào state mới
+                setCinemaId(response.data[0].cinema?._id)
             }
         } catch (error) {
             console.error('Error fetching accounts:', error);
         }
     }
-    const handlePageChange = (pageNumber) => {
-        setCurrentPage(pageNumber);
-    };
-
-    const handleAddMovie = async (movieId) => {
+    // const handlePageChange = (pageNumber) => {
+    //     setCurrentPage(pageNumber);
+    // };
+    const handleAddShowTime = async (data) => {
+        console.log('isShowModalAdd before setIsShowModalAdd:', isShowModalAdd);
         try {
-            const response = await addMovieAdminCinema(movieId);
+            const response = await addShowTimeAdminCinema(data);
             console.log(">>> check", response);
             if (response.data) {
-                await getAllMovieCinema()
+                await getAllShowTime()
                 setIsShowModalAdd(!isShowModalAdd)
                 toast.success("Create success!")
             } else {
                 toast.warn("You need to enter all field!!!")
             }
         } catch (error) {
-            console.error("Error adding movie to cinema:", error);
+            toast.error("Create fail")
         }
-    };
-
-    useEffect(() => {
-        getAllMovieCinema();
-    }, [currentPage]);
-
-    const renderPages = () => {
-        let pages = [];
-        for (let i = 1; i <= totalPages; i++) {
-            pages.push(
-                <li className="page-item" key={i}>
-                    <a className="page-link" href="#" onClick={() => handlePageChange(i)}>{i}</a>
-                </li>
-            );
-        }
-        // if (isSearching) {
-        //     return null
-        // } else {
-        return pages;
-        // }
-
     }
+    // useEffect(() => {
+    //     getAllShowTime();
+    // }, [currentPage]);
+    useEffect(() => {
+        getAllShowTime();
+    }, []);
+    // const renderPages = () => {
+    //     let pages = [];
+    //     for (let i = 1; i <= totalPages; i++) {
+    //         pages.push(
+    //             <li className="page-item" key={i}>
+    //                 <a className="page-link" href="#" onClick={() => handlePageChange(i)}>{i}</a>
+    //             </li>
+    //         );
+    //     }
+    //     // if (isSearching) {
+    //     //     return null
+    //     // } else {
+    //     return pages;
+    //     // }
+
+    // }
+
     const handleSort = () => {
         // Sao chép mảng items để không làm thay đổi mảng gốc
-        const sorted = [...listMovie];
+        const sorted = [...listShowTime];
         // Sắp xếp mảng sorted dựa trên trạng thái sắp xếp hiện tại
         sorted.sort((a, b) => {
             if (sortOrder === 'asc') {
@@ -138,73 +141,56 @@ const AdminCinemaManageMovie = () => {
             }
         });
         // Cập nhật items state với mảng đã sắp xếp
-        setListMovie(sorted);
+        setlistShowTime(sorted);
         // Đảo ngược trạng thái sắp xếp để sử dụng cho lần nhấp tiếp theo
         setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
     }
 
-    // useEffect(() => {
-    //     const fetchSearchResults = async () => {
-    //         try {
-    //             const searchData = await searchMovie(searchMovie);
-    //             setListMovie(searchData);
-    //         } catch (error) {
-    //             console.error('Error searching:', error);
-    //         }
-    //     };
-    //     if (searchMovie !== '') {
-    //         fetchSearchResults();
-    //     } else {
-    //         setIsSearching(false);
-    //         getAllMovie();
-    //     }
-    // }, [searchMovie]);
+
     return (
         <>
             <div className="account-container">
                 <div className="account-list">
                     <div className="button-account">
-                        <h2>Movie in cinema</h2>
-                        <button
-                            className="btn btn-primary"
-                            onClick={() => setIsShowModalAdd(true)}
-                        >Add new</button>
+                        <h2>All Show Time</h2>
+                        <div className="button-ShowTime">
+                            <a href="/admin/schedule" className="btn btn-primary">Schedule</a>
+                            <button
+                                style={{ marginLeft: "10px" }}
+                                className="btn btn-primary"
+                                onClick={() => setIsShowModalAdd(true)
+                                }
+                            >Add new</button>
+                        </div>
+
                     </div>
                     <div className="table-account" style={{ backgroundColor: "white", borderRadius: "10px", marginTop: "10px", boxShadow: "0 0 0px #b8bec4", padding: "5px" }}>
                         <Table bordered hover>
                             <thead>
                                 <tr>
-                                    <th className="sort-table">Name
+                                    <th className="sort-table">Movie
                                         <div className="sort">
                                             <RiArrowUpDownLine onClick={handleSort} />
                                         </div>
                                     </th>
-                                    <th>Poster</th>
-                                    <th>Director</th>
-                                    <th>Performer</th>
-                                    <th>Category</th>
-                                    <th>Premiere</th>
-                                    <th>Time</th>
-                                    <th>Language</th>
-                                    <th>status</th>
+                                    <th>Cinema</th>
+                                    <th>Room</th>
+                                    <th>Start Date</th>
+                                    <th>End Date</th>
                                     <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    listMovie && listMovie.length > 0 &&
-                                    listMovie.map((item, index) => {
+                                    listShowTime && listShowTime.length > 0 &&
+                                    listShowTime.map((item, index) => {
                                         return (
                                             <tr key={`movies-${index}`}>
-                                                {item && item.movie.name && <td>{item.movie.name}</td>}
-                                                <td><img src={item.movie.poster} style={{ width: "90px", height: "90px", display: "block", margin: "auto" }} /></td>
-                                                <td>{item.movie.director}</td>
-                                                <td>{item.movie.performer}</td>
-                                                <td>{item.movie.category?.name}</td>
-                                                <td>{formatDate(new Date(item.movie.premiere))}</td>
-                                                <td>{item.movie.time} Minutes</td>
-                                                <td>{item.movie.language}</td>
-                                                <td>{item.movie.status}</td>
+                                                <td>{item.movie?.name}</td>
+                                                <td>{item.cinema?.name}</td>
+                                                <td>{item.room?.name}</td>
+                                                <td>{formatDate(new Date(item.startDate))}</td>
+                                                <td>{formatDate(new Date(item.endDate))}</td>
                                                 <td>
                                                     <div className="button-action">
                                                         <button className="btn btn-warning" onClick={() => handleEdit(item)}>Edit</button>
@@ -218,32 +204,36 @@ const AdminCinemaManageMovie = () => {
                             </tbody>
                         </Table>
                     </div>
-                    <nav aria-label="me-3">
+                    {/* <nav aria-label="me-3">
                         <ul className="pagination justify-content-end">
                             {renderPages()}
                         </ul>
-                    </nav>
+                    </nav> */}
                 </div>
             </div>
-            <AdminCinemaAddMovie
+            <AdminCinemaAddShowTime
                 show={isShowModalAdd}
                 handleClose={handleClose}
-                handleAddNewMovie={handleAddMovie}
+                handleAddNewShowTime={handleAddShowTime}
+                cinemaName={listCinema}
+                defaultCinema={cinemaId}
             />
-            <AdminCinemaEditMovie
+            <AdminCinemaEditShowTime
                 show={isShowModalEdit}
-                dataEditMovie={dataEdit}
+                dataEditShowTime={dataEdit}
                 handleClose={handleClose}
-                handleMovieEdit={handleEditFromModal}
+                handleEditShowTime={handleEditFromModal}
+                cinemaName={listCinema}
+                defaultCinema={cinemaId}
             />
-            <AdminCinemaDeleteMovie
+            <AdminCinemaDeleteShowTime
                 show={isShowModalDelete}
                 handleClose={handleClose}
-                dataMovieDelete={dataDelete}
-                handleMovieDelete={handleDeleteFromModal}
+                dataShowTimeDelete={dataDelete}
+                handleShowTimeDelete={handleDeleteFromModal}
             />
         </>
     )
 }
 
-export default AdminCinemaManageMovie
+export default AdminCinemaManageShowTime

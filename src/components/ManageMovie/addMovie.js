@@ -79,7 +79,7 @@ const AddMovie = (props) => {
                     </select>
                     <div className="mb-3">
                         <label className="form-label">Premiere</label>
-                        <input type="date" required name='premiere' className="form-control" value={movieData.premiere && formatDate(new Date(movieData.premiere))} onChange={handleChange} />
+                        <input type="date" required name='premiere' className="form-control" value={movieData.premiere && formatDate(new Date(movieData.premiere))} onChange={handleChange} min={formatDate(new Date())} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Time</label>

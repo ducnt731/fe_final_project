@@ -1,18 +1,18 @@
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
-import { fetchAllCinema, fetchAllMovie, fetchAllRoom } from '../../service/userService';
+import { fetchAllCinema, fetchAllCinemaNotPagination, fetchAllMovie, fetchAllMovieNotPagination, fetchAllRoom, fetchAllRoomInCinema } from '../../service/userService';
 import { formatDate } from '../../service/formatDate';
 import Select from 'react-select';
 
 
-const EditShowTime = (props) => {
-    const { show, handleClose, handleEditShowTime, dataEditShowTime } = props;
+const AdminCinemaEditShowTime = (props) => {
+    const { show, handleClose, handleEditShowTime, dataEditShowTime, cinemaName, defaultCinema } = props;
     const [selectedTime, setSelectedTime] = useState("")
     const [showTimeData, setshowTimeData] = useState({
         id: "",
         movie: "",
-        cinema: "",
+        cinema: defaultCinema ? defaultCinema : " ",
         room: "",
         startDate: "",
         endDate: "",
@@ -38,7 +38,7 @@ const EditShowTime = (props) => {
         if (dataEditShowTime && dataEditShowTime.movie) {
             const fetchMovie = async () => {
                 try {
-                    const response = await fetchAllMovie();
+                    const response = await fetchAllMovieNotPagination();
                     if (response && response.data) {
                         // Tìm kiếm phim dựa trên ID
                         const movie = response.data.find(movie => movie._id === dataEditShowTime.movie._id);
@@ -61,54 +61,85 @@ const EditShowTime = (props) => {
         }
     }, [dataEditShowTime]);
 
+    // useEffect(() => {
+    //     if (dataEditShowTime && dataEditShowTime.cinema) {
+    //         const fetchCinema = async () => {
+    //             try {
+    //                 const response = await fetchAllCinemaNotPagination();
+    //                 if (response && response.data) {
+    //                     const cinema = response.data.find(cinema => cinema._id === dataEditShowTime.cinema._id);  // Sửa ở đây
+    //                     console.log("response.data:", response.data);
+    //                     console.log("dataEditShowTime.movie._id:", dataEditShowTime.cinema._id);
+    //                     console.log("Found cinema:", cinema);
+
+    //                     if (cinema) {
+    //                         setshowTimeData(prevData => ({ ...prevData, cinema: cinema._id }));
+    //                     }
+    //                 }
+    //                 setListCinema(response.data || []);
+    //             } catch (error) {
+    //                 console.error("Error fetching cinemas:", error);
+    //             }
+    //         };
+    //         fetchCinema();
+    //     }
+    // }, [dataEditShowTime]);
+
+    // useEffect(() => {
+    //     if (dataEditShowTime) {
+    //         const fetchRoom = async (defaultCinema) => {
+    //             try {
+    //                 const response = await fetchAllRoomInCinema(defaultCinema);
+    //                 console.log("response.data:", response.data);
+    //                 if (response && response.data) {
+    //                     // Tìm kiếm phim dựa trên ID
+    //                     const room = response.data.find(room => room._id === dataEditShowTime.room._id);
+    //                     console.log("response.data:", response.data);
+    //                     console.log("dataEditShowTime.movie._id:", dataEditShowTime.room._id);
+    //                     console.log("Found room:", room);
+    //                     if (room) {
+    //                         setshowTimeData(prevData => ({ ...prevData, room: room._id }));
+    //                     }
+    //                 }
+    //                 setListRoom(response.data || []);
+    //             } catch (error) {
+    //                 console.error("Error fetching movies:", error);
+    //             }
+    //         };
+    //         fetchRoom();
+    //     }
+    // }, [dataEditShowTime]);
     useEffect(() => {
+        const fetchCinemaAndRooms = async () => {
+            try {
+                const response = await fetchAllCinemaNotPagination();
+                if (response && response.data) {
+                    const cinema = response.data.find(cinema => cinema._id === dataEditShowTime.cinema._id);
+                    if (cinema) {
+                        setshowTimeData(prevData => ({ ...prevData, cinema: cinema._id }));
+                        const roomResponse = await fetchAllRoomInCinema(cinema._id);
+                        if (roomResponse && roomResponse.data) {
+                            // Tìm kiếm phim dựa trên ID
+                            const room = roomResponse.data.find(room => room._id === dataEditShowTime.room._id);
+                            console.log("response.data:", roomResponse.data);
+                            console.log("dataEditShowTime.movie._id:", dataEditShowTime.room._id);
+                            console.log("Found room:", room);
+                            if (room) {
+                                setshowTimeData(prevData => ({ ...prevData, room: room._id }));
+                            }
+                        }
+                        setListRoom(roomResponse.data || []);
+
+                    }
+                }
+                setListCinema(response.data || []);
+            } catch (error) {
+                console.error("Error fetching cinemas or rooms:", error);
+            }
+        };
+
         if (dataEditShowTime && dataEditShowTime.cinema) {
-            const fetchCinema = async () => {
-                try {
-                    const response = await fetchAllCinema();
-                    if (response && response.data) {
-                        const cinema = response.data.find(cinema => cinema._id === dataEditShowTime.cinema._id);  // Sửa ở đây
-                        console.log("response.data:", response.data);
-                        console.log("dataEditShowTime.movie._id:", dataEditShowTime.cinema._id);
-                        console.log("Found cinema:", cinema);
-
-                        if (cinema) {
-                            setshowTimeData(prevData => ({ ...prevData, cinema: cinema._id }));
-                        }
-                    }
-                    setListCinema(response.data || []);
-                } catch (error) {
-                    console.error("Error fetching cinemas:", error);
-                }
-            };
-            fetchCinema();
-        }
-    }, [dataEditShowTime]);
-
-    useEffect(() => {
-        if (dataEditShowTime && dataEditShowTime.room) {
-            const fetchRoom = async () => {
-                try {
-                    const response = await fetchAllRoom();
-                    if (response && response.data) {
-                        // Tìm kiếm phim dựa trên ID
-                        const room = response.data.find(room => room._id === dataEditShowTime.room._id);
-                        console.log("response.data:", response.data);
-                        console.log("dataEditShowTime.movie._id:", dataEditShowTime.room._id);
-                        console.log("Found cinema:", room);
-
-                        if (room) {
-                            // Cập nhật state nếu tìm thấy phim
-                            setshowTimeData(prevData => ({ ...prevData, room: room._id }));
-                        }
-                    }
-                    // Luôn lưu trữ danh sách phim để sử dụng sau này
-                    setListRoom(response.data || []);
-                } catch (error) {
-                    console.error("Error fetching movies:", error);
-                }
-            };
-            fetchRoom();
+            fetchCinemaAndRooms();
         }
     }, [dataEditShowTime]);
 
@@ -159,13 +190,8 @@ const EditShowTime = (props) => {
                             )
                         })}
                     </select>
-                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.cinema} name='cinema' onChange={handleChange} >
-                        <option style={{ backgroundColor: "white" }}>Choose Cinema</option>
-                        {listCinema && listCinema.map((cinema) => {
-                            return (
-                                <option style={{ backgroundColor: "white" }} key={cinema._id} value={cinema._id}>{cinema.name}</option>
-                            )
-                        })}
+                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={defaultCinema} name='cinema' onChange={handleChange} >
+                        <option key={defaultCinema} value={defaultCinema}>{cinemaName}</option>
                     </select>
                     <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.room} name='room' onChange={handleChange} >
                         <option style={{ backgroundColor: "white" }}>Choose Room</option>
@@ -210,4 +236,4 @@ const EditShowTime = (props) => {
     );
 };
 
-export default EditShowTime;
+export default AdminCinemaEditShowTime;
