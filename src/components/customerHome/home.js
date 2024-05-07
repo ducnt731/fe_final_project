@@ -50,10 +50,10 @@ const Home = () => {
                     </Carousel.Item>
                 </Carousel>
             </div>
-            <div className="hot-movie">
+            {/* <div className="hot-movie">
                 <h3>Hot movies</h3>
                 <ListHotMovie items={items} />
-            </div>
+            </div> */}
             <div className="now-showing">
                 <h3>Current movies</h3>
                 <ListCurrentMovies items={items} />

@@ -1,0 +1,42 @@
+.dashboard-container {
+    grid-area: main;
+    overflow-y: auto;
+    background-color: #f1f5f9;
+    padding: 20px;
+}
+
+.chart-card{
+    width: auto;
+    height: 40%;
+    margin-top: 50px;
+    margin-left: 50px;
+    padding: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.main-cards{
+    display: flex;
+    justify-content: space-around;
+}
+
+.card{
+    width: 23%;
+    height: 20%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .5);
+}
+
+.card-inner{
+    display: flex;
+    justify-content: space-evenly;
+    padding: 10px;
+    font-size: 25px;
+}
+
+.card-inner h3{
+    font-family: 'Oswald', sans-serif;
+}
+
+.card h1{
+    text-align: center;
+    font-family: 'Oswald', sans-serif;
+}

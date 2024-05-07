@@ -38,7 +38,7 @@ const LoginForm = () => {
                     navigate("/admin");
                     toast.success("Login successful!!!");
                 } else if (data.user.role === "customer") {
-                    navigate("/home");
+                    navigate("/");
                     toast.success("Login successful!!!");
                 } else if (data.user.role === "admin cinema") {
                     navigate("/admin-cinema");
@@ -52,6 +52,7 @@ const LoginForm = () => {
         }
         setLoadingAPI(false);
     };
+
     const loginWithGoogle = (e) => {
         e.preventDefault(); // Prevent the form submission
 
@@ -88,7 +89,7 @@ const LoginForm = () => {
                         localStorage.setItem("user_id", payload.userId);
                         localStorage.setItem("accessToken", token);
                         if (payload.role === "customer") {
-                            navigate("/home");
+                            navigate("/");
                         } else if (payload.role === "admin") {
                             navigate("/admin");
                         }
@@ -105,6 +106,7 @@ const LoginForm = () => {
             }
         }, 100);
     };
+    
     return (
         <div className="wrapper">
             <div className="login-form">

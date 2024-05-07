@@ -11,9 +11,9 @@ const GoogleAuthCallback = () => {
         const accessToken = params.get('accessToken');
         if (accessToken) {
             localStorage.setItem('accessToken', accessToken);
-            navigate('/home'); // Or wherever you want to redirect after login
+            navigate('/'); // Or wherever you want to redirect after login
         } else {
-            navigate('/'); // Redirect to login on failure or absence of token
+            navigate('/login'); // Redirect to login on failure or absence of token
         }
     }, [navigate]);
 

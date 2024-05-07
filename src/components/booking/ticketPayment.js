@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from 'axios';
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import '../../style/booking.css'
 
 const TicketPayment = () => {
     const location = useLocation();
@@ -65,7 +66,7 @@ const TicketPayment = () => {
                         </div>
                         <div style={{ textAlign: "center", marginTop: "20px" }}>
                             <h2 style={{ color: "green" }}>Payment Successful!</h2>
-                            <button className="buttonNext" onClick={handleGoHome}>Go to Home</button>
+                            <button className="buttonHome" onClick={handleGoHome}>Go to Home</button>
                         </div>
                     </div>
                 </div>

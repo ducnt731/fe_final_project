@@ -4,11 +4,13 @@ import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
 import { getMovieNowShowing } from '../../service/userService';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
+import TrailerMovie from './trailer';
+import { HiPlay } from 'react-icons/hi2';
 
 const ListCurrentMovies = ({ items }) => {
   const [startIndex, setStartIndex] = useState(0);
-  // const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+  const [isShowModalTrailer, setIsShowModalTrailer] = useState(false)
   const [selectedMovie, setSelectedMovie] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [listMovie, setListMovie] = useState([]);
@@ -36,7 +38,13 @@ const ListCurrentMovies = ({ items }) => {
   const handleShowInfo = (movie) => {
     setSelectedMovie(movie); // Cập nhật phim được chọn
     setShowModal(true); // Mở modal thông tin
+
   };
+
+  const handleShowTrailer = (movie) => {
+    setSelectedMovie(movie);
+    setIsShowModalTrailer(true)
+  }
 
   const nextItems = () => {
     if (startIndex < items.length - 5) {
@@ -61,6 +69,25 @@ const ListCurrentMovies = ({ items }) => {
   const handleBookNow = (movie) => {
     navigate(`/booking/${movie._id}`);
   };
+
+  const [showTrailerButton, setShowTrailerButton] = useState(true);
+
+  const handleMouseEnter = (index) => {
+    const newShowTrailerButton = [...showTrailerButton];
+    newShowTrailerButton[index] = true;
+    setShowTrailerButton(newShowTrailerButton);
+  };
+
+  const handleMouseLeave = (index) => {
+    const newShowTrailerButton = [...showTrailerButton];
+    newShowTrailerButton[index] = false;
+    setShowTrailerButton(newShowTrailerButton);
+  };
+  useEffect(() => {
+    // Khởi tạo mảng showTrailerButton với tất cả giá trị là false
+    setShowTrailerButton(Array(items.length).fill(false));
+  }, [items]);
+
   return (
     <>
       <div className="list-box">
@@ -68,10 +95,21 @@ const ListCurrentMovies = ({ items }) => {
         <div className="items-box">
           {listMovie.length >= 5 &&
             rotateItems(listMovie, startIndex).slice(0, 5).map((movie, index) => (
-              <div key={index} className="item-box">
+              <div key={index} className="item-box" >
                 <div className='item-content'>
-                  <div>
+                  <div
+                    onMouseEnter={() => handleMouseEnter(index)}
+                    onMouseLeave={() => handleMouseLeave(index)}
+                    onClick={() => handleShowTrailer(movie)}
+                  >
                     <img src={movie.poster} className='movie-img' alt={movie.name} />
+                    {showTrailerButton[index] && (
+                      <div className='trailer-hover'>
+                        <div>View trailer</div>
+                        <br />
+                        <HiPlay style={{fontSize: "50px"}}/>
+                      </div>
+                    )}
                   </div>
 
                   <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
@@ -99,6 +137,11 @@ const ListCurrentMovies = ({ items }) => {
         movie={selectedMovie}
         show={showModal}
         handleClose={() => setShowModal(false)}
+      />
+      <TrailerMovie
+        movie={selectedMovie}
+        show={isShowModalTrailer}
+        handleClose={() => setIsShowModalTrailer(false)}
       />
     </>
   );

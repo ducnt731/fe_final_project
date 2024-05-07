@@ -4,13 +4,16 @@ import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
 import { getMovieNowShowing, getMovieUpComing } from '../../service/userService';
+import TrailerMovie from './trailer';
+import { IoPlaySharp } from 'react-icons/io5';
+import { HiPlay } from 'react-icons/hi2';
 
 const ListIncoming = ({ items }) => {
     const [startIndex, setStartIndex] = useState(0);
-    const [isShowModalInfo, setIsShowModalInfo] = useState(false)
     const [listMovie, setListMovie] = useState([]);
     const [selectedMovie, setSelectedMovie] = useState(null);
     const [showModal, setShowModal] = useState(false);
+    const [isShowModalTrailer, setIsShowModalTrailer] = useState(false);
 
     useEffect(() => {
         getAllMovieUpComing(); // Gọi hàm này khi component mount
@@ -26,15 +29,19 @@ const ListIncoming = ({ items }) => {
             console.error('Error fetching movies:', error);
         }
     };
-    const handleClose = () => {
-        setIsShowModalInfo(false)
-    }
+
     const handleShowInfo = (movie) => {
         setSelectedMovie(movie);
         setShowModal(true);
     };
+
+    const handleShowTrailer = (movie) => {
+        setSelectedMovie(movie);
+        setIsShowModalTrailer(true)
+    }
+
     const nextItems = () => {
-        if (startIndex < items.length - 4) {
+        if (startIndex < items.length - 5) {
             setStartIndex(startIndex + 1);
         } else {
             setStartIndex(0); // Quay lại box đầu tiên nếu đã đến cuối
@@ -45,7 +52,7 @@ const ListIncoming = ({ items }) => {
         if (startIndex > 0) {
             setStartIndex(startIndex - 1);
         } else {
-            setStartIndex(items.length - 4); // Quay lại box cuối cùng nếu đã ở box đầu tiên
+            setStartIndex(items.length - 5); // Quay lại box cuối cùng nếu đã ở box đầu tiên
         }
     };
 
@@ -54,19 +61,50 @@ const ListIncoming = ({ items }) => {
         return [...array.slice(steps), ...array.slice(0, steps)];
     };
 
+    const [showTrailerButton, setShowTrailerButton] = useState(true);
+
+    const handleMouseEnter = (index) => {
+        const newShowTrailerButton = [...showTrailerButton];
+        newShowTrailerButton[index] = true;
+        setShowTrailerButton(newShowTrailerButton);
+    };
+
+    const handleMouseLeave = (index) => {
+        const newShowTrailerButton = [...showTrailerButton];
+        newShowTrailerButton[index] = false;
+        setShowTrailerButton(newShowTrailerButton);
+    };
+    useEffect(() => {
+        // Khởi tạo mảng showTrailerButton với tất cả giá trị là false
+        setShowTrailerButton(Array(items.length).fill(false));
+    }, [items]);
+
     return (
         <>
             <div className="list-box">
                 <button onClick={prevItems} className="prev">&#10094;</button>
                 <div className="items-box">
-                    {rotateItems(listMovie, startIndex).slice(0, 4).map((movie, index) => (
+                    {rotateItems(listMovie, startIndex).slice(0, 5).map((movie, index) => (
                         <div key={index} className="item-box">
                             <div className='item-content'>
-                                <div >
-                                    <img src={movie.poster} className='movie-img' alt={movie.name} />
+                                <div
+                                    onMouseEnter={() => handleMouseEnter(index)}
+                                    onMouseLeave={() => handleMouseLeave(index)}
+                                    onClick={() => handleShowTrailer(movie)}
+                                >
+                                    <img src={movie.poster} className='movie-img' alt={movie.name} onClick={() => handleShowTrailer(movie)} />
+                                    {showTrailerButton[index] && (
+                                        <div className='trailer-hover'>
+                                            <div>View trailer</div>
+                                            <br />
+                                            <HiPlay style={{ fontSize: "50px" }} />
+                                        </div>
+                                    )}
                                 </div>
-                                <div className='movieName'>Movie name: {movie.name}</div>
-                                <div>Genres: {movie.category?.name}</div>
+                                <div style={{ marginTop: "10px", display: "flex", flexDirection: "column" }}>
+                                    <div className='movieName'>Movie name: {movie.name}</div>
+                                    <div>Genres: {movie.category?.name}</div>
+                                </div>
                             </div>
                             <div className='btn-container'>
                                 <button className='buttonBooking'>Book now</button>
@@ -86,6 +124,11 @@ const ListIncoming = ({ items }) => {
                 movie={selectedMovie}
                 show={showModal}
                 handleClose={() => setShowModal(false)}
+            />
+            <TrailerMovie
+                movie={selectedMovie}
+                show={isShowModalTrailer}
+                handleClose={() => setIsShowModalTrailer(false)}
             />
         </>
     );

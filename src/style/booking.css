@@ -225,3 +225,10 @@
         margin-bottom: 40px;
     }
 }
+
+.buttonHome{
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #a33327;
+    margin: 0 0 10px 0;
+}

@@ -15,8 +15,8 @@ const InforMovie = ({ show, handleClose, movie }) => {
                 {/* <Modal.Header closeButton>
                     <Modal.Title>Movie's Information</Modal.Title>
                 </Modal.Header> */}
-                <Modal.Body style={{ height: '500px', overflowY: 'auto' }}>
-                    <div className='modal-info'>
+                <Modal.Body style={{ height: '500px', overflowY: 'auto', backgroundImage: "linear-gradient(to right, rgba(23, 22, 22, 1), rgba(23, 22, 22, .4)), url(https://isquad.tv/wp-content/uploads/2018/08/Netflix-Background.jpg)"}}>
+                    <div className='modal-info' style={{}}>
                         <div className='image'>
                             {movie.poster && <img src={movie.poster} style={{ width: "310px", borderRadius: "10px" }} alt={movie.name} />}
                         </div>
@@ -29,16 +29,7 @@ const InforMovie = ({ show, handleClose, movie }) => {
                                 <h5>Premiere Date: {new Date(movie.premiere).toLocaleDateString()}</h5>
                                 <h5>Duration: {movie.time} minutes</h5>
                                 <h5>Language: {movie.language}</h5>
-                            </div>
-                            <div className='trailer'>
-                                <iframe
-                                    src={`https://www.youtube.com/embed/${new URLSearchParams(new URL(movie.trailerUrl).search).get('v')}`}
-                                    allowFullScreen
-                                    title="Movie Trailer"
-                                    frameBorder="0"
-                                    width="100%"
-                                    height="100%"
-                                />
+                                <h5>Description: {movie.language}</h5>
                             </div>
                         </div>
                     </div>

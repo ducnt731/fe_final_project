@@ -3,14 +3,17 @@ import '../../style/listBox.css'; // Import CSS file
 import { Button } from 'react-bootstrap';
 import { IoIosInformationCircle } from "react-icons/io";
 import InforMovie from './inforMovie';
+import TrailerMovie from './trailer';
 
 const ListHotMovie = ({ items }) => {
 
     const [startIndex, setStartIndex] = useState(0);
     const [isShowModalInfo, setIsShowModalInfo] = useState(false)
+    const [isShowModalTrailer, setIsShowModalTrailer] = useState(false)
 
     const handleClose = () => {
         setIsShowModalInfo(false)
+        setIsShowModalTrailer(false)
     }
 
     const nextItems = () => {
@@ -29,6 +32,21 @@ const ListHotMovie = ({ items }) => {
         }
     };
 
+    const [showTrailerButton, setShowTrailerButton] = useState(false);
+
+    const handleMouseEnter = () => {
+        setShowTrailerButton(true);
+    };
+
+    const handleMouseLeave = () => {
+        setShowTrailerButton(false);
+    };
+
+    const openTrailer = () => {
+        // Code để mở trailer, ví dụ: mở một modal chứa video trailer
+        alert('Mở trailer'); // Đây chỉ là một thông báo, bạn cần thay thế bằng mã JavaScript thực tế để mở trailer.
+    };
+
     return (
         <>
             <div className="list-box">
@@ -37,7 +55,21 @@ const ListHotMovie = ({ items }) => {
                     {items.slice(startIndex, startIndex + 4).map((item, index) => (
                         <div key={index} className="item-box">
                             <div className='item-content'>
-                                <img src='https://arena.fpt.edu.vn/wp-content/uploads/2021/04/5-yeu-to-tao-nen-mot-poster-phim-an-tuong.jpeg' className='movie-img' />
+                                <img
+                                    src='https://arena.fpt.edu.vn/wp-content/uploads/2021/04/5-yeu-to-tao-nen-mot-poster-phim-an-tuong.jpeg' className='movie-img'
+                                    onMouseEnter={handleMouseEnter}
+                                    onMouseLeave={handleMouseLeave} 
+                                    onClick={() => setIsShowModalTrailer(true)}
+                                    />
+
+                                {showTrailerButton && (
+                                    <div className='trailer-hover'>
+                                        <div>View trailer</div>
+                                        {/* <button className="trailer-button" onClick={() => setIsShowModalTrailer(true)}>
+                                            Xem trailer
+                                        </button> */}
+                                    </div>
+                                )}
                                 {item}
                                 <span>ten phim</span>
                                 <span>the loai</span>
@@ -71,6 +103,10 @@ const ListHotMovie = ({ items }) => {
             </div>
             <InforMovie
                 show={isShowModalInfo}
+                handleClose={handleClose}
+            />
+            <TrailerMovie
+                show={isShowModalTrailer}
                 handleClose={handleClose}
             />
         </>

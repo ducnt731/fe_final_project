@@ -23,7 +23,7 @@ console.log(">>>>", data);
     useEffect(() => {
         let token = localStorage.getItem("token")
         if (token) {
-            navigate("/")
+            navigate("/login")
         }
     }, [])
 
@@ -46,7 +46,7 @@ console.log(">>>>", data);
                     toast.error(res.data.error)
                 }else{
                     toast.success("Register success!")
-                    navigate("/")
+                    navigate("/login")
                 }
             } catch (error) {
                 console.log(">>>check", error);
@@ -122,6 +122,7 @@ console.log(">>>>", data);
                     </div>
                         <button
                             type="submit"
+                            className="buttonLogin"
                         >Register {loadingAPI && <Spinner animation="border" variant="info" size="sm"/>}</button>
                 </form>
             </div>

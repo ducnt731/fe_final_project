@@ -24,6 +24,7 @@
   margin-right: 10px;
   margin-left: 10px;
   border-radius: 20px;
+  position: relative;
 
   .item-content {
     display: flex;
@@ -100,22 +101,40 @@
 
   .information {
     margin-left: 30px;
-
-    .trailer {
-      position: absolute;
-      bottom: 15px;
-      right: 15px;
-      width: 400px;
-      /* Điều chỉnh kích thước của container tùy thuộc vào nhu cầu của bạn */
-      height: 225px;
-      /* Tính toán chiều cao dựa trên tỉ lệ 16:9 */
-      z-index: 1000;
-      /* Đặt z-index âm để đảm bảo nằm dưới modal */
-    }
-
-    .trailer iframe {
-      width: 100%;
-      height: 100%;
-    }
   }
+}
+
+.trailer {
+  position: absolute;
+  /* bottom: 15px;
+      right: 15px; */
+  width: 100%;
+  /* Điều chỉnh kích thước của container tùy thuộc vào nhu cầu của bạn */
+  height: 100%;
+  /* Tính toán chiều cao dựa trên tỉ lệ 16:9 */
+  z-index: 1000;
+  /* Đặt z-index âm để đảm bảo nằm dưới modal */
+}
+
+.trailer iframe {
+  width: 97%;
+  height: 95%;
+}
+
+.trailer-hover {
+  width: 85%;
+  height: 63%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(23, 22, 22, 0.6);
+  position: absolute;
+  border-radius: 10px;
+  top: 37.5%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 1;
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
 }
