@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import { addShowTimeAdminCinema, deleteShowTime, editShowTime, fetchAllShowTimeAdminCinema } from "../../service/userService"
+import { addShowTimeAdminCinema, deleteShowTime, editShowTime, editShowTimeAdminCinema, fetchAllShowTimeAdminCinema } from "../../service/userService"
 import { toast } from 'react-toastify';
 import { RiArrowUpDownLine } from "react-icons/ri";
 import AdminCinemaAddShowTime from "./adAddShowTime";
@@ -49,7 +49,7 @@ const AdminCinemaManageShowTime = () => {
         delete newData._id
         newData = { ...newData, id }
         try {
-            const response = await editShowTime(newData);
+            const response = await editShowTimeAdminCinema(newData);
             if (response) {
                 await getAllShowTime()
                 setIsShowModalEdit(!isShowModalEdit)
@@ -223,6 +223,8 @@ const AdminCinemaManageShowTime = () => {
                 dataEditShowTime={dataEdit}
                 handleClose={handleClose}
                 handleEditShowTime={handleEditFromModal}
+                cinemaName={listCinema}
+                defaultCinema={cinemaId}
             />
             <AdminCinemaDeleteShowTime
                 show={isShowModalDelete}
