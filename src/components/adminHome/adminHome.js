@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import '../../style/dashboard.css'
+import { totalAccountCustomer, totalAccountStaff, totalCinemas, totalMovies } from '../../service/userService';
 
 const data = [
     {
@@ -70,6 +71,42 @@ const renderCustomizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, per
 };
 
 const AdminHome = () => {
+    const [movieCount, setMovieCount] = useState(0)
+    const [theaterCount, setTheaterCount] = useState(0)
+    const [customerCount, setCustomerCount] = useState(0)
+    const [staffCount, setStaffCount] = useState(0)
+
+    const totalMovieSystem = async () => {
+        const response = await totalMovies()
+        if (response) {
+            setMovieCount(response.data)
+        }
+    }
+    const totalTheaterSystem = async () => {
+        const response = await totalCinemas()
+        if (response) {
+            setTheaterCount(response.data)
+        }
+    }
+    const totalCustomerSystem = async () => {
+        const response = await totalAccountCustomer()
+        if (response) {
+            setCustomerCount(response.data)
+        }
+
+    }
+    const totalStaffSystem = async () => {
+        const response = await totalAccountStaff()
+        if (response) {
+            setStaffCount(response.data)
+        }
+    }
+    useEffect(() => {
+        totalMovieSystem()
+        totalTheaterSystem()
+        totalCustomerSystem()
+        totalStaffSystem()
+    }, [])
     return (
         <>
             <div className='dashboard-container'>
@@ -83,28 +120,28 @@ const AdminHome = () => {
                             <h3>MOVIES</h3>
                             <i className="fa-solid fa-table-cells-large card_icon"></i>
                         </div>
-                        <h1>300</h1>
+                        <h1>{movieCount}</h1>
                     </div>
                     <div className='card'>
                         <div className='card-inner'>
                             <h3>THEATERS</h3>
                             <i className="fa-solid fa-location-dot card_icon"></i>
                         </div>
-                        <h1>12</h1>
+                        <h1>{theaterCount}</h1>
                     </div>
                     <div className='card'>
                         <div className='card-inner'>
                             <h3>CUSTOMERS</h3>
                             <i className="fa-solid fa-users card_icon"></i>
                         </div>
-                        <h1>33</h1>
+                        <h1>{customerCount}</h1>
                     </div>
                     <div className='card'>
                         <div className='card-inner'>
                             <h3>STAFFS</h3>
                             <i className="fa-solid fa-users card_icon"></i>
                         </div>
-                        <h1>42</h1>
+                        <h1>{staffCount}</h1>
                     </div>
                 </div>
                 <div className='chart-card'>

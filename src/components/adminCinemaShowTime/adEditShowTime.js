@@ -7,12 +7,12 @@ import Select from 'react-select';
 
 
 const AdminCinemaEditShowTime = (props) => {
-    const { show, handleClose, handleEditShowTime, dataEditShowTime, cinemaName, defaultCinema } = props;
+    const { show, handleClose, handleEditShowTime, dataEditShowTime, cinemaInfor } = props;
     const [selectedTime, setSelectedTime] = useState("")
     const [showTimeData, setshowTimeData] = useState({
         id: "",
         movie: "",
-        cinema: defaultCinema ? defaultCinema : " ",
+        cinema: cinemaInfor.id ? cinemaInfor.id : "",
         room: "",
         startDate: "",
         endDate: "",
@@ -190,8 +190,8 @@ const AdminCinemaEditShowTime = (props) => {
                             )
                         })}
                     </select>
-                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={defaultCinema} name='cinema' onChange={handleChange} >
-                        <option key={defaultCinema} value={defaultCinema}>{cinemaName}</option>
+                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={cinemaInfor.id} name='cinema' onChange={handleChange} >
+                        <option key={cinemaInfor.id} value={cinemaInfor.id}>{cinemaInfor.name}</option>
                     </select>
                     <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.room} name='room' onChange={handleChange} >
                         <option style={{ backgroundColor: "white" }}>Choose Room</option>

@@ -195,8 +195,8 @@ const addMovieAdminCinema = (movieId) => {
     return axios.post("/add-movie-to-cinema", { movieId: movieId }, getAuthHeaders());
 };
 
-const updateMovieAdminCinema = (movieId) => {
-    return axios.put("/update-movie-from-cinema", movieId, getAuthHeaders());
+const updateMovieAdminCinema = (data) => {
+    return axios.put("/update-movie-from-cinema",data, getAuthHeaders());
 }
 const deleteMovieAdminCinema = (_id) => {
     return axios.delete(`/delete-movie-from-cinema/${_id}`, getAuthHeaders());
@@ -241,6 +241,39 @@ const addShowTimeAdminCinema = (data) => {
 
 const editShowTimeAdminCinema = (data) => {
     return axios.put("/admin-cinema/update-showtime", data, getAuthHeaders())
+}
+
+const deleteShowTimeAdminCinema = (_id) => {
+    return axios.delete(`/admin-cinema/delete-showtime/${_id}`, getAuthHeaders())
+}
+
+const fetchAllShowTimeByCinema = () => {
+    return axios.get(`/show-time-by-cinema`, getAuthHeaders())
+}
+
+const totalMovies = () => {
+    return axios.get("/total-movies", getAuthHeaders())
+}
+const totalCinemas = () => {
+    return axios.get("/total-cinema", getAuthHeaders())
+}
+const totalAccountCustomer = () => {
+    return axios.get("/total-account-customer", getAuthHeaders())
+}
+const totalAccountStaff = () => {
+    return axios.get("/total-account-staff", getAuthHeaders())
+}
+const totalMovieForAdminCinema = () => {
+    return axios.get("/total-movie-cinema", getAuthHeaders())
+}
+const totalTicketSoldInCinema = () => {
+    return axios.get("/total-ticket-sold-in-cinema", getAuthHeaders())
+}
+const totalRevenueInCinema = () => {
+    return axios.get("/total-revenue-in-cinema", getAuthHeaders())
+}
+const totalAccountStaffInCinema = () => {
+    return axios.get("/total-account-staff-in-cinema", getAuthHeaders())
 }
 export {
     fetchAllUser,
@@ -297,5 +330,15 @@ export {
     duplicateShowtime,
     fetchAllShowTimeAdminCinema,
     addShowTimeAdminCinema,
-    editShowTimeAdminCinema
+    editShowTimeAdminCinema,
+    deleteShowTimeAdminCinema,
+    fetchAllShowTimeByCinema,
+    totalMovies,
+    totalCinemas,
+    totalAccountCustomer,
+    totalAccountStaff,
+    totalMovieForAdminCinema,
+    totalTicketSoldInCinema,
+    totalRevenueInCinema,
+    totalAccountStaffInCinema
 }
