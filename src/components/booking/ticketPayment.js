@@ -32,7 +32,7 @@ const TicketPayment = () => {
                 totalPrice: paymentData.total,
                 seats: paymentData.selectedSeats.join(','),
                 time: paymentData.selectedTime,
-                status: 'Paid',
+                // status: 'Paid',
             };
             console.log('Data being sent to saveBooking:', data); // Verify the data is correct
             await saveBooking(data);

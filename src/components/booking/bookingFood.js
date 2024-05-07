@@ -31,7 +31,7 @@ const BookingFood = () => {
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
 
-    console.log("Seats", seats)
+    console.log("showtimeId", showtimeId)
     // Khởi tạo state để lưu trữ giá trị trong box
     const [value, setValue] = useState(0);
 

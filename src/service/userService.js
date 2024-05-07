@@ -82,6 +82,10 @@ const fetchAllMovie = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
+
+const fetchAllMovieNotPagination = () => {
+    return axios.get("/movies", getAuthHeaders());
+}
 const editMovie = (userData) => {
     return axios.put("/update-movie", userData, getAuthHeaders());
 }
@@ -130,7 +134,9 @@ const fetchAllCinema = (currentPage, accountsPerPage) => {
         ...getAuthHeaders()
     });
 }
-
+const fetchAllCinemaNotPagination = () => {
+    return axios.get("/cinemas", getAuthHeaders());
+}
 const addCinema = (data) => {
     return axios.post("/create-cinema", data, getAuthHeaders())
 }
@@ -141,6 +147,10 @@ const editCinema = (data) => {
 
 const deleteCinema = (_id) => {
     return axios.delete(`/delete-cinema/${_id}`, getAuthHeaders())
+}
+
+const fetchAllRoomInCinema = (cinemaId) => {
+    return axios.get(`/all-room-cinema/${cinemaId}`, getAuthHeaders())
 }
 
 const getProvinceCinema = () => {
@@ -216,6 +226,10 @@ const fetchAllSeatStatus = (showtimeId, selectedTime, selectedDate) => {
     return axios.get(`/seats/status?showtimeId=${showtimeId}&selectedTime=${encodeURIComponent(selectedTime)}&selectedDate=${encodeURIComponent(selectedDate)}`, getAuthHeaders())
 
 }
+
+const duplicateShowtime = (cinema, room, startDate, endDate) => {
+    return axios.get(`/duplicates?cinema=${cinema}&room=${room}&startDate=${startDate}&endDate=${endDate}`, getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -264,5 +278,9 @@ export {
     historyPurchase,
     fetchAllSeatStatus,
     updateMovieAdminCinema,
-    deleteMovieAdminCinema
+    deleteMovieAdminCinema,
+    fetchAllRoomInCinema,
+    fetchAllMovieNotPagination,
+    fetchAllCinemaNotPagination,
+    duplicateShowtime
 }
