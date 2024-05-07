@@ -238,6 +238,10 @@ const fetchAllShowTimeAdminCinema = () => {
 const addShowTimeAdminCinema = (data) => {
     return axios.post("/admin-cinema/create-showtime", data, getAuthHeaders())
 }
+
+const editShowTimeAdminCinema = (data) => {
+    return axios.put("/admin-cinema/update-showtime", data, getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -292,5 +296,6 @@ export {
     fetchAllCinemaNotPagination,
     duplicateShowtime,
     fetchAllShowTimeAdminCinema,
-    addShowTimeAdminCinema
+    addShowTimeAdminCinema,
+    editShowTimeAdminCinema
 }
