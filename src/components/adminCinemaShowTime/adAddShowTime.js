@@ -6,19 +6,28 @@ import { formatDate } from '../../service/formatDate';
 import Select from 'react-select';
 
 const AdminCinemaAddShowTime = (props) => {
-    const { show, handleClose, handleAddNewShowTime, defaultCinema, cinemaName } = props;
-    console.log("defaultCinema", defaultCinema);
+    const { show, handleClose, handleAddNewShowTime, cinemaInfor } = props;
+    console.log("defaultCinema", cinemaInfor.id);
     const [selectedTime, setSelectedTime] = useState("")
     const [selectedRoom, setSelectedRoom] = useState("");
     // const [showPoster, setShowPoster] = useState();
     const [showTimeData, setshowTimeData] = useState({
-        cinema: defaultCinema ? defaultCinema : "",
+        cinema: cinemaInfor.id ? cinemaInfor.id : "",
         movie: "",
         room: "",
         startDate: "",
         endDate: "",
         times: []
     });
+    console.log("showTimeData", showTimeData)
+    useEffect(() => {
+        if (cinemaInfor && cinemaInfor.id) {
+            setshowTimeData(prevData => ({
+                ...prevData,
+                cinema: cinemaInfor.id
+            }));
+        }
+    }, [cinemaInfor]);
 
     console.log("showTimeData", showTimeData)
     const [listCinema, setListCinema] = useState([]);
@@ -27,10 +36,10 @@ const AdminCinemaAddShowTime = (props) => {
     const [existingShowtimes, setExistingShowtimes] = useState([]);
 
     useEffect(() => {
-        if (defaultCinema) {
-            getAllRoom(defaultCinema);
+        if (cinemaInfor.id) {
+            getAllRoom(cinemaInfor.id);
         }
-    }, [defaultCinema]);
+    }, [cinemaInfor.id]);
 
     const fetchShowtimes = async (cinema, room, startDate, endDate) => {
         if (showTimeData.cinema && showTimeData.room && showTimeData.startDate && showTimeData.endDate) {
@@ -145,8 +154,8 @@ const AdminCinemaAddShowTime = (props) => {
                             )
                         })}
                     </select>
-                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={defaultCinema} name='cinema' onChange={handleChange} >
-                        <option key={defaultCinema} value={defaultCinema}>{cinemaName}</option>
+                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={cinemaInfor.id} name='cinema' onChange={handleChange} >
+                        <option key={cinemaInfor.id} value={cinemaInfor.id}>{cinemaInfor.name}</option>
                     </select>
                     <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.room} name='room' onChange={handleChange} >
                         <option style={{ backgroundColor: "white" }}>Choose Room</option>
