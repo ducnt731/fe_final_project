@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Table from 'react-bootstrap/Table';
-import { addShowTimeAdminCinema, deleteShowTime, editShowTime, editShowTimeAdminCinema, fetchAllShowTimeAdminCinema } from "../../service/userService"
+import { addShowTimeAdminCinema, deleteShowTime, deleteShowTimeAdminCinema, editShowTime, editShowTimeAdminCinema, fetchAllShowTimeAdminCinema } from "../../service/userService"
 import { toast } from 'react-toastify';
 import { RiArrowUpDownLine } from "react-icons/ri";
 import AdminCinemaAddShowTime from "./adAddShowTime";
@@ -19,7 +19,10 @@ const AdminCinemaManageShowTime = () => {
     const [dataDelete, setDataDelete] = useState({})
     const [totalPages, setTotalPage] = useState(0);
     const [listCinema, setListCinema] = useState([]);
-    const [listShowTime, setlistShowTime] = useState([]);
+    const [listShowTime, setlistShowTime] = useState({
+        id: "",
+        name: "",
+    });
     // const [currentPage, setCurrentPage] = useState(1);
     // const accountsPerPage = 10// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
@@ -59,9 +62,10 @@ const AdminCinemaManageShowTime = () => {
             toast.error("Edit error")
         }
     }
-    const handleDeleteFromModal = async (dataEdit) => {
+    const handleDeleteFromModal = async (data) => {
         try {
-            const response = await deleteShowTime(dataEdit._id);
+            console.log("Deleting showtime with ID:", data._id);
+            const response = await deleteShowTimeAdminCinema(data._id);
             if (response) {
                 await getAllShowTime()
                 setIsShowModalDelete(!isShowModalDelete)
@@ -80,8 +84,10 @@ const AdminCinemaManageShowTime = () => {
             if (response) {
                 // setTotalPage(response.totalPages);
                 setlistShowTime(response.data);
-                setListCinema(response.data[0].cinema?.name); // Lưu danh sách rạp chiếu phim vào state mới
-                setCinemaId(response.data[0].cinema?._id)
+                setListCinema({
+                    name: response.data[0].cinema.name,
+                    id: response.data[0].cinema._id
+                });
             }
         } catch (error) {
             console.error('Error fetching accounts:', error);
@@ -154,7 +160,7 @@ const AdminCinemaManageShowTime = () => {
                     <div className="button-account">
                         <h2>All Show Time</h2>
                         <div className="button-ShowTime">
-                            <a href="/admin/schedule" className="btn btn-primary">Schedule</a>
+                            <a href="/admin-cinema/schedule" className="btn btn-primary">Schedule</a>
                             <button
                                 style={{ marginLeft: "10px" }}
                                 className="btn btn-primary"
@@ -215,16 +221,14 @@ const AdminCinemaManageShowTime = () => {
                 show={isShowModalAdd}
                 handleClose={handleClose}
                 handleAddNewShowTime={handleAddShowTime}
-                cinemaName={listCinema}
-                defaultCinema={cinemaId}
+                cinemaInfor={listCinema}
             />
             <AdminCinemaEditShowTime
                 show={isShowModalEdit}
                 dataEditShowTime={dataEdit}
                 handleClose={handleClose}
                 handleEditShowTime={handleEditFromModal}
-                cinemaName={listCinema}
-                defaultCinema={cinemaId}
+                cinemaInfor={listCinema}
             />
             <AdminCinemaDeleteShowTime
                 show={isShowModalDelete}

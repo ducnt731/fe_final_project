@@ -2,7 +2,7 @@ import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
 import { useEffect, useState } from 'react';
 import { formatDate } from "../../service/formatDate"
-import { fetchAllCinema } from '../../service/userService';
+import { fetchAllCinema, fetchAllCinemaNotPagination } from '../../service/userService';
 
 const AddAccount = (props) => {
 
@@ -33,7 +33,7 @@ const AddAccount = (props) => {
     //     getAllFaculty()
     // }, [])
     const getAllCinemas = async () => {
-        let res = await fetchAllCinema()
+        let res = await fetchAllCinemaNotPagination()
         if (res) {
             setListCinema(res.data)
         }
@@ -79,7 +79,7 @@ const AddAccount = (props) => {
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Date of birth</label>
-                        <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange}  />
+                        <input type="date" required name='dateOfBirth' className="form-control" value={userData.dateOfBirth && formatDate(new Date(userData.dateOfBirth))} onChange={handleChange} />
                     </div>
                     <select className="form-select" required value={userData.gender} name='gender' onChange={handleChange} >
                         <option >Choose gender</option>
@@ -95,9 +95,9 @@ const AddAccount = (props) => {
                         <option value={"admin cinema"}>Admin Cinema</option>
                         <option value={"staff"}>Staff</option>
                     </select>
-                    {userData.role === "admin cinema" && (
-                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} style={{marginTop: "20px"}}>
-                            <option>Choose Cinema</option>
+                    {userData.role === "admin cinema" || userData.role === "staff" && (
+                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} >
+                            <option >Choose Cinema</option>
                             {listCinema && listCinema.map((cinmea) => {
                                 return (
                                     <option key={cinmea._id} value={cinmea._id}>{cinmea.name}</option>

@@ -24,7 +24,7 @@ const AdminCinemaManageMovie = () => {
     const accountsPerPage = 10// Số tài khoản trên mỗi trang
     const [sortOrder, setSortOrder] = useState('asc');
     const [selectedMovie, setSelectedMovie] = useState("");
-    const [adminId, setAdminId] = useState("");
+    const [setCinema, setListCinema] = useState("");
 
 
     const handleClose = () => {
@@ -41,16 +41,17 @@ const AdminCinemaManageMovie = () => {
         setIsShowModalDelete(true)
         setDataDelete(accountDelete)
     }
-    const handleEditFromModal = async (dataEdit) => {
-        console.log(">>>>>>>>>>Dataa", dataEdit)
-        const id = dataEdit._id
-        let newData = dataEdit
-        delete newData.__v
-        delete newData._id
-        newData = { ...newData, id }
+    const handleEditFromModal = async (data) => {
+        console.log(">>>>>>>>>>Dataa", data)
+        const id = data._id;
+        let newData = { ...data };
+        delete newData.__v;
+        delete newData._id;
+        // newData = { ...newData, id }
+        const response = await updateMovieAdminCinema({ id, ...newData });
+        console.log("response", response)
         try {
-            console.log(",>>>>>>>>>>>>", response)
-            const response = await updateMovieAdminCinema(newData);
+            // const response = await updateMovieAdminCinema(newData);
             if (response.data) {
                 await getAllMovieCinema()
                 setIsShowModalEdit(!isShowModalEdit)
@@ -59,7 +60,6 @@ const AdminCinemaManageMovie = () => {
         } catch (error) {
             toast.error("Edit error")
         }
-
     }
     const handleDeleteFromModal = async (data) => {
         try {
@@ -81,6 +81,10 @@ const AdminCinemaManageMovie = () => {
             if (response) {
                 setTotalPage(response.totalPages);
                 setListMovie(response.data);
+                setListCinema({
+                    // name: response.data[0].cinema.name,
+                    id: response.data[0].cinema._id
+                });
             }
         } catch (error) {
             console.error('Error fetching accounts:', error);
@@ -234,6 +238,7 @@ const AdminCinemaManageMovie = () => {
                 show={isShowModalEdit}
                 dataEditMovie={dataEdit}
                 handleClose={handleClose}
+                CinemaInfor={setCinema}
                 handleMovieEdit={handleEditFromModal}
             />
             <AdminCinemaDeleteMovie
