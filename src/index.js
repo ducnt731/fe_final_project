@@ -27,6 +27,7 @@ import HistoryPurchaseCustomer from './page/customer/historyPurchaseCustomer';
 import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCinemaManageMovie';
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 import SucessPage from './page/customer/sucessPage';
+import AdminCinemaShowTime from './page/adminCinema/adminCinemaShowTime';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -57,6 +58,7 @@ root.render(
         <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
         <Route path="/admin-cinema" element={<AdminCinemaHome />} />
         <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
+        <Route path="/admin-cinema/show-time" element={<AdminCinemaShowTime />} />
         <Route path="/success" element={<SucessPage />} />
       </Routes>
     </BrowserRouter>

@@ -230,6 +230,14 @@ const fetchAllSeatStatus = (showtimeId, selectedTime, selectedDate) => {
 const duplicateShowtime = (cinema, room, startDate, endDate) => {
     return axios.get(`/duplicates?cinema=${cinema}&room=${room}&startDate=${startDate}&endDate=${endDate}`, getAuthHeaders())
 }
+
+const fetchAllShowTimeAdminCinema = () => {
+    return axios.get(`/admin-cinema/showtimes`, getAuthHeaders())
+}
+
+const addShowTimeAdminCinema = (data) => {
+    return axios.post("/admin-cinema/create-showtime", data, getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -282,5 +290,7 @@ export {
     fetchAllRoomInCinema,
     fetchAllMovieNotPagination,
     fetchAllCinemaNotPagination,
-    duplicateShowtime
+    duplicateShowtime,
+    fetchAllShowTimeAdminCinema,
+    addShowTimeAdminCinema
 }

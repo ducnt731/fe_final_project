@@ -5,24 +5,32 @@ import { duplicateShowtime, fetchAllCinemaNotPagination, fetchAllMovieNotPaginat
 import { formatDate } from '../../service/formatDate';
 import Select from 'react-select';
 
-
-const AddShowTime = (props) => {
-    const { show, handleClose, handleAddNewShowTime } = props;
+const AdminCinemaAddShowTime = (props) => {
+    const { show, handleClose, handleAddNewShowTime, defaultCinema, cinemaName } = props;
+    console.log("defaultCinema", defaultCinema);
     const [selectedTime, setSelectedTime] = useState("")
     const [selectedRoom, setSelectedRoom] = useState("");
     // const [showPoster, setShowPoster] = useState();
     const [showTimeData, setshowTimeData] = useState({
-        cinema: "",
+        cinema: defaultCinema ? defaultCinema : "",
         movie: "",
         room: "",
-        dateStart: "",
+        startDate: "",
         endDate: "",
         times: []
     });
+
+    console.log("showTimeData", showTimeData)
     const [listCinema, setListCinema] = useState([]);
     const [listMovie, setListMovie] = useState([]);
     const [listRoom, setListRoom] = useState([]);
     const [existingShowtimes, setExistingShowtimes] = useState([]);
+
+    useEffect(() => {
+        if (defaultCinema) {
+            getAllRoom(defaultCinema);
+        }
+    }, [defaultCinema]);
 
     const fetchShowtimes = async (cinema, room, startDate, endDate) => {
         if (showTimeData.cinema && showTimeData.room && showTimeData.startDate && showTimeData.endDate) {
@@ -88,6 +96,7 @@ const AddShowTime = (props) => {
         const { name, value } = e.target;
         setshowTimeData({ ...showTimeData, [name]: value });
     };
+
     const timeOptions = [
         { value: '09:00-11:00', label: '09:00 - 11:00' },
         { value: '11:00-13:00', label: '11:00 - 13:00' },
@@ -121,12 +130,10 @@ const AddShowTime = (props) => {
     };
 
 
-
-
     return (
         <Modal show={show} onHide={handleClose} size='x' >
             <Modal.Header closeButton>
-                <Modal.Title>New Movie</Modal.Title>
+                <Modal.Title>New Show Time</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="body-add">
@@ -138,13 +145,8 @@ const AddShowTime = (props) => {
                             )
                         })}
                     </select>
-                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.cinema} name='cinema' onChange={handleChange} >
-                        <option style={{ backgroundColor: "white" }}>Choose Cinema</option>
-                        {listCinema && listCinema.map((cinema) => {
-                            return (
-                                <option style={{ backgroundColor: "white" }} key={cinema._id} value={cinema._id}>{cinema.name}</option>
-                            )
-                        })}
+                    <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={defaultCinema} name='cinema' onChange={handleChange} >
+                        <option key={defaultCinema} value={defaultCinema}>{cinemaName}</option>
                     </select>
                     <select style={{ marginBottom: "1.5rem" }} className="form-select" required value={showTimeData.room} name='room' onChange={handleChange} >
                         <option style={{ backgroundColor: "white" }}>Choose Room</option>
@@ -226,4 +228,4 @@ const AddShowTime = (props) => {
     );
 };
 
-export default AddShowTime;
+export default AdminCinemaAddShowTime;
