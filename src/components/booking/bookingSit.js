@@ -37,6 +37,8 @@ const BookingSit = () => {
     const movieId = locationState ? locationState.movieId : '';
     const showtimeId = locationState ? locationState.showtimeId : '';
 
+    console.log("showtimeId", showtimeId)
+
 
 
     useEffect(() => {

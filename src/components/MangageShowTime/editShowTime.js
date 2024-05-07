@@ -129,14 +129,13 @@ const EditShowTime = (props) => {
         setshowTimeData({ ...showTimeData, [name]: value });
     };
     const timeOptions = [
-        { value: '09:00', label: '09:00' },
-        { value: '11:00', label: '11:00' },
-        { value: '13:00', label: '13:00' },
-        { value: '15:00', label: '15:00' },
-        { value: '17:00', label: '17:00' },
-        { value: '19:00', label: '19:00' },
-        { value: '21:00', label: '21:00' },
-        { value: '23:00', label: '23:00' },
+        { value: '09:00-11:00', label: '09:00 - 11:00' },
+        { value: '11:00-13:00', label: '11:00 - 13:00' },
+        { value: '13:00-15:00', label: '13:00 - 15:00' },
+        { value: '15:00-17:00', label: '15:00 - 17:00' },
+        { value: '17:00-19:00', label: '17:00 - 19:00' },
+        { value: '19:00-21:00', label: '19:00 - 21:00' },
+        { value: '21:00-23:00', label: '21:00 - 23:00' }
     ];
     // Sự kiện khi thay đổi lựa chọn thời gian
     const handleTimeChange = (selectedOptions) => {
