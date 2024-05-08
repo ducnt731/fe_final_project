@@ -28,6 +28,7 @@ import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCin
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 import SucessPage from './page/customer/sucessPage';
 import AdminCinemaShowTime from './page/adminCinema/adminCinemaShowTime';
+import AdminFood from './page/admin/adminFood';
 import AdminCinemaSchedule from './page/adminCinema/adCinemaSchedule';
 
 
@@ -62,6 +63,7 @@ root.render(
         <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />
         <Route path="/admin-cinema/show-time" element={<AdminCinemaShowTime />} />
         <Route path="/success" element={<SucessPage />} />
+        <Route path="/admin/food" element={<AdminFood />} />
       </Routes>
     </BrowserRouter>
     <ToastContainer

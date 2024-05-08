@@ -33,6 +33,7 @@
 }
 
 .card-inner h3{
+    text-transform: uppercase;
     font-family: 'Oswald', sans-serif;
 }
 

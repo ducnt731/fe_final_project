@@ -6,11 +6,12 @@ import Offcanvas from 'react-bootstrap/Offcanvas';
 import { useNavigate } from "react-router-dom";
 import '../../style/home.css'
 import { ImProfile } from "react-icons/im";
-import { FaLocationDot, FaNewspaper } from "react-icons/fa6";
+import { FaNewspaper } from "react-icons/fa6";
 import { FaHistory } from "react-icons/fa";
 import { LuLogOut } from "react-icons/lu";
 import { BiHomeAlt } from "react-icons/bi";
 import { Button } from "react-bootstrap";
+import { GiTheater } from "react-icons/gi";
 
 const Header = () => {
 
@@ -25,7 +26,7 @@ const Header = () => {
                             <img style={{ width: "30px", height: "30px"}} src={require('../../assets/logo1.png')} /> DC Cinema
                         </Navbar.Brand>
                         {localStorage.getItem("accessToken") ? (
-                            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={{ color: "white", backgroundColor: "grey" }} />
+                            <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} style={{ color: "white", backgroundColor: "lightgrey" }} />
                         ) : (
                             <Button onClick={() => navigate('/login')}>Login</Button>
                         )}
@@ -45,9 +46,9 @@ const Header = () => {
                                 <Nav className="justify-content-end flex-grow-1 pe-3">
                                     <Nav.Link href="/" className="menu-item"><BiHomeAlt /> Home</Nav.Link>
                                     <Nav.Link href="/profile" className="menu-item"><ImProfile /> Profile</Nav.Link>
-                                    <Nav.Link href="/theater" className="menu-item"><FaLocationDot /> Theater</Nav.Link>
+                                    <Nav.Link href="/theater" className="menu-item"><GiTheater /> Theater</Nav.Link>
                                     <Nav.Link href="/historypurchase" className="menu-item"><FaHistory /> History purchase</Nav.Link>
-                                    <Nav.Link href="#action2" className="menu-item"><FaNewspaper /> Breaking news</Nav.Link>
+                                    {/* <Nav.Link href="#action2" className="menu-item"><FaNewspaper /> Breaking news</Nav.Link> */}
                                     <Nav.Link
                                         className="menu-item"
                                         onClick={() => {

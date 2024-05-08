@@ -127,7 +127,7 @@ const AddShowTime = (props) => {
     return (
         <Modal show={show} onHide={handleClose} size='x' >
             <Modal.Header closeButton>
-                <Modal.Title>New Movie</Modal.Title>
+                <Modal.Title>New Schedule</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <div className="body-add">

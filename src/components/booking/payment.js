@@ -77,11 +77,11 @@ const Payment = () => {
         <div className="booking-container">
             <div className="booking-title">Step 4: Payment</div>
             <div className="booking-site">
-                {<div className="payment">
-                    <div className="qr-code">Scan QR code below to pay</div>
+                {/* <div className="payment">
+                    <div className="qr-code">Choose payment method</div>
                     <img src="https://file.hstatic.net/1000259246/file/momo_grande.jpg" className="qr" />
-                </div>}
-                <div className="total-price">
+                </div> */}
+                <div className="total-price" style={{ width: "50%" }}>
                     <div className="nameRoom">
                         <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
                         <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
@@ -91,19 +91,19 @@ const Payment = () => {
                     <div className="nameMovie">
                         <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
                         <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
-                        <div className="price">
+                        <div className="price1">
                             <div>Total price seats: </div>
                             <div>{toltalPiceSeat} VND</div>
                         </div>
                         <div className="price2">
-                            <div >Combo name</div>
+                            <div >Combo price:</div>
                             <div >{totalFoodPrice} VND</div>
                         </div>
                     </div>
                     <div className="buttonStep-container">
                         <div className="total">
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{total} VND</div>
+                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} VND</div>
                         </div>
                         <button className="buttonNext" onClick={handlePayment}>Pay</button>
 

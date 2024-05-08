@@ -144,38 +144,45 @@ const BookingFood = () => {
                         ))}
                     </div>
                 </div>
-                <div className="total-price">
-                    <div className="nameRoom">
-                        <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
-                        <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
-                            <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
-                            <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
-                    </div>
-                    <div className="nameMovie">
-                        <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
-                        <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
-                        <div className="price">
-                            <div>Total price seats: </div>
-                            <div>{toltalPiceSeat} VND</div>
+                <div className="price-time">
+                    <div className="total-price">
+                        <div className="nameRoom">
+                            <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
+                            <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
+                                <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
+                                <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
                         </div>
-                        {isShowPrice && <div className="price2">
-                            <div >Combo name</div>
-                            <div >{calculateFoodTotal()} VND</div>
-                        </div>}
-                    </div>
-                    <div className="buttonStep-container">
-                        <div className="total">
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} VND</div>
+                        <div className="nameMovie">
+                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
+                            <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
+                            <div className="price1">
+                                <div>Total price seats: </div>
+                                <div>{toltalPiceSeat} VND</div>
+                            </div>
+                            {isShowPrice && <div className="price2">
+                                <div >Combo price:</div>
+                                <div >{calculateFoodTotal()} VND</div>
+                            </div>}
                         </div>
-                        <button
-                            className="buttonNext"
-                            onClick={() => handleNextStep()}>Next step</button>
-                        <button
-                            className="buttonBack"
-                            onClick={() => navigate(`/booking/bookingsit/${movieId}`)}
-                        ><MdOutlineKeyboardBackspace /> Back</button>
+                        <div className="buttonStep-container">
+                            <div className="total">
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} VND</div>
+                            </div>
+                            <button
+                                className="buttonNext"
+                                onClick={() => handleNextStep()}>Next step</button>
+                            <button
+                                className="buttonBack"
+                                onClick={() => navigate(`/booking/bookingsit/${movieId}`)}
+                            ><MdOutlineKeyboardBackspace /> Back</button>
+                        </div>
                     </div>
+                    {/* <div className="countdown">
+                        <div className="munite">{Math.floor(countdown / 60)}</div>
+                        <div>:</div>
+                        <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
+                    </div> */}
                 </div>
             </div>
         </div>

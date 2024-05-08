@@ -52,10 +52,10 @@ const MangageShowTime = () => {
             if (response) {
                 await getAllShowTime()
                 setIsShowModalEdit(!isShowModalEdit)
-                toast.success("Edit success!")
+                toast.success("Edit schedule success!!!")
             }
         } catch (error) {
-            toast.error("Edit error")
+            toast.error("Edit schedule error!!!")
         }
     }
     const handleDeleteFromModal = async (dataEdit) => {
@@ -64,10 +64,10 @@ const MangageShowTime = () => {
             if (response) {
                 await getAllShowTime()
                 setIsShowModalDelete(!isShowModalDelete)
-                toast.success("Delete successful!!!")
+                toast.success("Delete schedule success!!!")
             }
         } catch (error) {
-            toast.error("Delete error")
+            toast.error("Delete schedule error!!!")
         }
     }
     const getAllShowTime = async () => {
@@ -92,12 +92,12 @@ const MangageShowTime = () => {
             if (response.data) {
                 await getAllShowTime()
                 setIsShowModalAdd(!isShowModalAdd)
-                toast.success("Create success!")
+                toast.success("Create new schedule success!!!")
             } else {
                 toast.warn("You need to enter all field!!!")
             }
         } catch (error) {
-            toast.error("Create fail")
+            toast.error("Create schedule fail")
         }
     }
     useEffect(() => {

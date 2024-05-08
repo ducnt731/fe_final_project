@@ -1,4 +1,9 @@
 import React from "react";
+import { FaUsers } from "react-icons/fa6";
+import { GiTheater } from "react-icons/gi";
+import { IoFastFood } from "react-icons/io5";
+import { MdMovie } from "react-icons/md";
+import { RiCalendarScheduleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
@@ -19,27 +24,27 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/manage_movie">
-                        <i className="fa-solid fa-table-cells-large icon"></i> Manage Movie
+                        <MdMovie className="icon"/> Manage Movie
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/manage_accounts">
-                        <i className="fa-solid fa-users icon"></i> Manage Accounts
+                        <FaUsers className="icon"/> Manage Accounts
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/manage_time_show">
-                        <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
+                        <RiCalendarScheduleFill className="icon"/> Manage Schedule
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin/cinema">
-                        <i className="fa-solid fa-location-dot icon"></i> Theaters
+                        <GiTheater className="icon"/> Manage Theaters
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
-                    <a className="item" href="">
-                        <i className="fa-solid fa-ticket icon"></i> Coupon
+                    <a className="item" href="/admin/food">
+                        <IoFastFood className="icon"/> Manage Food
                     </a>
                 </li>
                 <li className="sidebar-list-item">

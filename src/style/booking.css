@@ -101,7 +101,7 @@
 }
 
 .total-price {
-    width: 20%;
+    width: 100%;
     height: 50%;
     background-color: #333333;
     border-radius: 10px;
@@ -117,7 +117,7 @@
         padding: 10px;
         border-bottom: 1px white solid;
 
-        .price {
+        .price1 {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
@@ -132,7 +132,7 @@
     .total {
         display: flex;
         justify-content: space-between;
-        margin-top: 20px;
+        /* margin-top: 20px; */
     }
 
     .buttonStep-container {
@@ -231,4 +231,36 @@
     border-radius: 10px;
     background-color: #a33327;
     margin: 0 0 10px 0;
+}
+
+.countdown{
+    display: flex;
+    justify-content: space-evenly;
+    margin: 20px 0 0 0;
+    padding: 10px;
+    background-color: #333333;
+    border: 1px solid white;
+    border-radius: 10px;
+    font-weight: bold;
+    font-size: 1.4em;
+    color: #fff;
+    text-align: center;
+
+    .munite{
+        width: 15%;
+        height: 15%;
+        padding: 10px;
+        background-color: #a33327;
+    }
+    .second{
+        width: 15%;
+        height: 15%;
+        padding: 10px;
+        background-color: #a33327;
+    }
+}
+
+.price-time{
+    width: 25%;
+    height: 50%;
 }

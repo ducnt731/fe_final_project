@@ -50,7 +50,7 @@ const MangageCinema = () => {
             if (response.data && response.data.success) {
                 await getAllCinema()
                 setIsShowModalEdit(!isShowModalEdit)
-                toast.success("Edit success!")
+                toast.success("Edit theater success!!!")
             }
         } catch (error) {
             toast.error("Edit error")
@@ -62,7 +62,7 @@ const MangageCinema = () => {
             if (response) {
                 await getAllCinema()
                 setIsShowModalDelete(!isShowModalDelete)
-                toast.success("Delete successful!!!")
+                toast.success("Delete theater success!!!")
             }
         } catch (error) {
             toast.error("Delete error")
@@ -98,7 +98,7 @@ const MangageCinema = () => {
                 await getAllCinema()
                 setIsShowModalAdd(!isShowModalAdd)
             } else {
-                toast.success("Add sucessful!!!")
+                toast.success("Add new theater sucess!!!")
                 await getAllCinema()
                 setIsShowModalAdd(!isShowModalAdd)
             }
@@ -148,8 +148,7 @@ const MangageCinema = () => {
                         <div className="button-cinema">
                             <button
                                 className="btn btn-primary"
-                                onClick={() => setIsShowModalAdd(true)
-                                }
+                                onClick={() => setIsShowModalAdd(true)}
                             >Add new</button>
                         </div>
 
