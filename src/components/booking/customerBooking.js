@@ -36,8 +36,27 @@ const Booking = () => {
     const formatDate = (date) => {
         return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
     };
-
     const todaysShowtimes = showtimes[formatDate(selectedDate)] || [];
+    const isToday = (date) => {
+        const today = new Date();
+        return date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear();
+    };
+
+    const filterTimesForToday = (times) => {
+        const now = new Date();
+        const currentTime = `${now.getHours()}:${now.getMinutes()}`;
+    
+        return times.filter(time => {
+            const [startTime, endTime] = time.split('-');
+            const timeParts = startTime.split(':');
+            const startTimeDate = new Date(now);
+            startTimeDate.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]), 0);
+    
+            return isToday(selectedDate) ? startTimeDate > now : true;
+        });
+    };
     const handleSelectTime = (session, time) => {
         const formattedDate = formatDate(selectedDate);
         console.log("name:", session.movie);
@@ -58,6 +77,9 @@ const Booking = () => {
             }
         });
     };
+    const validShowtimes = todaysShowtimes.filter(session =>
+        filterTimesForToday(session.times).length > 0
+    );
     return (
         <div className="booking-container">
             <div className="booking-title">Step 1: Choose location and time</div>
@@ -68,22 +90,31 @@ const Booking = () => {
                         onChange={date => setSelectedDate(date)}
                         dateFormat="MMMM d, yyyy"
                         inline
+                        minDate={new Date()}
                     />
                 </div>
                 <div className="booking-time">
-                    {todaysShowtimes.map((session) => (
+                    {validShowtimes.length > 0 ? validShowtimes.map((session) => (
                         <div key={session.id} className="booking-item">
                             <div>{session.cinema}</div>
                             <div>Room: {session.room}</div>
                             <div className="buttonTime-container">
-                                {session.times.map(time => (
-                                    <button key={time} className="buttonTime" onClick={() => handleSelectTime(session, time)}>
+                                {filterTimesForToday(session.times).map(time => (
+                                    <button key={`${session.id}-${time}`} className="buttonTime" onClick={() => handleSelectTime(session, time)}>
                                         {time}
                                     </button>
                                 ))}
                             </div>
                         </div>
-                    ))}
+                    )) : <div style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '100%',
+                        color: 'green',
+                        fontSize: '2.5em',
+                        fontFamily: "Oswald , sans-serif"
+                    }}>There are no available screenings.</div>}
                 </div>
             </div>
         </div>

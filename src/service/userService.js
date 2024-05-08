@@ -196,7 +196,7 @@ const addMovieAdminCinema = (movieId) => {
 };
 
 const updateMovieAdminCinema = (data) => {
-    return axios.put("/update-movie-from-cinema",data, getAuthHeaders());
+    return axios.put("/update-movie-from-cinema", data, getAuthHeaders());
 }
 const deleteMovieAdminCinema = (_id) => {
     return axios.delete(`/delete-movie-from-cinema/${_id}`, getAuthHeaders());
@@ -309,6 +309,14 @@ const fetchColumnDataAdminCinema = () => {
 const fetchPercentDataAdminCinema = () => {
     return axios.get("/seat-percentages-admin-cinema", getAuthHeaders())
 }
+
+const seatHold = (data) => {
+    return axios.post("/hold-seats", data, getAuthHeaders())
+}
+
+const seatHoldStatus = () => {
+    return axios.get("/all-seats-hold", getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -381,5 +389,7 @@ export {
     fetchColumnData,
     fetchColumnDataAdminCinema,
     fetchPercentData,
-    fetchPercentDataAdminCinema
+    fetchPercentDataAdminCinema,
+    seatHold,
+    seatHoldStatus
 }

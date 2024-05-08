@@ -1,8 +1,8 @@
 import axios from "axios";
 
 const instance = axios.create({
-    baseURL: 'https://dc-cinema.onrender.com'
-    // baseURL: 'http://localhost:3000'
+    // baseURL: 'https://dc-cinema.onrender.com'
+    baseURL: 'http://localhost:3000'
 });
 
 // Add a response interceptor

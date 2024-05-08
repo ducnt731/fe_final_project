@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import '../../style/booking.css'
 import { MdChair, MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAllSeatPrice, fetchAllSeatStatus } from "../../service/userService";
+import { fetchAllSeatPrice, fetchAllSeatStatus, seatHoldStatus } from "../../service/userService";
 
 
 
@@ -10,7 +10,6 @@ const BookingSit = () => {
 
     const rows = ['A', 'B', 'C', 'D', 'E', 'F']; // Các hàng từ A đến E
     const seatsPerRow = 12;
-
 
     const icons = Array.from({ length: 48 }, (_, index) => index + 1) // Tạo một mảng chứa 70 icon giống nhau
     const iconsVip = Array.from({ length: 24 }, (_, index) => index + 1)
@@ -26,8 +25,10 @@ const BookingSit = () => {
     const [totalVipPrice, setTotalVipPrice] = useState(0);
     const navigate = useNavigate();
     const [selectedSeats, setSelectedSeats] = useState([]); // Thêm trạng thái này để lưu trữ các ghế đã chọn
+    const [countdownStarted, setCountdownStarted] = useState(false);
 
     const [bookedSeats, setBookedSeats] = useState([]);
+    const [seatHold, setSeatHold] = useState([])
     const locationState = useLocation().state;
     const name = locationState ? locationState.name : '';
     const cinema = locationState ? locationState.cinema : '';
@@ -36,10 +37,6 @@ const BookingSit = () => {
     const selectedTime = locationState ? locationState.selectedTime : '';
     const movieId = locationState ? locationState.movieId : '';
     const showtimeId = locationState ? locationState.showtimeId : '';
-
-    console.log("showtimeId", showtimeId)
-
-
 
     useEffect(() => {
         const fetchSeatsStatus = async () => {
@@ -61,6 +58,26 @@ const BookingSit = () => {
         };
 
         fetchSeatsStatus();
+    }, []);
+
+    useEffect(() => {
+        const fetchAllSeatHold = async () => {
+            try {
+                const res = await seatHoldStatus();
+                console.log(res)
+                if (res && res.data && res.data.length > 0) {
+                    const seatsArray = res.data.flatMap(seatList => seatList.split(','));
+                    console.log("Processed Seats Array:", seatsArray);
+                    setSeatHold(seatsArray);
+                } else {
+                    console.log("No seats data available or error in response");
+                    setSeatHold([]); // Thiết lập giá trị mặc định là một mảng rỗng
+                }
+            } catch (error) {
+                console.error('Error fetching seat hold status:', error);
+            }
+        }
+        fetchAllSeatHold()
     }, []);
     const updateSelectedSeats = (row, seatNum, isVip) => {
         const seatString = `${row}${seatNum}${isVip ? ' (VIP)' : ''}`;
@@ -132,6 +149,9 @@ const BookingSit = () => {
         if (bookedSeats.includes(seatString)) {
             return; // Không cho chọn nếu ghế đã được đặt
         }
+        if (seatHold.length > 0 && seatHold.includes(seatString)) {
+            return null; // Không cho chọn nếu ghế đang được giữ
+        }
         console.log(seatString)
         setIsShowButton(true);
         setIsShowPrice(true);
@@ -163,6 +183,9 @@ const BookingSit = () => {
             console.log("Seat is booked.");
             return; // Không cho chọn nếu ghế đã được đặt
         }
+        if (seatHold.length > 0 && seatHold.includes(seatString)) {
+            return; // Không cho chọn nếu ghế đang được giữ
+        }
         setIsShowButton(true);
         setIsShowPrice(true);
         const newSelectedSeatVip = [...selectedSeatVip];
@@ -176,15 +199,16 @@ const BookingSit = () => {
     }
 
     const checkAndStartCountdown = () => {
-        const selectedNormalSeats = selectedSeatNor.includes(true);
-        const selectedVipSeats = selectedSeatVip.includes(true);
+        const hasSelectedSeats = selectedSeatNor.includes(true) || selectedSeatVip.includes(true);
 
-        if (selectedNormalSeats || selectedVipSeats) {
-            setCountdown(300); // Khởi động lại bộ đếm ngược nếu đã chọn ít nhất một ghế loại thường hoặc một ghế VIP
-        } else {
-            setCountdown(0); // Dừng bộ đếm ngược nếu không đủ số lượng ghế đã chọn
+        if (hasSelectedSeats && !countdownStarted) {
+            setCountdown(300); // Thiết lập thời gian bắt đầu là 5 phút
+            setCountdownStarted(true); // Đánh dấu bộ đếm ngược đã bắt đầu
         }
     };
+    useEffect(() => {
+        checkAndStartCountdown();
+    }, [selectedSeatNor, selectedSeatVip]);
 
     useEffect(() => {
         if (countdown > 0) {
@@ -196,14 +220,6 @@ const BookingSit = () => {
     }, [countdown]);;
 
     const handleSelectNext = () => {
-        // Kiểm tra xem người dùng có ghế nào được chọn hay không
-        if (selectedSeats.length === 0) {
-            alert("Please select at least one seat before continuing!");
-            return; // Ngăn không cho chuyển hướng nếu không có ghế nào được chọn
-        }
-
-        // Có thể thêm thêm các kiểm tra khác ở đây nếu cần
-
         // Nếu mọi thứ hợp lệ, tiến hành chuyển hướng người dùng và truyền dữ liệu
         navigate('/booking/bookingsit/bookingfood', {
             state: {
@@ -217,6 +233,7 @@ const BookingSit = () => {
                 totalVipPrice,
                 movieId,
                 showtimeId,
+                countdown
             }
         });
     }
@@ -258,17 +275,26 @@ const BookingSit = () => {
 
                                             {/* Đây là nơi để chèn icon */}
                                             {/* <MdChair onClick={() => changeColorseat_nor(index)} style={selectedSeatNor[index] ? { color: "green" } : {}} /> */}
-                                            <MdChair onClick={() => changeColorseat_nor(index)} style={bookedSeats.includes(`${rows[Math.floor(index / 12)]}${(index % 12) + 1}`) ? { color: "red" } : (selectedSeatNor[index] ? { color: "green" } : {})} />
+                                            {/* <MdChair onClick={() => changeColorseat_nor(index)} style={bookedSeats.includes(`${rows[Math.floor(index / 12)]}${(index % 12) + 1}`) ? { color: "red" } : (selectedSeatNor[index] ? { color: "green" } : {})} /> */}
+                                            <MdChair onClick={() => changeColorseat_nor(index)} style={bookedSeats.includes(`${rows[Math.floor(index / 12)]}${(index % 12) + 1}`) ? { color: "red" }
+                                                : seatHold.includes(`${rows[Math.floor(index / 12)]}${(index % 12) + 1}`)
+                                                    ? { color: "orange" }
+                                                    : selectedSeatNor[index] ? { color: "green" } : {}} />
+
                                         </div>
                                     ))}
                                     {iconsVip.map((icon, index) => (
                                         <div id={`vip-seat-${index}`} key={index} className="icon-chair">
                                             {/* Đây là nơi để chèn icon */}
                                             {/* <MdChair onClick={() => changeColorseat_vip(index)} style={selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} /> */}
-                                            <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`)
+                                            {/* <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`)
                                                 ? { color: "red" } : (selectedSeatVip[index]
                                                     ? { color: "green" }
-                                                    : { color: "yellow" })} />
+                                                    : { color: "yellow" })} /> */}
+                                            <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`) ? { color: "red" } 
+                                            : seatHold.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`) 
+                                            ? { color: "orange" } : selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} />
+
                                         </div>
                                     ))}
                                 </div>
@@ -292,10 +318,11 @@ const BookingSit = () => {
 
                         </div>
                         <div className="sit-guide">
-                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "red" }} /> Ghế đã bán</div>
-                            <div style={{ marginRight: "10px" }}><MdChair /> Ghế chưa bán</div>
-                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "green" }} /> Ghế đang chọn</div>
-                            <div><MdChair style={{ color: "yellow" }} /> Ghế vip</div>
+                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "red" }} /> Chair sold</div>
+                            <div style={{ marginRight: "10px" }}><MdChair /> Seats not yet sold</div>
+                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "green" }} /> Selected seat</div>
+                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "orange" }} /> Pending</div>
+                            <div><MdChair style={{ color: "yellow" }} /> Seat VIP</div>
                         </div>
                     </div>
                 </div>
@@ -353,12 +380,11 @@ const BookingSit = () => {
                     {countdown > 0 && (selectedSeatNor.includes(true) || selectedSeatVip.includes(true)) && (
                         <div className="countdown">
                             <div className="munite">{Math.floor(countdown / 60)}</div>
-                            <div style={{display: "flex", alignItems: "center"}}>:</div>
+                            <div style={{ display: "flex", alignItems: "center" }}>:</div>
                             <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
                         </div>
                     )}
                 </div>
-
             </div>
         </div >
     )
