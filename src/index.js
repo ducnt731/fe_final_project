@@ -28,11 +28,8 @@ import AdminCinemaManageMovie from './components/adminCinemaManageMovie/adminCin
 import AdminCinemaMovie from './page/adminCinema/adminCinemaMovie';
 import SucessPage from './page/customer/sucessPage';
 import AdminCinemaShowTime from './page/adminCinema/adminCinemaShowTime';
-<<<<<<< HEAD
 import AdminFood from './page/admin/adminFood';
-=======
 import AdminCinemaSchedule from './page/adminCinema/adCinemaSchedule';
->>>>>>> 596d9cd89f95963f7207feba6bc52cc9a81aa4c7
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));

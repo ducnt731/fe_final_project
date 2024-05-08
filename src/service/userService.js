@@ -266,26 +266,48 @@ const fetchAllShowTimeByCinema = () => {
 const totalMovies = () => {
     return axios.get("/total-movies", getAuthHeaders())
 }
+
 const totalCinemas = () => {
     return axios.get("/total-cinema", getAuthHeaders())
 }
+
 const totalAccountCustomer = () => {
     return axios.get("/total-account-customer", getAuthHeaders())
 }
+
 const totalAccountStaff = () => {
     return axios.get("/total-account-staff", getAuthHeaders())
 }
+
 const totalMovieForAdminCinema = () => {
     return axios.get("/total-movie-cinema", getAuthHeaders())
 }
+
 const totalTicketSoldInCinema = () => {
     return axios.get("/total-ticket-sold-in-cinema", getAuthHeaders())
 }
+
 const totalRevenueInCinema = () => {
     return axios.get("/total-revenue-in-cinema", getAuthHeaders())
 }
+
 const totalAccountStaffInCinema = () => {
     return axios.get("/total-account-staff-in-cinema", getAuthHeaders())
+}
+const fetchColumnData = () => {
+    return axios.get("/revenue-by-day", getAuthHeaders())
+}
+
+const fetchPercentData = () => {
+    return axios.get("/seat-percentages", getAuthHeaders())
+}
+
+const fetchColumnDataAdminCinema = () => {
+    return axios.get("/revenue-admin-cinema", getAuthHeaders())
+}
+
+const fetchPercentDataAdminCinema = () => {
+    return axios.get("/seat-percentages-admin-cinema", getAuthHeaders())
 }
 export {
     fetchAllUser,
@@ -355,5 +377,9 @@ export {
     totalMovieForAdminCinema,
     totalTicketSoldInCinema,
     totalRevenueInCinema,
-    totalAccountStaffInCinema
+    totalAccountStaffInCinema,
+    fetchColumnData,
+    fetchColumnDataAdminCinema,
+    fetchPercentData,
+    fetchPercentDataAdminCinema
 }

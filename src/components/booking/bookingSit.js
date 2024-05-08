@@ -299,60 +299,66 @@ const BookingSit = () => {
                         </div>
                     </div>
                 </div>
-                <div className="total-price">
-                    <div className="nameRoom">
-                        <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
-                        <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
-                            <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
-                            <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
-                    </div>
-                    <div className="nameMovie">
-                        <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
+                <div className="price-time">
+                    <div className="total-price">
+                        <div className="nameRoom">
+                            <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
+                            <div>
+                                <span style={{ color: "#72be43" }}>Room:</span> {room} -
+                                <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
+                                <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}
+                            </div>
+                        </div>
+                        <div className="nameMovie">
+                            <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{name}</div>
 
-                        <div style={{ display: "inline-block" }}>
-                            {selectedSeatNor.includes(true) && (
-                                <div style={{ marginBottom: "10px" }}>
-                                    <div>
-                                        <span style={{ color: "#007bff" }}>Normal seat:</span> {selectedSeatNor.filter(seat => seat).length}
+                            <div style={{ display: "inline-block" }}>
+                                {selectedSeatNor.includes(true) && (
+                                    <div style={{ marginBottom: "10px" }}>
+                                        <div>
+                                            <span style={{ color: "#007bff" }}>Normal seat:</span> {selectedSeatNor.filter(seat => seat).length}
+                                        </div>
+                                        <div>
+                                            <span style={{ color: "#007bff" }}>Price:</span> {totalNormalPrice} VND
+                                        </div>
                                     </div>
+                                )}
+                                {selectedSeatVip.includes(true) && (
                                     <div>
-                                        <span style={{ color: "#007bff" }}>Price:</span> {totalNormalPrice} VND
+                                        <div>
+                                            <span style={{ color: "#007bff" }}>VIP seat:</span> {selectedSeatVip.filter(seat => seat).length}
+                                        </div>
+                                        <div>
+                                            <span style={{ color: "#007bff" }}>Price:</span> {totalVipPrice} VND
+                                        </div>
                                     </div>
+                                )}
+                            </div>
+                        </div>
+                        <div className="buttonStep-container">
+                            {isShowPrice && (
+                                <div className="total">
+                                    <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
+                                    <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{totalPrice} VND</div>
                                 </div>
                             )}
-                            {selectedSeatVip.includes(true) && (
-                                <div>
-                                    <div>
-                                        <span style={{ color: "#007bff" }}>VIP seat:</span> {selectedSeatVip.filter(seat => seat).length}
-                                    </div>
-                                    <div>
-                                        <span style={{ color: "#007bff" }}>Price:</span> {totalVipPrice} VND
-                                    </div>
-                                </div>
-                            )}
+                            {isShowButton && <button className="buttonNext" onClick={() => handleSelectNext()}>Next step</button>}
+                            <button
+                                className="buttonBack"
+                                onClick={() => navigate("/booking")}
+                            ><MdOutlineKeyboardBackspace /> Back</button>
+
                         </div>
                     </div>
-                    <div className="buttonStep-container">
-                        {isShowPrice && (
-                            <div className="total">
-                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
-                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{totalPrice} VND</div>
-                            </div>
-                        )}
-                        {isShowButton && <button className="buttonNext" onClick={() => handleSelectNext()}>Next step</button>}
-                        <button
-                            className="buttonBack"
-                            onClick={() => navigate("/booking")}
-                        ><MdOutlineKeyboardBackspace /> Back</button>
-                        {countdown > 0 && (selectedSeatNor.includes(true) || selectedSeatVip.includes(true)) && (
-                            <div className="countdown">
-                                <div style={{ fontWeight: "bold", fontSize: "1.4em", color: "#007bff" }}>
-                                    Time left: {Math.floor(countdown / 60)}:{String(countdown % 60).padStart(2, '0')}
-                                </div>
-                            </div>
-                        )}
-                    </div>
+                    {countdown > 0 && (selectedSeatNor.includes(true) || selectedSeatVip.includes(true)) && (
+                        <div className="countdown">
+                            <div className="munite">{Math.floor(countdown / 60)}</div>
+                            <div style={{display: "flex", alignItems: "center"}}>:</div>
+                            <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
+                        </div>
+                    )}
                 </div>
+
             </div>
         </div >
     )

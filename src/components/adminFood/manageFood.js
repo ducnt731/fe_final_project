@@ -14,6 +14,8 @@ const ManageFood = () => {
     const [isShowModalDelete, setIsShowModalDelete] = useState(false)
     const [dataEdit, setDataEdit] = useState({})
     const [dataDelete, setDataDelete] = useState({})
+    const [sortOrder, setSortOrder] = useState('asc');
+
 
     const handleClose = () => {
         setIsShowModalAdd(false)
@@ -111,6 +113,23 @@ const ManageFood = () => {
     useEffect(() => {
         getAllFood()
     }, [])
+
+    const handleSort = () => {
+        // Sao chép mảng items để không làm thay đổi mảng gốc
+        const sorted = [...listFood];
+        // Sắp xếp mảng sorted dựa trên trạng thái sắp xếp hiện tại
+        sorted.sort((a, b) => {
+            if (sortOrder === 'asc') {
+                return a.price.localeCompare(b.price);; // Sắp xếp tăng dần
+            } else {
+                return b.price.localeCompare(a.price); // Sắp xếp giảm dần
+            }
+        });
+        // Cập nhật items state với mảng đã sắp xếp
+        setListFood(sorted);
+        // Đảo ngược trạng thái sắp xếp để sử dụng cho lần nhấp tiếp theo
+        setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
+    }
 
     return (
         <>

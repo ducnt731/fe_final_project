@@ -1,4 +1,7 @@
 import React from "react";
+import { IoFastFood } from "react-icons/io5";
+import { MdMovie } from "react-icons/md";
+import { RiCalendarScheduleFill } from "react-icons/ri";
 import { useNavigate } from "react-router-dom";
 
 const SideBarAdminCinema = ({ openSidebarToggle, OpenSidebar }) => {
@@ -19,19 +22,19 @@ const SideBarAdminCinema = ({ openSidebarToggle, OpenSidebar }) => {
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin-cinema/manage-movie">
-                        <i className="fa-solid fa-table-cells-large icon"></i> Manage Movie
+                        <MdMovie className="icon"/> Manage Movie
                     </a>
                 </li>
                 <li className='sidebar-list-item'>
                     <a className="item" href="/admin-cinema/show-time">
-                        <i className="fa-solid fa-location-dot icon"></i> Manage Show Time
+                        <RiCalendarScheduleFill className="icon"/> Manage Schedule
                     </a>
                 </li>
-                <li className='sidebar-list-item'>
+                {/* <li className='sidebar-list-item'>
                     <a className="item" href="">
-                        <i className="fa-solid fa-ticket icon"></i> Coupon
+                        <IoFastFood/> Manage Food 
                     </a>
-                </li>
+                </li> */}
                 <li className="sidebar-list-item">
                     <a style={{ color: "#fff" }}
                         onClick={() => {
