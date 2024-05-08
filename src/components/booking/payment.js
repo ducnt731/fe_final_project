@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../../style/booking.css'
 import { useLocation, useNavigate } from "react-router-dom";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
@@ -23,6 +23,7 @@ const Payment = () => {
     const foodValues = locationState ? locationState.foodValues : [];
     const showtimeId = locationState ? locationState.showtimeId : '';
     const seats = locationState ? locationState.selectedSeats : [];
+    const countdownFromPreviousScreen = locationState ? locationState.countdown : 300;
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
     const totalFoodPrice = food.reduce((total, item, index) => {
@@ -30,7 +31,41 @@ const Payment = () => {
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
     console.log("object", seats)
+    const [countdown, setCountdown] = useState(countdownFromPreviousScreen);
+    const [isTimeExpired, setIsTimeExpired] = useState(false);
+    useEffect(() => {
+        if (countdown > 0) {
+            const interval = setInterval(() => {
+                setCountdown(current => {
+                    if (current <= 1) {
+                        clearInterval(interval); // Dừng interval khi đếm đến 1
+                        setIsTimeExpired(true);  // Cập nhật trạng thái thời gian hết
+                        return 0; // Đặt giá trị đếm ngược là 0 để tránh âm
+                    }
+                    return current - 1;
+                });
+            }, 1000);
+            return () => clearInterval(interval);
+        } else if (countdown <= 0) {
+            // Để đảm bảo rằng không bao giờ hiển thị giá trị âm nếu countdown được thiết lập nhỏ hơn 0 ban đầu
+            setCountdown(0);
+            setIsTimeExpired(true);
+        }
+    }, [countdown]);
 
+    useEffect(() => {
+        if (countdown > 0) {
+            const interval = setInterval(() => {
+                setCountdown(current => {
+                    if (current <= 1) {
+                        // Xử lý hết giờ tại đây, ví dụ thông báo hoặc chuyển trang
+                    }
+                    return current - 1;
+                });
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [countdown]);
     const handlePayment = async () => {
         const paymentData = {
             name: name,
@@ -72,7 +107,10 @@ const Payment = () => {
             console.error('Error creating payment:', error);
         }
     };
-
+    const handleGoHome = () => {
+        localStorage.removeItem('seatHoldSaved');
+        navigate("/");
+    };
     return (
         <div className="booking-container">
             <div className="booking-title">Step 4: Payment</div>
@@ -105,12 +143,29 @@ const Payment = () => {
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} VND</div>
                         </div>
-                        <button className="buttonNext" onClick={handlePayment}>Pay</button>
-
-                        <button
-                            className="buttonBack"
-                            onClick={() => navigate("/booking/bookingsit/bookingfood")}
-                        ><MdOutlineKeyboardBackspace /> Back</button>
+                        {!isTimeExpired ? (
+                            <>
+                                <button className="buttonNext" onClick={handlePayment}>Pay</button>
+                                <button
+                                    className="buttonBack"
+                                    onClick={() => navigate("/booking/bookingsit/bookingfood")}
+                                ><MdOutlineKeyboardBackspace /> Back</button>
+                            </>
+                        ) : (
+                            <div style={{
+                                textAlign: 'center',
+                                fontSize: '24px',
+                                margin: '20px 0'
+                            }}>
+                                <p>Booking time has ended!</p>
+                                <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                            </div>
+                        )}
+                    </div>
+                    <div className="countdown">
+                        <div className="munite">{Math.floor(countdown / 60)}</div>
+                        <div style={{ display: "flex", alignItems: "center" }}>:</div>
+                        <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
                     </div>
                 </div>
             </div>

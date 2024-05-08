@@ -61,6 +61,7 @@ const TicketPayment = () => {
 
     const handleGoHome = () => {
         localStorage.removeItem('bookingSaved');
+        localStorage.removeItem('seatHoldSaved');
         navigate("/");
     };
     return (

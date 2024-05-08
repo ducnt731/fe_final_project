@@ -4,13 +4,15 @@ import { FaCircleMinus } from "react-icons/fa6";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAllFood } from "../../service/userService";
+import { fetchAllFood, seatHold } from "../../service/userService";
 
 const BookingFood = () => {
 
     const [isShowPrice, setIsShowPrice] = useState(false)
     const [food, setFood] = useState([]);
     const [comboValues, setComboValues] = useState([]);
+    const [isTimeExpired, setIsTimeExpired] = useState(false);
+
     const navigate = useNavigate()
     const location = useLocation();
 
@@ -27,13 +29,33 @@ const BookingFood = () => {
     const totalVipPrice = locationState ? locationState.totalVipPrice : 0;
     const movieId = locationState ? locationState.movieId : '';
     const showtimeId = locationState ? locationState.showtimeId : '';
-    const seats = locationState ? locationState.selectedSeats : [];
+    const countdownFromPreviousScreen = locationState ? locationState.countdown : 300;
+    console.log("countdownFromPreviousScreen", countdownFromPreviousScreen)
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
 
     console.log("showtimeId", showtimeId)
     // Khởi tạo state để lưu trữ giá trị trong box
-    const [value, setValue] = useState(0);
+    const [countdown, setCountdown] = useState(countdownFromPreviousScreen);
+    useEffect(() => {
+        if (countdown > 0) {
+            const interval = setInterval(() => {
+                setCountdown(current => {
+                    if (current <= 1) {
+                        clearInterval(interval); // Dừng interval khi đếm đến 1
+                        setIsTimeExpired(true);  // Cập nhật trạng thái thời gian hết
+                        return 0; // Đặt giá trị đếm ngược là 0 để tránh âm
+                    }
+                    return current - 1;
+                });
+            }, 1000);
+            return () => clearInterval(interval);
+        } else if (countdown <= 0) {
+            // Để đảm bảo rằng không bao giờ hiển thị giá trị âm nếu countdown được thiết lập nhỏ hơn 0 ban đầu
+            setCountdown(0);
+            setIsTimeExpired(true);
+        }
+    }, [countdown]);
 
     useEffect(() => {
         getAllFood();
@@ -42,6 +64,48 @@ const BookingFood = () => {
         // Khi danh sách thức ăn cập nhật, thiết lập mảng số lượng với giá trị ban đầu là 0
         setComboValues(food.map(() => 0));
     }, [food]);
+    useEffect(() => {
+        if (countdown > 0) {
+            const interval = setInterval(() => {
+                setCountdown(current => {
+                    if (current <= 1) {
+                        // Xử lý hết giờ tại đây, ví dụ thông báo hoặc chuyển trang
+                    }
+                    return current - 1;
+                });
+            }, 1000);
+            return () => clearInterval(interval);
+        }
+    }, [countdown]);
+    const saveSeatsHold = async () => {
+        const userId = localStorage.getItem('user_id');
+        console.log('userId:', userId); // Check if userId is retrieved correctly
+        const holdExpires = new Date();
+        holdExpires.setSeconds(holdExpires.getSeconds() + countdownFromPreviousScreen);
+        const data = {
+            user: userId,
+            seatHold: selectedSeats.join(','),
+            holdExpires: holdExpires
+        };
+        console.log('Data being sent to seatHold:', data.holdExpires); // Verify the data is correct
+        try {
+            const response = await seatHold(data);
+            console.log('Response from seatHold:', response);
+            localStorage.setItem('seatHoldSaved', 'true');
+            console.log('Seat information saved successfully');
+        } catch (error) {
+            console.error('Error while holding seats:', error);
+            // Thêm bất kỳ xử lý nào tại đây dựa trên lỗi được trả về
+        }
+    }
+    useEffect(() => {
+        const alreadySaved = localStorage.getItem('seatHoldSaved') === 'true';
+        console.log('Booking already saved:', alreadySaved);
+        if (!alreadySaved) {
+            saveSeatsHold();
+        }
+
+    }, []);
 
     const getAllFood = async () => {
         try {
@@ -100,9 +164,14 @@ const BookingFood = () => {
                 food: food.filter((combo, index) => comboValues[index] > 0),
                 foodValues: comboValues,
                 showtimeId,
+                countdown,
             },
 
         });
+    };
+    const handleGoHome = () => {
+        localStorage.removeItem('seatHoldSaved');
+        navigate("/");
     };
 
     return (
@@ -169,13 +238,26 @@ const BookingFood = () => {
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} VND</div>
                             </div>
-                            <button
-                                className="buttonNext"
-                                onClick={() => handleNextStep()}>Next step</button>
-                            <button
-                                className="buttonBack"
-                                onClick={() => navigate(`/booking/bookingsit/${movieId}`)}
-                            ><MdOutlineKeyboardBackspace /> Back</button>
+                                {!isTimeExpired ? (
+                                    <>
+                                        <button className="buttonNext" onClick={() => handleNextStep()}>Next step</button>
+                                        <button className="buttonBack" onClick={() => navigate(`/booking/bookingsit/${movieId}`)}><MdOutlineKeyboardBackspace /> Back</button>
+                                    </>
+                                ) : (
+                                    <div style={{
+                                        textAlign: 'center',
+                                        fontSize: '24px', 
+                                        margin: '20px 0' 
+                                    }}>
+                                        <p>Booking time has ended!</p>
+                                        <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                                    </div>
+                                )}
+                        </div>
+                        <div className="countdown">
+                            <div className="munite">{Math.floor(countdown / 60)}</div>
+                            <div style={{ display: "flex", alignItems: "center" }}>:</div>
+                            <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
                         </div>
                     </div>
                     {/* <div className="countdown">
