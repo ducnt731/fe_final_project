@@ -51,7 +51,7 @@ const SideBar = ({ openSidebarToggle, OpenSidebar }) => {
                     <a style={{ color: "#fff" }}
                         onClick={() => {
                             localStorage.clear()
-                            navigate('/')
+                            navigate('/login')
                         }}>
                         <i className="fa-solid fa-right-from-bracket icon"></i> Logout
                     </a>

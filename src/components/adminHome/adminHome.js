@@ -3,6 +3,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 import '../../style/dashboard.css'
 import { fetchColumnData, fetchPercentData, totalAccountCustomer, totalAccountStaff, totalCinemas, totalMovies } from '../../service/userService';
 import { MdMovie } from 'react-icons/md';
+import { GiTheater } from 'react-icons/gi';
 
 const AdminHome = () => {
 
@@ -101,7 +102,7 @@ const AdminHome = () => {
                     <div className='card'>
                         <div className='card-inner'>
                             <h3>THEATERS</h3>
-                            <i className="fa-solid fa-location-dot card_icon"></i>
+                            <GiTheater className='card_icon'/>
                         </div>
                         <h1>{theaterCount}</h1>
                     </div>
