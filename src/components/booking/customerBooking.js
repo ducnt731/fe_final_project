@@ -47,7 +47,15 @@ const Booking = () => {
     const filterTimesForToday = (times) => {
         const now = new Date();
         const currentTime = `${now.getHours()}:${now.getMinutes()}`;
-        return times.filter(time => isToday(selectedDate) ? time >= currentTime : true);
+    
+        return times.filter(time => {
+            const [startTime, endTime] = time.split('-');
+            const timeParts = startTime.split(':');
+            const startTimeDate = new Date(now);
+            startTimeDate.setHours(parseInt(timeParts[0]), parseInt(timeParts[1]), 0);
+    
+            return isToday(selectedDate) ? startTimeDate > now : true;
+        });
     };
     const handleSelectTime = (session, time) => {
         const formattedDate = formatDate(selectedDate);

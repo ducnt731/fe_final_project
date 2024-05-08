@@ -4,8 +4,6 @@ import { toast } from "react-toastify";
 import LayoutAdmin from "../../layout/admin/layoutAdmin";
 import ManageShowTime from "../../components/MangageShowTime/manageShowTime";
 
-
-
 const AdminShowTime = () => {
     const navigate = useNavigate()
     useEffect(() => {
