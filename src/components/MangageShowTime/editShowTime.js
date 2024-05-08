@@ -135,7 +135,8 @@ const EditShowTime = (props) => {
         { value: '15:00-17:00', label: '15:00 - 17:00' },
         { value: '17:00-19:00', label: '17:00 - 19:00' },
         { value: '19:00-21:00', label: '19:00 - 21:00' },
-        { value: '21:00-23:00', label: '21:00 - 23:00' }
+        { value: '21:00-23:00', label: '21:00 - 23:00' },
+        { value: '23:00 - 1:00', label: '23:00 - 1:00' }
     ];
     // Sự kiện khi thay đổi lựa chọn thời gian
     const handleTimeChange = (selectedOptions) => {

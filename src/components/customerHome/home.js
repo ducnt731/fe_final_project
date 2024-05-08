@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Carousel from "react-bootstrap/Carousel";
 import "../../style/home.css"
 import ListCurrentMovies from "./listCurrentMovie";
@@ -7,8 +7,20 @@ import ListHotMovie from "./listHotMovie";
 
 const Home = () => {
     const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5', 'item 6', 'item 7', 'item 8', 'item 9', 'item 10', 'item 11', 'item 12', 'item 13', 'item 14', 'item 15', 'item 16'];
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = 'https://static.elfsight.com/platform/platform.js';
+        script.defer = true;
+        script.setAttribute('data-use-service-core', 'true'); // Thêm thuộc tính cho script
+        document.body.appendChild(script);
+
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, []);
     return (
         <div className="body-container">
+            <div className="elfsight-app-b4a4272c-66fc-46ba-a5c8-142c30bf58a1" data-elfsight-app-lazy></div>
             <div className="slide-container">
                 <Carousel>
                     <Carousel.Item interval={3000}>
@@ -64,6 +76,7 @@ const Home = () => {
             </div>
 
         </div>
+
     )
 }
 
