@@ -86,10 +86,13 @@ const BookingFood = () => {
         holdExpires.setSeconds(holdExpires.getSeconds() + countdownFromPreviousScreen);
         const data = {
             user: userId,
+            showtime: showtimeId,
+            timeOfBooking: selectedDate,
+            time: selectedTime,
             seatHold: selectedSeats.join(','),
             holdExpires: holdExpires
         };
-        console.log('Data being sent to seatHold:', data.holdExpires); // Verify the data is correct
+        console.log('Data being sent to seatHold:', data.showtime); // Verify the data is correct
         try {
             const response = await seatHold(data);
             console.log('Response from seatHold:', response);
@@ -144,6 +147,7 @@ const BookingFood = () => {
             return total + (comboValues[index] * combo.price);
         }, 0);
         return foodTotal;
+
     };
 
     const calculateTotal = () => {
@@ -173,7 +177,7 @@ const BookingFood = () => {
 
         });
     };
-    const handleGoHome = async() => {
+    const handleGoHome = async () => {
         await deleteSeatHold(idSeatHold);
         localStorage.removeItem('seatHoldSaved');
         navigate("/");
@@ -243,21 +247,21 @@ const BookingFood = () => {
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} $</div>
                             </div>
-                                {!isTimeExpired ? (
-                                    <>
-                                        <button className="buttonNext" onClick={() => handleNextStep()}>Next step</button>
-                                        <button className="buttonBack" onClick={handleGoHome}><MdOutlineKeyboardBackspace /> Cancel</button>
-                                    </>
-                                ) : (
-                                    <div style={{
-                                        textAlign: 'center',
-                                        fontSize: '24px', 
-                                        margin: '20px 0' 
-                                    }}>
-                                        <p>Booking time has ended!</p>
-                                        <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
-                                    </div>
-                                )}
+                            {!isTimeExpired ? (
+                                <>
+                                    <button className="buttonNext" onClick={() => handleNextStep()}>Next step</button>
+                                    <button className="buttonBack" onClick={handleGoHome}><MdOutlineKeyboardBackspace /> Cancel</button>
+                                </>
+                            ) : (
+                                <div style={{
+                                    textAlign: 'center',
+                                    fontSize: '24px',
+                                    margin: '20px 0'
+                                }}>
+                                    <p>Booking time has ended!</p>
+                                    <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                                </div>
+                            )}
                         </div>
                         {/* <div className="countdown">
                             <div className="munite">{Math.floor(countdown / 60)}</div>

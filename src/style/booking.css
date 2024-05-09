@@ -116,17 +116,17 @@
     .nameMovie {
         padding: 10px;
         border-bottom: 1px white solid;
+    }
 
-        .price1 {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-        }
+    .price2 {
+        display: flex !important;
+        justify-content: space-between;
+    }
 
-        .price2 {
-            display: flex;
-            justify-content: space-between;
-        }
+    .price1 {
+        display: flex !important;
+        justify-content: space-between;
+        margin-top: 20px;
     }
 
     .total {
@@ -226,14 +226,14 @@
     }
 }
 
-.buttonHome{
+.buttonHome {
     padding: 15px;
     border-radius: 10px;
     background-color: #a33327;
     margin: 0 0 10px 0;
 }
 
-.countdown{
+.countdown {
     display: flex;
     justify-content: space-evenly;
     margin: 20px 0 0 0;
@@ -246,13 +246,14 @@
     color: #fff;
     text-align: center;
 
-    .munite{
+    .munite {
         width: 15%;
         height: 15%;
         padding: 10px;
         background-color: #a33327;
     }
-    .second{
+
+    .second {
         width: 15%;
         height: 15%;
         padding: 10px;
@@ -260,7 +261,7 @@
     }
 }
 
-.price-time{
+.price-time {
     width: 25%;
     height: 50%;
 }

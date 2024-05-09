@@ -30,7 +30,7 @@ const Payment = () => {
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
     const formattedTotal = parseFloat(toltalPiceSeat + totalFoodPrice).toFixed(2);
-    console.log("Tiền", formattedTotal)
+    console.log("Tiền", totalFoodPrice)
     const [countdown, setCountdown] = useState(countdownFromPreviousScreen);
     const [isTimeExpired, setIsTimeExpired] = useState(false);
     useEffect(() => {
@@ -115,40 +115,57 @@ const Payment = () => {
                                 <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
                                 <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
                         </div>
+                        {/* <div className="price1">
+                            <div>Total price seats: </div>
+                            <div>{toltalPiceSeat} $</div>
+                        </div>
                         <div className="price2">
                             <div >Combo price:</div>
                             <div >{totalFoodPrice} $</div>
-                        </div>
-                    </div>
-                    <div className="buttonStep-container">
-                        <div className="total">
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} $</div>
-                        </div>
-                        {!isTimeExpired ? (
-                            <>
-                                <button className="buttonNext" onClick={handlePayment}>Pay</button>
-                                <button
-                                    className="buttonBack"
-                                    onClick={handleGoHome}
-                                ><MdOutlineKeyboardBackspace /> Cancel</button>
-                            </>
-                        ) : (
-                            <div style={{
-                                textAlign: 'center',
-                                fontSize: '24px',
-                                margin: '20px 0'
-                            }}>
-                                <p>Booking time has ended!</p>
-                                <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                        </div> */}
+                        <div className="nameMovie">
+                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
+                            <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
+                            <div className="price1">
+                                <div>Total price seats: </div>
+                                <div>{toltalPiceSeat} $</div>
                             </div>
-                        )}
-                        <div className="price2">
+                            <div className="price2">
+                                <div >Combo price:</div>
+                                <div >{totalFoodPrice} $</div>
+                            </div>
+                        </div>
+                        <div className="buttonStep-container">
+                            <div className="total">
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} $</div>
+                            </div>
+                            {!isTimeExpired ? (
+                                <>
+                                    <button className="buttonNext" onClick={handlePayment}>Pay</button>
+                                    <button
+                                        className="buttonBack"
+                                        onClick={handleGoHome}
+                                    ><MdOutlineKeyboardBackspace /> Cancel</button>
+                                </>
+                            ) : (
+                                <div style={{
+                                    textAlign: 'center',
+                                    fontSize: '24px',
+                                    margin: '20px 0'
+                                }}>
+                                    <p>Booking time has ended!</p>
+                                    <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                                </div>
+                            )}
+                            {/* <div className="price2">
                             <div >Combo price:</div>
                             <div >{totalFoodPrice} $</div>
+                        </div> */}
                         </div>
                     </div>
-                    <div className="buttonStep-container">
+
+                    {/* <div className="buttonStep-container">
                         <div className="total">
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} $</div>
@@ -171,14 +188,14 @@ const Payment = () => {
                                 <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
                             </div>
                         )}
+                    </div> */}
+                    <div className="countdown">
+                        <div className="munite">{Math.floor(countdown / 60)}</div>
+                        <div style={{ display: "flex", alignItems: "center" }}>:</div>
+                        <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
                     </div>
+                </div>
 
-                </div>
-                <div className="countdown">
-                    <div className="munite">{Math.floor(countdown / 60)}</div>
-                    <div style={{ display: "flex", alignItems: "center" }}>:</div>
-                    <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
-                </div>
             </div>
 
         </div>

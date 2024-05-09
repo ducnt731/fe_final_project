@@ -67,7 +67,7 @@ const BookingSit = () => {
 
         const fetchAllSeatHold = async () => {
             try {
-                const res = await seatHoldStatus();
+                const res = await seatHoldStatus(showtimeId, selectedTime, selectedDate);
                 if (res && res.data && res.data.length > 0) {
                     const seatsArray = res.data.flatMap(seatList => seatList.seatHold.split(','));
                     // console.log("Processed Seats Array:", seatsArray);
@@ -324,7 +324,7 @@ const BookingSit = () => {
                             <div style={{ marginRight: "10px" }}><MdChair /> Seats not sold yet</div>
                             <div style={{ marginRight: "10px" }}><MdChair style={{ color: "green" }} /> Selected seats</div>
                             <div style={{ marginRight: "10px" }}><MdChair style={{ color: "orange" }} /> Pending</div>
-                            <div><MdChair style={{ color: "yellow" }} />VIP seats</div>
+                            <div><MdChair style={{ color: "yellow" }} /> VIP seats</div>
                         </div>
                     </div>
                 </div>

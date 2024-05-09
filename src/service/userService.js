@@ -314,10 +314,10 @@ const seatHold = (data) => {
     return axios.post("/hold-seats", data, getAuthHeaders())
 }
 
-const seatHoldStatus = () => {
-    return axios.get("/all-seats-hold", getAuthHeaders())
+const seatHoldStatus = (showtimeId, selectedTime, selectedDate) => {
+    return axios.get(`/all-seats-hold?showtimeId=${showtimeId}&selectedTime=${encodeURIComponent(selectedTime)}&selectedDate=${encodeURIComponent(selectedDate)}`, getAuthHeaders())
 }
-const deleteSeatHold = (id) => {    
+const deleteSeatHold = (id) => {
     return axios.delete(`/delete-seats-hold/${id}`, getAuthHeaders())
 }
 export {
