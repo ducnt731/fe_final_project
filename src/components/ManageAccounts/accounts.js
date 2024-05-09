@@ -309,42 +309,6 @@ const Account = () => {
                             {renderPages()}
                         </ul>
                     </nav>
-                    <h2>Table Admin Cinema</h2>
-                    <div className="table-account" style={{ backgroundColor: "white", borderRadius: "10px", marginTop: "10px", boxShadow: "0 0 0px #b8bec4", padding: "5px" }}>
-                        <Table bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>Image</th>
-                                    <th className="sort-table">Name
-                                        <div className="sort">
-                                            <RiArrowUpDownLine onClick={handleSort} />
-                                        </div>
-                                    </th>
-                                    <th>Email</th>
-                                    <th>Gender</th>
-                                    <th>Role</th>
-                                    <th>Cinema</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {
-                                    listAdminCinema && listAdminCinema.length > 0 &&
-                                    listAdminCinema.map((item, index) => {
-                                        return (
-                                            <tr key={`users-${index}`}>
-                                                <td><img src={item.image} style={{ width: "90px", height: "90px", display: "block", margin: "auto" }} /></td>
-                                                <td>{item.name}</td>
-                                                <td>{item.email}</td>
-                                                <td>{item.gender}</td>
-                                                <td>{item.role}</td>
-                                                <td>{item.cinema?.name}</td>
-                                            </tr>
-                                        )
-                                    })
-                                }
-                            </tbody>
-                        </Table>
-                    </div>
                 </div>
             </div>
             <AddAccount
