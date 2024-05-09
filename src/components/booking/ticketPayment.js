@@ -58,6 +58,7 @@ const TicketPayment = () => {
                 date: paymentData.selectedDate,
                 totalPrice: paymentData.total,
                 seats: paymentData.selectedSeats.join(','),
+                food: paymentData.selectedFood.map(item => item.name).join(', '),
                 time: paymentData.selectedTime,
                 // status: 'Paid',
             };

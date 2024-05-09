@@ -57,25 +57,20 @@ const History = () => {
                                             </div>
                                             <div className="time">
                                                 <div>{new Date(purchase.timeOfBooking).toLocaleDateString()}</div>
-                                                <div style={{ fontSize: "10px" }}>Time</div>
+                                                <div style={{ fontSize: "10px" }}>Date</div>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="ticketRight">
-                                        <div style={{ backgroundColor: "red", height: "55px", borderTopRightRadius: "20px" }}></div>
+                                        <div style={{ backgroundColor: "red", height: "50px", borderTopRightRadius: "20px" }}></div>
                                         <div style={{ borderLeft: "3px black dashed", height: "75%" }}>
                                             <div className="price">
                                                 <div>Seats</div>
-                                                <div>{purchase.seats}</div>
+                                                <div style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{purchase.seats}</div>
                                             </div>
-
                                             <div className="price">
                                                 <div>Total</div>
-                                                <div>{purchase.totalPrice} VND</div>
-                                            </div>
-                                            <div className="price">
-                                                <div>Payment status</div>
-                                                <div>{purchase.status}</div>
+                                                <div>{purchase.totalPrice} $</div>
                                             </div>
 
                                         </div>

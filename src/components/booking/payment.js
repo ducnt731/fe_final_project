@@ -130,8 +130,19 @@ const Payment = () => {
                                 <div>Total price seats: </div>
                                 <div>{toltalPiceSeat} $</div>
                             </div>
+                            {food.length > 0 && (
+                                <div className="food-list" style={{marginTop: "15px"}}>
+                                    {/* <div style={{ fontWeight: "bold", marginTop: "10px" }}>Food:</div> */}
+                                    {food.map((item, index) => (
+                                        <div key={index} className="food-item" style={{display: "flex", justifyContent: "space-between"}}>
+                                            <div>{item.name}</div>
+                                            <div>{item.price} $</div>
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                             <div className="price2">
-                                <div >Combo price:</div>
+                                <div >Total combo price:</div>
                                 <div >{totalFoodPrice} $</div>
                             </div>
                         </div>
@@ -140,6 +151,7 @@ const Payment = () => {
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} $</div>
                             </div>
+
                             {!isTimeExpired ? (
                                 <>
                                     <button className="buttonNext" onClick={handlePayment}>Pay</button>

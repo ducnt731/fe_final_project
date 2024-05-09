@@ -84,7 +84,8 @@
 }
 
 .ticketRight {
-    width: 40%;
+    width: 60%;
+    height: 200px;
     display: flex;
     flex-direction: column;
 }

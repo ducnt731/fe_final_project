@@ -126,7 +126,7 @@
     .price1 {
         display: flex !important;
         justify-content: space-between;
-        margin-top: 20px;
+        /* margin-top: 10px; */
     }
 
     .total {
