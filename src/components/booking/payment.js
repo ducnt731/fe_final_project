@@ -77,32 +77,44 @@ const Payment = () => {
             selectedMovie: selectedMovie,
             selectedSeats: selectedSeats,
             total: total,
-            currency: 'VND'
+            currency: 'USD'
         };
+        // console.log("Initial payment data:", paymentData);
+        // localStorage.setItem('paymentData', JSON.stringify(paymentData));
+        // console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
+        // try {
+
+        //     const rateResponse = await axios.get('https://api.exchangerate-api.com/v4/latest/$');
+        //     const rate = rateResponse.data.rates.USD;
+        //     console.log("rate", rate)
+
+        //     // Convert $ to USD
+        //     const totalUSD = (total * rate).toFixed(2); // Ensure conversion is accurate
+        //     console.log("USD", totalUSD)
+
+        //     // Update payment data with converted USD total
+        //     paymentData.total = totalUSD;
+        //     paymentData.currency = 'USD';
+
+        //     const response = await axios.post('https://dc-cinema.onrender.com/create-payment', paymentData);
+
+
+        //     const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
+        //     console.log("Approval URL:", approvalUrl);
+        //     window.location.href = approvalUrl; // Redirect to PayPal approval URL
+
+        // } catch (error) {
+        //     console.error('Error creating payment:', error);
+        // }
         console.log("Initial payment data:", paymentData);
         localStorage.setItem('paymentData', JSON.stringify(paymentData));
         console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
+
         try {
-
-            const rateResponse = await axios.get('https://api.exchangerate-api.com/v4/latest/VND');
-            const rate = rateResponse.data.rates.USD;
-            console.log("rate", rate)
-
-            // Convert VND to USD
-            const totalUSD = (total * rate).toFixed(2); // Ensure conversion is accurate
-            console.log("USD", totalUSD)
-
-            // Update payment data with converted USD total
-            paymentData.total = totalUSD;
-            paymentData.currency = 'USD';
-
             const response = await axios.post('https://dc-cinema.onrender.com/create-payment', paymentData);
-
-
             const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
             console.log("Approval URL:", approvalUrl);
             window.location.href = approvalUrl; // Redirect to PayPal approval URL
-
         } catch (error) {
             console.error('Error creating payment:', error);
         }
@@ -131,17 +143,17 @@ const Payment = () => {
                         <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
                         <div className="price1">
                             <div>Total price seats: </div>
-                            <div>{toltalPiceSeat} VND</div>
+                            <div>{toltalPiceSeat} $</div>
                         </div>
                         <div className="price2">
                             <div >Combo price:</div>
-                            <div >{totalFoodPrice} VND</div>
+                            <div >{totalFoodPrice} $</div>
                         </div>
                     </div>
                     <div className="buttonStep-container">
                         <div className="total">
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} VND</div>
+                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} $</div>
                         </div>
                         {!isTimeExpired ? (
                             <>

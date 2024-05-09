@@ -81,7 +81,7 @@ const TicketPayment = () => {
                             <div> <span style={{ color: "#72be43" }}>Seats: </span> {paymentData?.selectedSeats.join(', ')}</div>
                             <div className="total">
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
-                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{paymentData?.total} VND</div>
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{paymentData?.total} $</div>
                             </div>
                         </div>
                         <div style={{ textAlign: "center", marginTop: "20px" }}>

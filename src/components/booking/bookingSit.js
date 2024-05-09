@@ -291,9 +291,9 @@ const BookingSit = () => {
                                                 ? { color: "red" } : (selectedSeatVip[index]
                                                     ? { color: "green" }
                                                     : { color: "yellow" })} /> */}
-                                            <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`) ? { color: "red" } 
-                                            : seatHold.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`) 
-                                            ? { color: "orange" } : selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} />
+                                            <MdChair onClick={() => changeColorseat_vip(index)} style={bookedSeats.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`) ? { color: "red" }
+                                                : seatHold.includes(`${rows[Math.floor((index + 48) / 12)]}${(index % 12) + 1} (VIP)`)
+                                                    ? { color: "orange" } : selectedSeatVip[index] ? { color: "green" } : { color: "yellow" }} />
 
                                         </div>
                                     ))}
@@ -346,7 +346,7 @@ const BookingSit = () => {
                                             <span style={{ color: "#007bff" }}>Normal seat:</span> {selectedSeatNor.filter(seat => seat).length}
                                         </div>
                                         <div>
-                                            <span style={{ color: "#007bff" }}>Price:</span> {totalNormalPrice} VND
+                                            <span style={{ color: "#007bff" }}>Price:</span> {totalNormalPrice} $
                                         </div>
                                     </div>
                                 )}
@@ -356,7 +356,7 @@ const BookingSit = () => {
                                             <span style={{ color: "#007bff" }}>VIP seat:</span> {selectedSeatVip.filter(seat => seat).length}
                                         </div>
                                         <div>
-                                            <span style={{ color: "#007bff" }}>Price:</span> {totalVipPrice} VND
+                                            <span style={{ color: "#007bff" }}>Price:</span> {totalVipPrice} $
                                         </div>
                                     </div>
                                 )}
@@ -366,7 +366,7 @@ const BookingSit = () => {
                             {isShowPrice && (
                                 <div className="total">
                                     <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
-                                    <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{totalPrice} VND</div>
+                                    <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{totalPrice} $</div>
                                 </div>
                             )}
                             {isShowButton && <button className="buttonNext" onClick={() => handleSelectNext()}>Next step</button>}
