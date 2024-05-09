@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
 import '../../style/booking.css'
 import { MdChair, MdOutlineKeyboardBackspace } from "react-icons/md";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { fetchAllSeatPrice, fetchAllSeatStatus, seatHoldStatus } from "../../service/userService";
 
 
 
 const BookingSit = () => {
 
+    const { movieId } = useParams();
     const rows = ['A', 'B', 'C', 'D', 'E', 'F']; // Các hàng từ A đến E
     const seatsPerRow = 12;
 
@@ -35,21 +36,23 @@ const BookingSit = () => {
     const room = locationState ? locationState.room : '';
     const selectedDate = locationState ? locationState.selectedDate : '';
     const selectedTime = locationState ? locationState.selectedTime : '';
-    const movieId = locationState ? locationState.movieId : '';
+
     const showtimeId = locationState ? locationState.showtimeId : '';
+
+    // console.log("Location state:", movieId)
 
     useEffect(() => {
         const fetchSeatsStatus = async () => {
+
             try {
                 const response = await fetchAllSeatStatus(showtimeId, selectedTime, selectedDate);
-                console.log("API Response:", response); // Đảm bảo xem phản hồi từ API
-
+                // console.log("API Response:", response); // Đảm bảo xem phản hồi từ API
                 if (response) {
                     const seatsArray = response.data.flatMap(seatList => seatList.split(','));
-                    console.log("Processed Seats Array:", seatsArray);
+                    // console.log("Processed Seats Array:", seatsArray);
                     setBookedSeats(seatsArray);
                 } else {
-                    console.log("No seats data available or error in response");
+                    // console.log("No seats data available or error in response");
                     setBookedSeats([]); // Xử lý trường hợp không có dữ liệu ghế hoặc lỗi
                 }
             } catch (error) {
@@ -61,16 +64,16 @@ const BookingSit = () => {
     }, []);
 
     useEffect(() => {
+
         const fetchAllSeatHold = async () => {
             try {
                 const res = await seatHoldStatus();
-                console.log(res)
                 if (res && res.data && res.data.length > 0) {
-                    const seatsArray = res.data.flatMap(seatList => seatList.split(','));
-                    console.log("Processed Seats Array:", seatsArray);
+                    const seatsArray = res.data.flatMap(seatList => seatList.seatHold.split(','));
+                    // console.log("Processed Seats Array:", seatsArray);
                     setSeatHold(seatsArray);
                 } else {
-                    console.log("No seats data available or error in response");
+                    // console.log("No seats data available or error in response");
                     setSeatHold([]); // Thiết lập giá trị mặc định là một mảng rỗng
                 }
             } catch (error) {
@@ -162,7 +165,6 @@ const BookingSit = () => {
         // Gọi hàm kiểm tra sau khi cập nhật trạng thái
         updateSelectedSeats(row, seatNum, false);
         checkAndStartCountdown();
-
     }
 
     const changeColorseat_vip = (index) => {
@@ -221,7 +223,7 @@ const BookingSit = () => {
 
     const handleSelectNext = () => {
         // Nếu mọi thứ hợp lệ, tiến hành chuyển hướng người dùng và truyền dữ liệu
-        navigate('/booking/bookingsit/bookingfood', {
+        navigate(`/booking/bookingsit/bookingfood/${movieId}`, {
             state: {
                 name, // Tên phim hoặc sự kiện
                 cinema, // Tên rạp
@@ -233,7 +235,7 @@ const BookingSit = () => {
                 totalVipPrice,
                 movieId,
                 showtimeId,
-                countdown
+                countdown,
             }
         });
     }
@@ -372,7 +374,7 @@ const BookingSit = () => {
                             {isShowButton && <button className="buttonNext" onClick={() => handleSelectNext()}>Next step</button>}
                             <button
                                 className="buttonBack"
-                                onClick={() => navigate("/booking")}
+                                onClick={() => navigate(`/booking/${movieId}`)}
                             ><MdOutlineKeyboardBackspace /> Back</button>
 
                         </div>

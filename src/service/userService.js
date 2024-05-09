@@ -317,6 +317,9 @@ const seatHold = (data) => {
 const seatHoldStatus = () => {
     return axios.get("/all-seats-hold", getAuthHeaders())
 }
+const deleteSeatHold = (id) => {    
+    return axios.delete(`/delete-seats-hold/${id}`, getAuthHeaders())
+}
 export {
     fetchAllUser,
     addNewAccount,
@@ -391,5 +394,6 @@ export {
     fetchPercentData,
     fetchPercentDataAdminCinema,
     seatHold,
-    seatHoldStatus
+    seatHoldStatus,
+    deleteSeatHold
 }
