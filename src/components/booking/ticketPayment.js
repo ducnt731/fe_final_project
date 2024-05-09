@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import '../../style/booking.css'
 import { saveBooking } from "../../service/userService";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 const TicketPayment = () => {
     const location = useLocation();
@@ -113,7 +114,7 @@ const TicketPayment = () => {
                             </div>
                         </div>
                         <div style={{ textAlign: "center", marginTop: "20px" }}>
-                            <h2 style={{ color: "green" }}>Payment Successful!</h2>
+                            <h2 style={{ color: "green" }}>Payment Successful! <IoMdCheckmarkCircleOutline/></h2>
                             <button className="buttonHome" onClick={handleGoHome}>Go to Home</button>
                         </div>
                     </div>
