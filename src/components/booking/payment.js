@@ -77,6 +77,7 @@ const Payment = () => {
             selectedTime: selectedTime,
             selectedMovie: selectedMovie,
             selectedSeats: selectedSeats,
+            selectedFood: food,
             total: formattedTotal,
             currency: 'USD'
         };

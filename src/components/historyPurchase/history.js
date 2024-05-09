@@ -66,7 +66,11 @@ const History = () => {
                                         <div style={{ borderLeft: "3px black dashed", height: "75%" }}>
                                             <div className="price">
                                                 <div>Seats</div>
-                                                <div style={{whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis"}}>{purchase.seats}</div>
+                                                <div style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{purchase.seats}</div>
+                                            </div>
+                                            <div className="price">
+                                                <div>Food</div>
+                                                <div style={{ whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>{purchase.food}</div>
                                             </div>
                                             <div className="price">
                                                 <div>Total</div>
