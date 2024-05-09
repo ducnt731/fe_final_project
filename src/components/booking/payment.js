@@ -86,7 +86,7 @@ const Payment = () => {
 
         console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
         try {
-            const response = await axios.post('http://localhost:3000/create-payment', paymentData);
+            const response = await axios.post('https://dc-cinema.onrender.com/create-payment', paymentData);
             const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
             console.log("Approval URL:", approvalUrl);
             window.location.href = approvalUrl; // Redirect to PayPal approval URL
