@@ -7,16 +7,41 @@ import { saveBooking } from "../../service/userService";
 const TicketPayment = () => {
     const location = useLocation();
     console.log("Location:", location);
+    const [bookingInfo, setBookingInfo] = useState(null);
     const queryParams = new URLSearchParams(location.search);
     const paymentId = queryParams.get('paymentId');
     const token = queryParams.get('token');
     const PayerID = queryParams.get('PayerID');
+
     // // Retrieve from localStorage
     const navigate = useNavigate();
     const paymentData = JSON.parse(localStorage.getItem('paymentData'));
+    
+    console.log("Total:", paymentData.total);
     console.log("Payment data on ticket page:", paymentData);
 
     console.log("Payment data on ticket page:", paymentData.selectedTime);
+    useEffect(() => {
+        const confirmPayment = async () => {
+            if (paymentId && PayerID) {
+                try {
+                    const response = await axios.get(`http://localhost:3000/success?paymentId=${paymentId}&PayerID=${PayerID}&total=${paymentData.total}&currency=${paymentData.currency}`);
+                    if (response.data.message === "Payment executed successfully") {
+                        setBookingInfo(response.data);
+                        console.log("Payment confirmed:", response.data);
+                    } else {
+                        throw new Error('Payment validation failed');
+                    }
+                } catch (error) {
+                    console.error("Error confirming payment:", error.response ? error.response.data : error.message);
+                    setBookingInfo(null);
+                }
+            }
+        };
+    
+        confirmPayment();
+    }, [paymentId, PayerID]);
+    
 
     const saveBookingInfo = async () => {
         const userId = localStorage.getItem('user_id');
