@@ -9,6 +9,7 @@ const EditMovie = (props) => {
     const [showPoster, setShowPoster] = useState();
     const [movieData, setMovieData] = useState({
         name: "",
+        description: "",
         director: "",
         performer: "",
         category: "",
@@ -71,6 +72,10 @@ const EditMovie = (props) => {
                     <div className="mb-3">
                         <label className="form-label">Name</label>
                         <input type="text" required className="form-control" name='name' value={movieData.name} onChange={handleChange} />
+                    </div>
+                    <div className="mb-3">
+                        <label className="form-label">Description</label>
+                        <input type="text" required className="form-control" name='description' value={movieData.description} onChange={handleChange} />
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Director</label>

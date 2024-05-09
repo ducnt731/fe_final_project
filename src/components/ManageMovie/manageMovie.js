@@ -47,6 +47,7 @@ const ManageMovie = () => {
             const formData = new FormData();
             formData.append('id', dataEdit._id);
             formData.append('name', dataEdit.name);
+            formData.append('description', dataEdit.description);
             formData.append('director', dataEdit.director);
             formData.append('performer', dataEdit.performer);
             formData.append('category', dataEdit.category);

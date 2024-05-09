@@ -23,13 +23,13 @@ const InforMovie = ({ show, handleClose, movie }) => {
                         <div className='information'>
                             <div className='movie-information'>
                                 <h4 style={{ fontSize: "1.5 em", color: "#72be43", marginBottom: "20px" }}>{movie.name}</h4>
+                                <h5>Description: {movie.description}</h5>
                                 <h5>Category: {movie.category?.name}</h5>
                                 <h5>Director: {movie.director}</h5>
                                 <h5>Cast: {movie.performer}</h5>
                                 <h5>Premiere Date: {new Date(movie.premiere).toLocaleDateString()}</h5>
                                 <h5>Duration: {movie.time} minutes</h5>
                                 <h5>Language: {movie.language}</h5>
-                                <h5>Description: {movie.language}</h5>
                             </div>
                         </div>
                     </div>
