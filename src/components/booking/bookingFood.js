@@ -206,7 +206,7 @@ const BookingFood = () => {
                                             <div className="counter-box">{comboValues[index]}</div>
                                             <FaPlusCircle onClick={() => handleIncrement(index)} style={{ color: "#72be43" }} />
                                         </div>
-                                        <div>{combo.price} VND</div>
+                                        <div>{combo.price} $</div>
                                     </div>
                                 </div>
                             </div>
@@ -226,17 +226,17 @@ const BookingFood = () => {
                             <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
                             <div className="price1">
                                 <div>Total price seats: </div>
-                                <div>{toltalPiceSeat} VND</div>
+                                <div>{toltalPiceSeat} $</div>
                             </div>
                             {isShowPrice && <div className="price2">
                                 <div >Combo price:</div>
-                                <div >{calculateFoodTotal()} VND</div>
+                                <div >{calculateFoodTotal()} $</div>
                             </div>}
                         </div>
                         <div className="buttonStep-container">
                             <div className="total">
                                 <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price: </div>
-                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} VND</div>
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#ff0000" }}>{calculateTotal()} $</div>
                             </div>
                                 {!isTimeExpired ? (
                                     <>
