@@ -92,7 +92,6 @@ const BookingFood = () => {
             seatHold: selectedSeats.join(','),
             holdExpires: holdExpires
         };
-        console.log('Data being sent to seatHold:', data.showtime); // Verify the data is correct
         try {
             const response = await seatHold(data);
             console.log('Response from seatHold:', response);

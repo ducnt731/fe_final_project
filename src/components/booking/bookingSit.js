@@ -70,7 +70,7 @@ const BookingSit = () => {
                 const res = await seatHoldStatus(showtimeId, selectedTime, selectedDate);
                 if (res && res.data && res.data.length > 0) {
                     const seatsArray = res.data.flatMap(seatList => seatList.seatHold.split(','));
-                    // console.log("Processed Seats Array:", seatsArray);
+                    console.log("Processed Seats Array:", seatsArray);
                     setSeatHold(seatsArray);
                 } else {
                     // console.log("No seats data available or error in response");
@@ -79,6 +79,7 @@ const BookingSit = () => {
             } catch (error) {
                 console.error('Error fetching seat hold status:', error);
             }
+            
         }
         fetchAllSeatHold()
     }, []);
