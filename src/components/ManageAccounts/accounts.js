@@ -26,11 +26,36 @@ const Account = () => {
     const [isSearching, setIsSearching] = useState(false);
     const [showPaginationBelow, setShowPaginationBelow] = useState(false);
     const [listAdminCinema, setListAdminCinema] = useState([])
+    const [userData, setUserData] = useState({
+        name: "",
+        password: "",
+        email: "",
+        phone: "",
+        role: "",
+        cinema: "",
+        dateOfBirth: "",
+        gender: "",
+        image: null
+    })
+
+    const resetUserData = () => {
+        setUserData({
+            name: "",
+            password: "",
+            email: "",
+            phone: "",
+            role: "",
+            cinema: "",
+            dateOfBirth: "",
+            image: null
+        })
+    }
 
     const handleClose = () => {
         setIsShowModalAdd(false)
         setIsShowModalEdit(false)
         setIsShowModalDelete(false)
+        resetUserData()
     }
 
     const handleEdit = (accountEdit) => {
@@ -102,9 +127,12 @@ const Account = () => {
     const handleAddAccount = async (userData) => {
         try {
             let check = false
-            // console.log(userData.image);
+            console.log(">>>check".userData);
             Object.keys(userData).map(key => {
                 if (userData[key] == '') {
+                    check = false
+                }
+                if (key == 'image' && !userData[key]) {
                     check = true
                 }
             })
@@ -118,10 +146,10 @@ const Account = () => {
                     console.log(">>>>", res.status);
                     toast.warn(res.data.message)
                     await getAllUser()
-                    setIsShowModalAdd(!isShowModalAdd)
                 } else {
                     toast.success("Add account sucessful!!!")
                     await getAllUser()
+                    resetUserData()
                     setIsShowModalAdd(!isShowModalAdd)
                 }
             } else {
@@ -323,6 +351,8 @@ const Account = () => {
                 show={isShowModalAdd}
                 handleClose={handleClose}
                 handleAddNewAccount={handleAddAccount}
+                userData={userData}
+                setUserData={setUserData}
             />
             <EditAccount
                 show={isShowModalEdit}

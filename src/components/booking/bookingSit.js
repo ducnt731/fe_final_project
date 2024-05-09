@@ -318,11 +318,11 @@ const BookingSit = () => {
 
                         </div>
                         <div className="sit-guide">
-                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "red" }} /> Chair sold</div>
-                            <div style={{ marginRight: "10px" }}><MdChair /> Seats not yet sold</div>
-                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "green" }} /> Selected seat</div>
+                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "red" }} /> Seats sold</div>
+                            <div style={{ marginRight: "10px" }}><MdChair /> Seats not sold yet</div>
+                            <div style={{ marginRight: "10px" }}><MdChair style={{ color: "green" }} /> Selected seats</div>
                             <div style={{ marginRight: "10px" }}><MdChair style={{ color: "orange" }} /> Pending</div>
-                            <div><MdChair style={{ color: "yellow" }} /> Seat VIP</div>
+                            <div><MdChair style={{ color: "yellow" }} />VIP seats</div>
                         </div>
                     </div>
                 </div>

@@ -6,32 +6,17 @@ import { fetchAllCinema, fetchAllCinemaNotPagination } from '../../service/userS
 
 const AddAccount = (props) => {
 
-    const { show, handleClose, handleAddNewAccount } = props
+    const { show, handleClose, handleAddNewAccount, userData, setUserData } = props
     const [showImage, setShowImage] = useState()
     const [selectedFile, setSelectedFile] = useState(null);
     const [listCinema, setListCinema] = useState([])
-    const [userData, setUserData] = useState({
-        name: "",
-        password: "",
-        email: "",
-        phone: "",
-        role: "",
-        cinema: "",
-        dateOfBirth: "",
-        gender: "",
-        image: null
-    })
 
-    // const getAllFaculty = async () => {
-    //     let res = await fetchAllFaculty()
-    //     if (res) {
-    //         setListFaculty(res.data)
+    useEffect(() => {
+        if (!userData.image) {
+            setShowImage(null)
+        }
+    }, [userData])
 
-    //     }
-    // }
-    // useEffect(() => {
-    //     getAllFaculty()
-    // }, [])
     const getAllCinemas = async () => {
         let res = await fetchAllCinemaNotPagination()
         if (res) {
@@ -88,7 +73,7 @@ const AddAccount = (props) => {
                         <option value={"other"}>Other</option>
                     </select>
                     <br />
-                    <select className="form-select" value={userData.role} name='role' onChange={handleChange}>
+                    <select required className="form-select" value={userData.role} name='role' onChange={handleChange}>
                         <option>Choose Role</option>
                         <option value={"customer"}>Customer</option>
                         <option value={"admin"}>Admin</option>
@@ -96,7 +81,7 @@ const AddAccount = (props) => {
                         <option value={"staff"}>Staff</option>
                     </select>
                     {userData.role === "admin cinema" && (
-                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} style={{marginTop: "20px"}}>
+                        <select className="form-select" required value={userData.cinema} name='cinema' onChange={handleChange} style={{ marginTop: "20px" }}>
                             <option >Choose Cinema</option>
                             {listCinema && listCinema.map((cinmea) => {
                                 return (
@@ -105,6 +90,7 @@ const AddAccount = (props) => {
                             })}
                         </select>
                     )}
+
                     <div className="mb-3">
                         <h1 className="form-label">Image</h1>
                         <label htmlFor="formFile" style={{ width: "100px", height: "100px", borderRadius: "10px", overflow: "hidden", objectFit: 'cover', objectPosition: "center" }} className='d-flex align-items-center justify-content-center border'>

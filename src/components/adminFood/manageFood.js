@@ -7,7 +7,12 @@ import EditFood from "./editFood";
 import DeleteFood from "./deleteFood";
 
 const ManageFood = () => {
-
+    
+    const [foodData, setFoodData] = useState({
+        name: "",
+        price: "",
+        image: null
+    })
     const [listFood, setListFood] = useState([])
     const [isShowModalAdd, setIsShowModalAdd] = useState(false)
     const [isShowModalEdit, setIsShowModalEdit] = useState(false)
@@ -16,11 +21,18 @@ const ManageFood = () => {
     const [dataDelete, setDataDelete] = useState({})
     const [sortOrder, setSortOrder] = useState('asc');
 
-
+    const resetFoodData = () => {
+        setFoodData({
+            name: "",
+            price: "",
+            image: null
+        })
+    }
     const handleClose = () => {
         setIsShowModalAdd(false)
         setIsShowModalEdit(false)
         setIsShowModalDelete(false)
+        resetFoodData()
     }
 
     const handleEdit = (foodEdit) => {
@@ -71,6 +83,9 @@ const ManageFood = () => {
             let check = false
             // console.log(userData.image);
             Object.keys(foodData).map(key => {
+                if (key == 'image' && !foodData[key]) {
+                    check = true
+                }
                 if (foodData[key] == '') {
                     check = true
                 }
@@ -85,10 +100,12 @@ const ManageFood = () => {
                     console.log(">>>>", res.status);
                     toast.warn(res.data.message)
                     await getAllFood()
+                    resetFoodData()
                     setIsShowModalAdd(!isShowModalAdd)
                 } else {
                     toast.success("Add food combo sucessful!!!")
                     await getAllFood()
+                    resetFoodData()
                     setIsShowModalAdd(!isShowModalAdd)
                 }
             } else {
@@ -177,6 +194,8 @@ const ManageFood = () => {
                 </div>
             </div>
             <AddFood
+                foodData={foodData}
+                setFoodData={setFoodData}
                 show={isShowModalAdd}
                 handleClose={handleClose}
                 handleAddNewFood={handleAddFood}
