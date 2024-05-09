@@ -4,7 +4,7 @@ import { FaCircleMinus } from "react-icons/fa6";
 import { FaPlusCircle } from "react-icons/fa";
 import { MdOutlineKeyboardBackspace } from "react-icons/md";
 import { useLocation, useNavigate } from "react-router-dom";
-import { fetchAllFood, seatHold } from "../../service/userService";
+import { deleteSeatHold, fetchAllFood, seatHold } from "../../service/userService";
 
 const BookingFood = () => {
 
@@ -12,6 +12,7 @@ const BookingFood = () => {
     const [food, setFood] = useState([]);
     const [comboValues, setComboValues] = useState([]);
     const [isTimeExpired, setIsTimeExpired] = useState(false);
+    const [idSeatHold, setIdSeatHold] = useState('')
 
     const navigate = useNavigate()
     const location = useLocation();
@@ -30,7 +31,8 @@ const BookingFood = () => {
     const movieId = locationState ? locationState.movieId : '';
     const showtimeId = locationState ? locationState.showtimeId : '';
     const countdownFromPreviousScreen = locationState ? locationState.countdown : 300;
-    console.log("countdownFromPreviousScreen", countdownFromPreviousScreen)
+    const heldSeatIds = locationState ? locationState.heldSeatIds : [];
+    console.log("countdownFromPreviousScreen", heldSeatIds)
 
     const toltalPiceSeat = totalNormalPrice + totalVipPrice;
 
@@ -91,6 +93,7 @@ const BookingFood = () => {
         try {
             const response = await seatHold(data);
             console.log('Response from seatHold:', response);
+            setIdSeatHold(response.data._id);
             localStorage.setItem('seatHoldSaved', 'true');
             console.log('Seat information saved successfully');
         } catch (error) {
@@ -165,11 +168,13 @@ const BookingFood = () => {
                 foodValues: comboValues,
                 showtimeId,
                 countdown,
+                idSeatHold
             },
 
         });
     };
-    const handleGoHome = () => {
+    const handleGoHome = async() => {
+        await deleteSeatHold(idSeatHold);
         localStorage.removeItem('seatHoldSaved');
         navigate("/");
     };
@@ -241,7 +246,7 @@ const BookingFood = () => {
                                 {!isTimeExpired ? (
                                     <>
                                         <button className="buttonNext" onClick={() => handleNextStep()}>Next step</button>
-                                        <button className="buttonBack" onClick={() => navigate(`/booking/bookingsit/${movieId}`)}><MdOutlineKeyboardBackspace /> Back</button>
+                                        <button className="buttonBack" onClick={handleGoHome}><MdOutlineKeyboardBackspace /> Cancel</button>
                                     </>
                                 ) : (
                                     <div style={{
