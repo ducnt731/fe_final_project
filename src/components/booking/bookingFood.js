@@ -86,10 +86,12 @@ const BookingFood = () => {
         holdExpires.setSeconds(holdExpires.getSeconds() + countdownFromPreviousScreen);
         const data = {
             user: userId,
+            showtime: showtimeId,
+            timeOfBooking: selectedDate,
+            time: selectedTime,
             seatHold: selectedSeats.join(','),
             holdExpires: holdExpires
         };
-        console.log('Data being sent to seatHold:', data.holdExpires); // Verify the data is correct
         try {
             const response = await seatHold(data);
             console.log('Response from seatHold:', response);

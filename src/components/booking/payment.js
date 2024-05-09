@@ -30,7 +30,7 @@ const Payment = () => {
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
     const formattedTotal = parseFloat(toltalPiceSeat + totalFoodPrice).toFixed(2);
-    console.log("Tiền", formattedTotal)
+    console.log("Tiền", totalFoodPrice)
     const [countdown, setCountdown] = useState(countdownFromPreviousScreen);
     const [isTimeExpired, setIsTimeExpired] = useState(false);
     useEffect(() => {
