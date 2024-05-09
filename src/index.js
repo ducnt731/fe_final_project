@@ -57,7 +57,7 @@ root.render(
         <Route path="/historypurchase" element={<HistoryPurchaseCustomer />} />
         <Route path="/booking/:movieId" element={<BookingCustomer />} />
         <Route path="/booking/bookingsit/:movieId" element={<BookingSitCustomer />} />
-        <Route path="/booking/bookingsit/bookingfood" element={<BookingFoodCustomer />} />
+        <Route path="/booking/bookingsit/bookingfood/:movieId" element={<BookingFoodCustomer />} />
         <Route path="/booking/bookingsit/bookingfood/payment" element={<PaymentCustomer />} />
         <Route path="/admin-cinema" element={<AdminCinemaHome />} />
         <Route path="/admin-cinema/manage-movie" element={<AdminCinemaMovie />} />

@@ -26,7 +26,7 @@ const TicketPayment = () => {
         const confirmPayment = async () => {
             if (paymentId && PayerID) {
                 try {
-                    const response = await axios.get(`http://localhost:3000/success?paymentId=${paymentId}&PayerID=${PayerID}&total=${paymentData.total}&currency=${paymentData.currency}`);
+                    const response = await axios.get(`https://dc-cinema.onrender.com/success?paymentId=${paymentId}&PayerID=${PayerID}&total=${paymentData.total}&currency=${paymentData.currency}`);
                     if (response.data.message === "Payment executed successfully") {
                         setBookingInfo(response.data);
                         console.log("Payment confirmed:", response.data);
