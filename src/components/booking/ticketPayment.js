@@ -64,6 +64,7 @@ const TicketPayment = () => {
         localStorage.removeItem('seatHoldSaved');
         navigate("/");
     };
+
     return (
         <div>
             <div className="booking-container">
@@ -72,9 +73,11 @@ const TicketPayment = () => {
                         <div className="nameRoom">
                             <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{paymentId}</div>
                             <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{paymentData?.cinema}</div>
-                            <div> <span style={{ color: "#72be43" }}>Room:</span> {paymentData?.room} -
-                                <span style={{ color: "#ff0000" }}> Date:</span> {paymentData?.selectedDate} -
-                                <span style={{ color: "#007bff" }}> Time:</span> {paymentData?.selectedTime}</div>
+                            <div>
+                                <span style={{ color: "#72be43" }}>Room:</span> {paymentData?.room} -
+                                <span style={{ color: "#ff0000" }}>Date:</span> {paymentData?.selectedDate} -
+                                <span style={{ color: "#007bff" }}>Time:</span> {paymentData?.selectedTime}
+                            </div>
                         </div>
                         <div className="nameMovie">
                             <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{paymentData?.name}</div>

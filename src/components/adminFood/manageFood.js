@@ -39,9 +39,9 @@ const ManageFood = () => {
             }
             const res = await editFood(formData)
             if (res) {
-               await getAllFood()
-               setIsShowModalEdit(!isShowModalEdit)
-               toast.success("Edit food combo success!!!")
+                await getAllFood()
+                setIsShowModalEdit(!isShowModalEdit)
+                toast.success("Edit food combo success!!!")
             }
         } catch (error) {
             toast.error("Edit food combo error!!!")
@@ -182,16 +182,16 @@ const ManageFood = () => {
                 handleAddNewFood={handleAddFood}
             />
             <EditFood
-                show = {isShowModalEdit}
-                handleClose = {handleClose}
-                dataEditFood = {dataEdit}
-                handleEditFood = {handleEditFromModal}
+                show={isShowModalEdit}
+                handleClose={handleClose}
+                dataEditFood={dataEdit}
+                handleEditFood={handleEditFromModal}
             />
             <DeleteFood
-                show = {isShowModalDelete}
-                handleClose = {handleClose}
-                dataDeleteFood = {dataDelete}
-                handleDeleteFood = {handleDeleteFromModal}
+                show={isShowModalDelete}
+                handleClose={handleClose}
+                dataDeleteFood={dataDelete}
+                handleDeleteFood={handleDeleteFromModal}
             />
         </>
     )

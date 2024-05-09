@@ -66,6 +66,7 @@ const ForgotPassword = () => {
                     </div>
                     <button
                         type="submit"
+                        className="buttonLogin"
                     >{loadingAPI && <i class="fa-solid fa-sync fa-spin"></i>} Send now</button>
                 </form>
             </div>

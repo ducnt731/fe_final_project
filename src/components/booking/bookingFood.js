@@ -254,17 +254,17 @@ const BookingFood = () => {
                                     </div>
                                 )}
                         </div>
-                        <div className="countdown">
+                        {/* <div className="countdown">
                             <div className="munite">{Math.floor(countdown / 60)}</div>
                             <div style={{ display: "flex", alignItems: "center" }}>:</div>
                             <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
-                        </div>
+                        </div> */}
                     </div>
-                    {/* <div className="countdown">
+                    <div className="countdown">
                         <div className="munite">{Math.floor(countdown / 60)}</div>
                         <div>:</div>
                         <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
-                    </div> */}
+                    </div>
                 </div>
             </div>
         </div>

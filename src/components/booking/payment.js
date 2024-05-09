@@ -119,48 +119,51 @@ const Payment = () => {
                     <div className="qr-code">Choose payment method</div>
                     <img src="https://file.hstatic.net/1000259246/file/momo_grande.jpg" className="qr" />
                 </div> */}
-                <div className="total-price" style={{ width: "50%" }}>
-                    <div className="nameRoom">
-                        <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
-                        <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
-                            <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
-                            <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
-                    </div>
-                    <div className="nameMovie">
-                        <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
-                        <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
-                        <div className="price1">
-                            <div>Total price seats: </div>
-                            <div>{toltalPiceSeat} VND</div>
+                <div className="price-time">
+                    <div className="total-price" style={{ width: "100%" }}>
+                        <div className="nameRoom">
+                            <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{cinema}</div>
+                            <div> <span style={{ color: "#72be43" }}>Room:</span> {room} -
+                                <span style={{ color: "#ff0000" }}> Date:</span> {selectedDate} -
+                                <span style={{ color: "#007bff" }}> Time:</span> {selectedTime}</div>
                         </div>
-                        <div className="price2">
-                            <div >Combo price:</div>
-                            <div >{totalFoodPrice} VND</div>
-                        </div>
-                    </div>
-                    <div className="buttonStep-container">
-                        <div className="total">
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
-                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} VND</div>
-                        </div>
-                        {!isTimeExpired ? (
-                            <>
-                                <button className="buttonNext" onClick={handlePayment}>Pay</button>
-                                <button
-                                    className="buttonBack"
-                                    onClick={() => navigate("/booking/bookingsit/bookingfood")}
-                                ><MdOutlineKeyboardBackspace /> Back</button>
-                            </>
-                        ) : (
-                            <div style={{
-                                textAlign: 'center',
-                                fontSize: '24px',
-                                margin: '20px 0'
-                            }}>
-                                <p>Booking time has ended!</p>
-                                <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                        <div className="nameMovie">
+                            <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>{name}</div>
+                            <div> <span style={{ color: "#72be43" }}>Seats: </span> {selectedSeats.join(', ')}</div>
+                            <div className="price1">
+                                <div>Total price seats: </div>
+                                <div>{toltalPiceSeat} VND</div>
                             </div>
-                        )}
+                            <div className="price2">
+                                <div >Combo price:</div>
+                                <div >{totalFoodPrice} VND</div>
+                            </div>
+                        </div>
+                        <div className="buttonStep-container">
+                            <div className="total">
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#72be43" }}>Total price:</div>
+                                <div style={{ fontWeight: "bold", fontSize: "1.6em", color: "#fff" }}>{total} VND</div>
+                            </div>
+                            {!isTimeExpired ? (
+                                <>
+                                    <button className="buttonNext" onClick={handlePayment}>Pay</button>
+                                    <button
+                                        className="buttonBack"
+                                        onClick={() => navigate("/booking/bookingsit/bookingfood")}
+                                    ><MdOutlineKeyboardBackspace /> Back</button>
+                                </>
+                            ) : (
+                                <div style={{
+                                    textAlign: 'center',
+                                    fontSize: '24px',
+                                    margin: '20px 0'
+                                }}>
+                                    <p>Booking time has ended!</p>
+                                    <button className="buttonHome" onClick={handleGoHome}>Go Home</button>
+                                </div>
+                            )}
+                        </div>
+
                     </div>
                     <div className="countdown">
                         <div className="munite">{Math.floor(countdown / 60)}</div>
@@ -168,6 +171,7 @@ const Payment = () => {
                         <div className="second">{String(countdown % 60).padStart(2, '0')}</div>
                     </div>
                 </div>
+
             </div>
         </div>
     )

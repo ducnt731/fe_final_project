@@ -139,10 +139,10 @@ const LoginForm = () => {
                         ></i>
                     </div>
                     <div className="remember-forgot">
-                        <label>
+                        {/* <label>
                             <input type="checkbox" />
                             Remember me
-                        </label>
+                        </label> */}
                         <a href="/forgot-password">Forgot password</a>
                     </div>
                     <button className="buttonLogin" type="submit" disabled={email && password ? false : true}>
