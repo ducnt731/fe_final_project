@@ -107,13 +107,13 @@ const ListIncoming = ({ items }) => {
                                 </div>
                             </div>
                             <div className='btn-container'>
-                                <button className='buttonBooking'>Book now</button>
-                                <Button
-                                    className='buttonInfor'
+                                {/* <button className='buttonBooking'>Book now</button> */}
+                                <button
+                                    className='buttonBooking'
                                     onClick={() => handleShowInfo(movie)}  // Đảm bảo movie được cập nhật trước khi mở modal
                                 >
-                                    <IoIosInformationCircle />
-                                </Button>
+                                    <IoIosInformationCircle /> Information
+                                </button>
                             </div>
                         </div>
                     ))}

@@ -57,7 +57,7 @@ const Home = () => {
                     <Carousel.Item interval={3000}>
                         <img
                             className="Slide-img"
-                            src="https://media.comicbook.com/2016/05/dvd-deadpool-182215-1280x0.png"
+                            src="https://th.bing.com/th/id/R.9daa251846041f311b91d930d6ffd628?rik=VVsNIq%2fGp5qGqQ&riu=http%3a%2f%2fcafmp.com%2fwp-content%2fuploads%2f2012%2f12%2fAvatar-Banner.jpg&ehk=kyRlfreulXK169%2b7F5MDqjmNznuaxsT%2bZlXBMeLCTT4%3d&risl=&pid=ImgRaw&r=0"
                         />
                     </Carousel.Item>
                 </Carousel>
