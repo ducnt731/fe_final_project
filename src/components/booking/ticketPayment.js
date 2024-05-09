@@ -95,7 +95,7 @@ const TicketPayment = () => {
         <div>
             <div className="booking-container">
                 <div className="booking-site">
-                    <div className="total-price">
+                    <div className="total-price" style={{width: "60%"}}>
                         <div className="nameRoom">
                             <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{paymentId}</div>
                             <div style={{ fontWeight: "bold", fontSize: "1.2em", color: "#72be43" }}>{paymentData?.cinema}</div>
