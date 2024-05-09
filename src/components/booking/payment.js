@@ -30,7 +30,8 @@ const Payment = () => {
         return total + item.price * foodValues[index];
     }, 0);
     const total = toltalPiceSeat + totalFoodPrice;
-    console.log("object", seats)
+    const formattedTotal = parseFloat(toltalPiceSeat + totalFoodPrice).toFixed(2);
+    console.log("Tiền", formattedTotal)
     const [countdown, setCountdown] = useState(countdownFromPreviousScreen);
     const [isTimeExpired, setIsTimeExpired] = useState(false);
     useEffect(() => {
@@ -67,6 +68,7 @@ const Payment = () => {
         }
     }, [countdown]);
     const handlePayment = async () => {
+        const formattedTotal = (parseFloat(total).toFixed(2)).toString();
         const paymentData = {
             name: name,
             cinema: cinema,
@@ -76,45 +78,19 @@ const Payment = () => {
             selectedTime: selectedTime,
             selectedMovie: selectedMovie,
             selectedSeats: selectedSeats,
-            total: total,
+            total: formattedTotal,
             currency: 'USD'
         };
-        // console.log("Initial payment data:", paymentData);
-        // localStorage.setItem('paymentData', JSON.stringify(paymentData));
-        // console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
-        // try {
-
-        //     const rateResponse = await axios.get('https://api.exchangerate-api.com/v4/latest/$');
-        //     const rate = rateResponse.data.rates.USD;
-        //     console.log("rate", rate)
-
-        //     // Convert $ to USD
-        //     const totalUSD = (total * rate).toFixed(2); // Ensure conversion is accurate
-        //     console.log("USD", totalUSD)
-
-        //     // Update payment data with converted USD total
-        //     paymentData.total = totalUSD;
-        //     paymentData.currency = 'USD';
-
-        //     const response = await axios.post('https://dc-cinema.onrender.com/create-payment', paymentData);
-
-
-        //     const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
-        //     console.log("Approval URL:", approvalUrl);
-        //     window.location.href = approvalUrl; // Redirect to PayPal approval URL
-
-        // } catch (error) {
-        //     console.error('Error creating payment:', error);
-        // }
         console.log("Initial payment data:", paymentData);
         localStorage.setItem('paymentData', JSON.stringify(paymentData));
-        console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
 
+        console.log("Stored in localStorage:", localStorage.getItem('paymentData'));
         try {
-            const response = await axios.post('https://dc-cinema.onrender.com/create-payment', paymentData);
+            const response = await axios.post('http://localhost:3000/create-payment', paymentData);
             const approvalUrl = response.data.approvalUrl; // Now just a URL, not a redirect
             console.log("Approval URL:", approvalUrl);
             window.location.href = approvalUrl; // Redirect to PayPal approval URL
+            console.log("Redirected to PayPal", approvalUrl);
         } catch (error) {
             console.error('Error creating payment:', error);
         }
