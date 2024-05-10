@@ -59,7 +59,6 @@ const BookingSit = () => {
                 console.error('Error fetching seats status:', error);
             }
         };
-
         fetchSeatsStatus();
     }, []);
 
@@ -79,7 +78,7 @@ const BookingSit = () => {
             } catch (error) {
                 console.error('Error fetching seat hold status:', error);
             }
-            
+
         }
         fetchAllSeatHold()
     }, []);
@@ -376,7 +375,7 @@ const BookingSit = () => {
                             <button
                                 className="buttonBack"
                                 onClick={() => navigate(`/booking/${movieId}`)}
-                            ><MdOutlineKeyboardBackspace /> Back</button>
+                            ><MdOutlineKeyboardBackspace/> Back</button>
 
                         </div>
                     </div>

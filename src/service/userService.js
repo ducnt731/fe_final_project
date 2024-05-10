@@ -137,6 +137,7 @@ const fetchAllCinema = (currentPage, accountsPerPage) => {
 const fetchAllCinemaNotPagination = () => {
     return axios.get("/cinemas", getAuthHeaders());
 }
+
 const addCinema = (data) => {
     return axios.post("/create-cinema", data, getAuthHeaders())
 }
